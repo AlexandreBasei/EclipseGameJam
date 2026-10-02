@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4d904dc842ae4af43bd8c2bd94fd46e2
+timeCreated: 1461745973
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 61815
+  packageName: 3D Game Props
+  packageVersion: 1.0
+  assetPath: Assets/Prefabs/Midieval/Cart_Grp.prefab
+  uploadId: 116342
