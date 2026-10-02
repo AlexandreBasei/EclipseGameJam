@@ -1,4 +1,5 @@
 using UnityEngine;
+using NaughtyAttributes;
 
 public class AudioManager : PersistentSingleton<AudioManager>
 {
@@ -15,6 +16,13 @@ public class AudioManager : PersistentSingleton<AudioManager>
     public AudioClip MusicMainMenu;
     public AudioClip MusicInGame;
     public AudioClip MusicEndGame;
+
+    [Foldout("AudioClipSFX/Step")]
+    public AudioClip step1;
+    [Foldout("AudioClipSFX/Step")]
+    public AudioClip step2;
+    [Foldout("AudioClipSFX/Step")]
+    public AudioClip step3;
 
 
     void Start()
@@ -55,6 +63,29 @@ public class AudioManager : PersistentSingleton<AudioManager>
                 PlaySFX(clic3);
                 break;
         }
-           
+    }
+
+    public void PlayStep()
+    {
+        int randomIndex = Random.Range(0, 3);
+        AudioClip stepClip = null;
+
+        switch (randomIndex)
+        {
+            case 0:
+                stepClip = step1;
+                break;
+            case 1:
+                stepClip = step2;
+                break;
+            case 2:
+                stepClip = step3;
+                break;
+        }
+
+        if (stepClip != null)
+        {
+            PlaySFX(stepClip);
+        }
     }
 }
