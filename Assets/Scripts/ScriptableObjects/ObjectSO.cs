@@ -1,0 +1,33 @@
+using NUnit.Framework;
+using UnityEngine;
+
+
+
+
+[System.Flags]
+public enum Tag
+{
+    None = 0,
+    Wheel = 1 << 0,
+    Engine = 1 << 1,
+    Heavy = 1 << 2,
+    Luminous = 1 << 3,
+    Expensive = 1 << 4,
+    Wooden = 1 << 5,
+    Metal = 1 << 6,
+    Plastic = 1 << 7,
+    Hot = 1 << 8,
+    Cold = 1 << 9,
+    Seatable = 1 << 10,
+    organic = 1 << 11,
+    noisy = 1 << 12,
+
+}
+
+[CreateAssetMenu(fileName = "ObjectSO", menuName = "Scriptable Objects/ObjectSO")]
+public class ObjectSO : ScriptableObject
+{
+    public string objectName;
+    public Tag tags;
+}
+
