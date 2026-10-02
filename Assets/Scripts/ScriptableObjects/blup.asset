@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599866e94a3afea4d97bc42465a440cf, type: 3}
   m_Name: blup
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
-  objectName: 
-  tags: 0
+  objectName: Blup
+  tags: 68
