@@ -4,9 +4,9 @@ using UnityEngine;
 public class PlayerHUD : Singleton<PlayerHUD>
 {
     public enum InputTip
-    {
-        Grab = 0,
-        PickUp = 1,
+    {   
+        PickUp = 0,
+        Rotate = 1,
     }
 
     [SerializeField] private List<GameObject> _inputTips = new List<GameObject>();
