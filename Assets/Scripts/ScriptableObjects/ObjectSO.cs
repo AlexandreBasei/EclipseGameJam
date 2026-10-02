@@ -2,8 +2,6 @@ using NUnit.Framework;
 using UnityEngine;
 
 
-
-
 [System.Flags]
 public enum Tag
 {
@@ -19,8 +17,8 @@ public enum Tag
     Hot = 1 << 8,
     Cold = 1 << 9,
     Seatable = 1 << 10,
-    organic = 1 << 11,
-    noisy = 1 << 12,
+    Organic = 1 << 11,
+    Noisy = 1 << 12,
 
 }
 
