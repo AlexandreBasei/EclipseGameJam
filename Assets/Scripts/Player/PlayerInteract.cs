@@ -23,6 +23,10 @@ public class PlayerInteract : Singleton<PlayerInteract>
     private float _lastTimePickUpTargetWasValid = float.NegativeInfinity;
     private bool _isInteracting = false;
     private Item _grabbedItem;
+    [SerializeField] private KeyCode _snapKey = KeyCode.Mouse1;
+    [SerializeField] private KeyCode _rotateKey = KeyCode.E;
+    [SerializeField] private KeyCode _dropPickUpKey = KeyCode.Mouse0;
+    [SerializeField] private KeyCode _unFuseKey = KeyCode.R;
 
     protected override void Awake()
     {
@@ -36,14 +40,14 @@ public class PlayerInteract : Singleton<PlayerInteract>
         UpdateOutlineAndName();
         UpdateInputTip(_currentTarget);
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(_dropPickUpKey))
         {
             PickupCurrentTarget();
         }
 
         if (_grabbedItem != null)
         {
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetKey(_rotateKey))
             {
                 PlayerController.Instance.CanLook = false;
                 _grabbedItem.Rotate();
@@ -52,6 +56,12 @@ public class PlayerInteract : Singleton<PlayerInteract>
             {
                 PlayerController.Instance.CanLook = true;
             }
+
+            if (Input.GetKeyDown(_snapKey))
+                _grabbedItem.TrySnap();
+
+            if (Input.GetKeyDown(_unFuseKey))
+                _grabbedItem.UnFuse();
         }
     }
 
@@ -116,11 +126,16 @@ public class PlayerInteract : Singleton<PlayerInteract>
 
         bool shouldShowDropTip =
             _grabbedItem != null;
+        bool shouldShowSnapTip =
+            _grabbedItem != null && _grabbedItem.CanSnap;
+        bool shouldShowDetachTip =
+            _grabbedItem != null && _grabbedItem.CanUnFuse;
         if (shouldShowDropTip)
             PlayerHUD.Instance.HideAllInputTips();
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Drop, shouldShowDropTip);
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Rotate, shouldShowDropTip);
-        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Snap, shouldShowDropTip);
+        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Snap, shouldShowSnapTip);
+        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Detach, shouldShowDetachTip);
 
 
         bool shouldShowCarTip =
@@ -197,7 +212,11 @@ public class PlayerInteract : Singleton<PlayerInteract>
             return;
         }
 
-        IInteractable interactable = _currentTarget.GetComponent<IInteractable>();
+        Item targetItem = _currentTarget.GetComponent<Item>();
+        Item assemblyRoot = targetItem != null ? targetItem.GetAssemblyRoot() : null;
+        IInteractable interactable = assemblyRoot != null
+            ? assemblyRoot
+            : _currentTarget.GetComponent<IInteractable>();
         if (interactable != null)
         {
             _isInteracting = true;
@@ -205,7 +224,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
 
             if (!DaysManager.Instance.isInWorkshop)
             {
-                if (_currentTarget.GetComponent<Item>() != null)
+                if (targetItem != null)
                 {
                     Invoke(nameof(StopInteracting), 0.2f);
                 }
@@ -216,7 +235,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
             }
             else
             {
-                _grabbedItem = _currentTarget.GetComponent<Item>();
+                _grabbedItem = assemblyRoot;
             }
         }
     }
