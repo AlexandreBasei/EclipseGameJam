@@ -1,12 +1,15 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class SnapPoint : MonoBehaviour
 {
-     public Item currentItem;
-     public SnapPoint snapPointInContact;
-     public BoxCollider collider;
+    public Item currentItem;
+    public SnapPoint snapPointInContact;
+    public BoxCollider collider;
 
-    void Start()
+    private readonly HashSet<SnapPoint> _contactingSnapPoints = new HashSet<SnapPoint>();
+
+    void Awake()
     {
         currentItem = GetComponentInParent<Item>();
         collider = GetComponent<BoxCollider>();
@@ -15,20 +18,56 @@ public class SnapPoint : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         SnapPoint otherSnapPoint = other.GetComponent<SnapPoint>();
-        if (otherSnapPoint != null && otherSnapPoint.currentItem != null)
+        if (otherSnapPoint != null &&
+            otherSnapPoint != this &&
+            otherSnapPoint.currentItem != null)
         {
+            _contactingSnapPoints.Add(otherSnapPoint);
             snapPointInContact = otherSnapPoint;
-            print("Snap point contacted!");
         }
     }
 
     void OnTriggerExit(Collider other)
     {
         SnapPoint otherSnapPoint = other.GetComponent<SnapPoint>();
-        if (otherSnapPoint != null && snapPointInContact == otherSnapPoint)
+        if (otherSnapPoint == null)
+            return;
+
+        _contactingSnapPoints.Remove(otherSnapPoint);
+        if (snapPointInContact == otherSnapPoint)
         {
             snapPointInContact = null;
-            print("Snap point exited!");
+            foreach (SnapPoint contactingSnapPoint in _contactingSnapPoints)
+            {
+                if (contactingSnapPoint != null)
+                {
+                    snapPointInContact = contactingSnapPoint;
+                    break;
+                }
+            }
         }
+    }
+
+    public bool TryGetContact(out SnapPoint contactingSnapPoint)
+    {
+        _contactingSnapPoints.RemoveWhere(point => point == null);
+        if (currentItem == null)
+        {
+            contactingSnapPoint = null;
+            return false;
+        }
+
+        foreach (SnapPoint point in _contactingSnapPoints)
+        {
+            if (point.currentItem != null &&
+                point.currentItem.GetAssemblyRoot() != currentItem.GetAssemblyRoot())
+            {
+                contactingSnapPoint = point;
+                return true;
+            }
+        }
+
+        contactingSnapPoint = null;
+        return false;
     }
 }
