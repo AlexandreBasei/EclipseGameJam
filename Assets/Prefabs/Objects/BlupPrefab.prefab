@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 6967905153933616666}
   - component: {fileID: 6035478047587802403}
   - component: {fileID: 7178890664287277598}
-  m_Layer: 0
+  - component: {fileID: 6611737983659887343}
+  m_Layer: 6
   m_Name: BlupPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,6 +174,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemData: {fileID: 11400000, guid: 94f2363655280964bad7046a51883885, type: 2}
   _itemNameText: {fileID: 7474212420095773190}
+  _outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  _highlightedOutlineColor: {r: 0.3632076, g: 0.36320752, b: 1, a: 1}
+  _heldDistance: 2
+--- !u!54 &6611737983659887343
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546108657820750266}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &4416523223178433957
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +215,7 @@ GameObject:
   - component: {fileID: 8326973856855519377}
   - component: {fileID: 3411306806384484421}
   - component: {fileID: 7474212420095773190}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -324,7 +355,7 @@ GameObject:
   - component: {fileID: 8538310330413224322}
   - component: {fileID: 4454846138318041718}
   - component: {fileID: 4967066031079309603}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NameCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -3,8 +3,12 @@ using System.Collections.Generic;
 
 public interface IInteractable
 {
-    void PickUp();
+    Color OutlineColor { get;}
+    Color HighlightedOutlineColor { get;}
+    void PickUp(Camera playerCamera = null);
     void Rotate();
+    void Snap();
+    void SetItemNameVisible(bool visible);
 }
 
 public class PlayerInteract : Singleton<PlayerInteract>
@@ -17,8 +21,8 @@ public class PlayerInteract : Singleton<PlayerInteract>
     private Outline _lookedAtTarget;
     private Outline _highlightedOutline;
     private float _lastTimePickUpTargetWasValid = float.NegativeInfinity;
-    private Color _originalOutlineColor = Color.white;
-    [SerializeField] private Color _highlightedOutlineColor = Color.blue;
+    private bool _isInteracting = false;
+    private Item _grabbedItem;
 
     protected override void Awake()
     {
@@ -32,9 +36,9 @@ public class PlayerInteract : Singleton<PlayerInteract>
         UpdateOutlineAndName();
         UpdateInputTip(_currentTarget);
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            InteractWithCurrentTarget();
+            PickupCurrentTarget();
         }
     }
 
@@ -45,21 +49,28 @@ public class PlayerInteract : Singleton<PlayerInteract>
 
         if (lookedAtTarget != null)
         {
+            if (_currentTarget != null &&
+                _currentTarget != lookedAtTarget &&
+                !IsOutlineInRange(_currentTarget))
+            {
+                _currentTarget.enabled = false;
+            }
+
             _currentTarget = lookedAtTarget;
             _lastTimePickUpTargetWasValid = Time.time;
             return;
         }
 
-        bool currentTargetIsStillInRange =
-            _currentTarget != null &&
-            _currentTarget.enabled &&
-            IsOutlineInRange(_currentTarget);
-
-        if (!currentTargetIsStillInRange ||
-            Time.time - _lastTimePickUpTargetWasValid > TargetLossGracePeriod)
+        if (_currentTarget == null ||
+            Time.time - _lastTimePickUpTargetWasValid <= TargetLossGracePeriod)
         {
-            _currentTarget = null;
+            return;
         }
+
+        if (!IsOutlineInRange(_currentTarget))
+            _currentTarget.enabled = false;
+
+        _currentTarget = null;
     }
 
     private Outline GetLookedAtTarget()
@@ -85,9 +96,14 @@ public class PlayerInteract : Singleton<PlayerInteract>
     private void UpdateInputTip(Outline target)
     {
         bool hasValidTarget = target != null;
+
         bool shouldShowPickUpTip =
-            hasValidTarget || Time.time - _lastTimePickUpTargetWasValid <= TargetLossGracePeriod;
+            hasValidTarget && target.GetComponent<Item>() != null;
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.PickUp, shouldShowPickUpTip);
+
+        bool shouldShowCarTip =
+            hasValidTarget && target.TryGetComponent<CarDoor>(out CarDoor carDoor) && !carDoor.isDoorOpen;
+        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.StartCar, shouldShowCarTip);
     }
 
     private void UpdateOutlineAndName()
@@ -99,11 +115,11 @@ public class PlayerInteract : Singleton<PlayerInteract>
 
         if (_highlightedOutline != targetToHighlight)
         {
+            RestoreOutlineColor();
+
             if (_highlightedOutline != null)
             {
-                _highlightedOutline.OutlineColor = _originalOutlineColor;
-
-                Item previousItem = _highlightedOutline.GetComponent<Item>();
+                IInteractable previousItem = _highlightedOutline.GetComponent<IInteractable>();
                 if (previousItem != null)
                     previousItem.SetItemNameVisible(false);
             }
@@ -112,8 +128,9 @@ public class PlayerInteract : Singleton<PlayerInteract>
 
             if (_highlightedOutline != null)
             {
-                _originalOutlineColor = _highlightedOutline.OutlineColor;
-                _highlightedOutline.OutlineColor = _highlightedOutlineColor;
+                IInteractable highlightedItem = _highlightedOutline.GetComponent<IInteractable>();
+                if (highlightedItem != null && !_isInteracting)
+                    _highlightedOutline.OutlineColor = highlightedItem.HighlightedOutlineColor;
             }
         }
 
@@ -126,24 +143,65 @@ public class PlayerInteract : Singleton<PlayerInteract>
             bool shouldShowItemName =
                 _currentTarget == _highlightedOutline &&
                 Time.time - _lastTimePickUpTargetWasValid <= TargetLossGracePeriod &&
-                item.itemData != null;
+                item.itemData != null && !_isInteracting;
 
             item.SetItemNameVisible(shouldShowItemName);
         }
     }
 
-    public void InteractWithCurrentTarget()
+    private void RestoreOutlineColor()
     {
+        if (_highlightedOutline == null)
+            return;
+
+        IInteractable item = _highlightedOutline.GetComponent<IInteractable>();
+        if (item != null)
+            _highlightedOutline.OutlineColor = item.OutlineColor;
+    }
+
+    public void PickupCurrentTarget()
+    {
+        if (_grabbedItem != null)
+        {
+            _grabbedItem.Drop();
+            _grabbedItem = null;
+            _isInteracting = false;
+            return;
+        }
+
         if (_currentTarget == null || !IsOutlineInRange(_currentTarget))
         {
+            _isInteracting = false;
             return;
         }
 
         IInteractable interactable = _currentTarget.GetComponent<IInteractable>();
         if (interactable != null)
         {
-            interactable.PickUp();
+            _isInteracting = true;
+            interactable.PickUp(_playerCamera);
+
+            if (!DaysManager.Instance.isInWorkshop)
+            {
+                if (_currentTarget.GetComponent<Item>() != null)
+                {
+                    Invoke(nameof(StopInteracting), 0.2f);
+                }
+                else if (_currentTarget.TryGetComponent<CarDoor>(out CarDoor carDoor))
+                {
+                    carDoor.PickUp(_playerCamera);
+                }
+            }
+            else
+            {
+                _grabbedItem = _currentTarget.GetComponent<Item>();
+            }
         }
+    }
+
+    private void StopInteracting()
+    {
+        _isInteracting = false;
     }
 
     private bool IsOutlineInRange(Outline outline)
@@ -175,7 +233,9 @@ public class PlayerInteract : Singleton<PlayerInteract>
         _collidersInRange.Remove(other);
 
         Outline outline = other.GetComponentInParent<Outline>();
-        if (outline != null && !IsOutlineInRange(outline))
+        if (outline != null &&
+            !IsOutlineInRange(outline) &&
+            outline != _currentTarget)
         {
             outline.enabled = false;
         }
@@ -185,7 +245,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
     {
         if (_highlightedOutline != null)
         {
-            _highlightedOutline.OutlineColor = _originalOutlineColor;
+            RestoreOutlineColor();
             _highlightedOutline = null;
         }
 
