@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 3ae44cefd6a249e9951110c7da6e6fa9, type: 3}
   m_Name: CommandeDeCon
   m_EditorClassIdentifier: Assembly-CSharp::CommandSo
   clientName: Milan TURCANO
   moneyReward: 200
   listObjects:
-  - objectSo: {fileID: 11400000, guid: 94f2363655280964bad7046a51883885, type: 2}
-    required: 1
+  - {fileID: 11400000, guid: 94f2363655280964bad7046a51883885, type: 2}
+  accepted: 0
