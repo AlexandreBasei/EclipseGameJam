@@ -21,11 +21,23 @@ public class Item : MonoBehaviour, IInteractable
 
     public void PickUp()
     {
-        // WIP : envoyer vers la voiture
-        Destroy(gameObject);
+        if (DaysManager.Instance.IsInWorkshop)
+        {
+            // WIP : prendre l'objet
+        }
+        else
+        {
+            // WIP : envoyer vers la voiture
+            Destroy(gameObject);
+        }
     }
 
     public void Rotate()
+    {
+        // WIP
+    }
+
+    public void Snap()
     {
         // WIP
     }

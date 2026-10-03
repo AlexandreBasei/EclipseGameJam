@@ -5,6 +5,7 @@ public interface IInteractable
 {
     void PickUp();
     void Rotate();
+    void Snap();
 }
 
 public class PlayerInteract : Singleton<PlayerInteract>
