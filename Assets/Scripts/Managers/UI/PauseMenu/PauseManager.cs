@@ -4,6 +4,7 @@ public class PauseManager : MonoBehaviour
 {
     public void PauseOpen()
     {
+
         gameObject.SetActive(true);
         PlayerController.Instance.CanLook = false;
         Cursor.lockState = CursorLockMode.Confined;
@@ -13,6 +14,7 @@ public class PauseManager : MonoBehaviour
 
     public void Resume()
     {
+        AudioManager.Instance.PlayClic();
         PlayerController.Instance.CanLook = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -22,6 +24,7 @@ public class PauseManager : MonoBehaviour
 
     public void Quit()
     {
+        AudioManager.Instance.PlayClic();
         Application.Quit();
     }
 }
