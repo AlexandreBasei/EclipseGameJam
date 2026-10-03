@@ -1,11 +1,14 @@
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 public class Item : MonoBehaviour, IInteractable
 {
     private const int MaxAssemblyItems = 3;
 
     public ObjectSO itemData;
+    private readonly List<Item> _assemblyItems = new List<Item>();
+    private IReadOnlyList<Item> _assemblyItemsReadOnly;
     [SerializeField] private TextMeshProUGUI _itemNameText;
     [SerializeField] private Color _outlineColor = Color.white;
     [SerializeField] private Color _highlightedOutlineColor = Color.blue;
@@ -15,9 +18,20 @@ public class Item : MonoBehaviour, IInteractable
     private Outline _outline;
     private bool _isGrabbed = false;
     private Rigidbody _rb;
-    private BoxCollider _collider;
     private Camera _heldCamera;
     private Vector3 _heldPositionOffset;
+
+    public IReadOnlyList<Item> AssemblyItems
+    {
+        get
+        {
+            Item assemblyRoot = GetAssemblyRoot();
+            if (assemblyRoot._assemblyItemsReadOnly == null)
+                assemblyRoot._assemblyItemsReadOnly = assemblyRoot._assemblyItems.AsReadOnly();
+
+            return assemblyRoot._assemblyItemsReadOnly;
+        }
+    }
 
     public bool CanUnFuse =>
         _isGrabbed &&
@@ -44,9 +58,9 @@ public class Item : MonoBehaviour, IInteractable
 
     void Start()
     {
+        RefreshAssemblyItems();
         _outline = GetComponent<Outline>();
         _rb = GetComponent<Rigidbody>();
-        _collider = GetComponent<BoxCollider>();
         if (_itemNameText != null && itemData != null)
         {
             _itemNameText.text = itemData.objectName;
@@ -61,6 +75,7 @@ public class Item : MonoBehaviour, IInteractable
             return;
 
         UpdateHeldPosition();
+        print(AssemblyItems.Count);
     }
 
     private void UpdateHeldPosition()
@@ -78,10 +93,15 @@ public class Item : MonoBehaviour, IInteractable
             horizontalForward * Mathf.Sqrt(1f - verticalComponent * verticalComponent) +
             Vector3.up * verticalComponent;
 
-        transform.position =
+        Vector3 heldPosition =
             _heldCamera.transform.position +
             direction * _heldDistance +
             _heldCamera.transform.TransformVector(_heldPositionOffset);
+
+        if (TryGetAssemblyBounds(out Bounds bounds))
+            transform.position += heldPosition - bounds.center;
+        else
+            transform.position = heldPosition;
     }
 
     public void SetItemNameVisible(bool visible)
@@ -197,12 +217,21 @@ public class Item : MonoBehaviour, IInteractable
             item._rb.isKinematic = false;
             item._rb.linearVelocity = Vector3.zero;
             item._rb.angularVelocity = Vector3.zero;
+            item._rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            item._rb.WakeUp();
 
-            if (item._collider != null)
-                item._collider.enabled = true;
+            item.SetItemCollidersEnabled(true);
 
             item.SetOutlineVisible(true);
             item.SetItemNameVisible(false);
+        }
+
+        Physics.SyncTransforms();
+        RefreshAssemblyItems();
+        foreach (Item item in assemblyItems)
+        {
+            if (item != this)
+                item.RefreshAssemblyItems();
         }
     }
 
@@ -234,8 +263,7 @@ public class Item : MonoBehaviour, IInteractable
             mergedItem.SetItemNameVisible(false);
             mergedItem.SetOutlineVisible(false);
 
-            if (mergedItem._collider != null)
-                mergedItem._collider.enabled = false;
+            mergedItem.SetItemCollidersEnabled(false);
 
             if (mergedItem._rb != null)
             {
@@ -250,6 +278,7 @@ public class Item : MonoBehaviour, IInteractable
 
         assemblyRoot.SetAssemblyCollidersEnabled(false);
         assemblyRoot.SetAssemblyPresentationVisible(false);
+        assemblyRoot.RefreshAssemblyItems();
     }
 
     private bool CanMergeWith(Item otherRoot)
@@ -262,13 +291,45 @@ public class Item : MonoBehaviour, IInteractable
                otherRoot.GetComponentsInChildren<Item>(true).Length <= MaxAssemblyItems;
     }
 
+    private void RefreshAssemblyItems()
+    {
+        Item assemblyRoot = GetAssemblyRoot();
+        if (assemblyRoot != this)
+        {
+            assemblyRoot.RefreshAssemblyItems();
+            return;
+        }
+
+        _assemblyItems.Clear();
+        _assemblyItems.AddRange(GetComponentsInChildren<Item>(true));
+    }
+
     private void SetAssemblyCollidersEnabled(bool enabled)
     {
         foreach (Item item in GetComponentsInChildren<Item>(true))
+            item.SetItemCollidersEnabled(enabled);
+    }
+
+    private void SetItemCollidersEnabled(bool enabled)
+    {
+        foreach (Collider itemCollider in GetComponents<Collider>())
+            itemCollider.enabled = enabled;
+    }
+
+    private bool TryGetAssemblyBounds(out Bounds bounds)
+    {
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        if (renderers.Length == 0)
         {
-            if (item._collider != null)
-                item._collider.enabled = enabled;
+            bounds = default;
+            return false;
         }
+
+        bounds = renderers[0].bounds;
+        for (int i = 1; i < renderers.Length; i++)
+            bounds.Encapsulate(renderers[i].bounds);
+
+        return true;
     }
 
     private void SetAssemblyPresentationVisible(bool visible)
