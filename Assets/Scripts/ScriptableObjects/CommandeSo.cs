@@ -13,4 +13,5 @@ public class CommandSo : ScriptableObject
     public string clientName;
     public int moneyReward;
     public CommandObject[] listObjects;
+    public bool accepted;
 }
