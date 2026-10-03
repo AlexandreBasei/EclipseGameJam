@@ -5,6 +5,6 @@ public class CommandSO : ScriptableObject
 {
     public string clientName;
     public int moneyReward;
-    public ObjectSO[] listObjects;
+    public ObjectSO ObjectSO;
     public bool accepted;
 }

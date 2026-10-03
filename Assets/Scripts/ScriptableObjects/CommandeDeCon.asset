@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CommandSo
   clientName: Milan TURCANO
   moneyReward: 200
-  listObjects:
-  - {fileID: 11400000, guid: 94f2363655280964bad7046a51883885, type: 2}
+  ObjectSO: {fileID: 11400000, guid: 94f2363655280964bad7046a51883885, type: 2}
   accepted: 0

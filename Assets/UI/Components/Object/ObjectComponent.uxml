@@ -1,11 +1,7 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="TagComponent" src="project://database/Assets/UI/Components/Tag/TagComponent.uxml?fileID=9197481963319205126&amp;guid=e6393cea308185b4e8876357ed083f6c&amp;type=3#TagComponent"/>
     <Style src="project://database/Assets/UI/Components/Object/ObjectComponentStyle.uss?fileID=7433441132597879392&amp;guid=5099c1ece6b87dd46982a104598dee90&amp;type=3#ObjectComponentStyle"/>
-    <ui:VisualElement name="ObjectDescription">
+    <ui:VisualElement name="ObjectContainer">
         <ui:Label name="ObjectName" text="Objet de con"/>
-        <ui:VisualElement name="TagContainer">
-            <ui:Instance template="TagComponent"/>
-            <ui:Instance template="TagComponent"/>
-        </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement name="TagContainer" style="flex-grow: 1;"/>
 </ui:UXML>

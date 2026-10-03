@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 860953481}
   - component: {fileID: 860953483}
   m_Layer: 0
-  m_Name: UI
+  m_Name: Command
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,7 +187,7 @@ PanelRenderer:
   m_MaskInteraction: 0
   serializedVersion: 1
   m_PanelSettings: {fileID: 11400000, guid: 94161e6e374b07e4092bc79468133281, type: 2}
-  sourceAsset: {fileID: 9197481963319205126, guid: 7104643542222264ab658a22590abe0b, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: a0a6365d1eb9ea34fb807797103e5514, type: 3}
   m_ParentUI: {fileID: 0}
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
@@ -223,7 +223,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Command
   uiDocument: {fileID: 860953481}
-  command: {fileID: 11400000, guid: 4956353825e7e564b821582b703251ac, type: 2}
+  commands:
+  - {fileID: 11400000, guid: 4956353825e7e564b821582b703251ac, type: 2}
+  commandComponent: {fileID: 9197481963319205126, guid: 7104643542222264ab658a22590abe0b, type: 3}
+  objectComponent: {fileID: 9197481963319205126, guid: 1f645caf9c79c2f42b4899f4f39d1693, type: 3}
+  tagComponent: {fileID: 9197481963319205126, guid: e6393cea308185b4e8876357ed083f6c, type: 3}
 --- !u!1 &2015051123
 GameObject:
   m_ObjectHideFlags: 0
