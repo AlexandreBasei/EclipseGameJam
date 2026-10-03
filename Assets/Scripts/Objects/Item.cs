@@ -80,8 +80,8 @@ public class Item : MonoBehaviour, IInteractable
             SetOutlineVisible(false);
             _heldCamera = playerCamera;
             _isGrabbed = true;
-            transform.SetParent(playerCamera.transform, false);
-            transform.localRotation = Quaternion.identity;
+            transform.SetParent(playerCamera.transform, true);
+            // transform.localRotation = Quaternion.identity;
             UpdateHeldPosition();
         }
         else
