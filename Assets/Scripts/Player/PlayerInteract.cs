@@ -102,7 +102,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.PickUp, shouldShowPickUpTip);
 
         bool shouldShowCarTip =
-            hasValidTarget && target.GetComponent<CarDoor>() != null;
+            hasValidTarget && target.TryGetComponent<CarDoor>(out CarDoor carDoor) && !carDoor.isDoorOpen;
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.StartCar, shouldShowCarTip);
     }
 
