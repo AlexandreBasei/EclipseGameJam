@@ -19,6 +19,8 @@ public enum Tag
     Seatable = 1 << 10,
     Organic = 1 << 11,
     Noisy = 1 << 12,
+    Handheld = 1 << 13,
+    Cosy = 1 << 14,
 
 }
 
