@@ -10,7 +10,7 @@ public class DaysManager : MonoBehaviour
 
     public Item[] items;
 
-    public bool IsInWorkshop;
+    public bool isInWorkshop = true;
 
 
     private void Awake()
