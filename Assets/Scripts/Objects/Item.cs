@@ -85,7 +85,7 @@ public class Item : MonoBehaviour, IInteractable
         else
         {
             int weight = itemData.tags == Tag.Heavy ? 2 : 1;
-            
+
             if (WeightManager.Instance.SliderBar.value + weight <= WeightManager.Instance.SliderBar.maxValue)
             {
                 WeightManager.Instance.AddSliderValue(weight);
@@ -111,7 +111,15 @@ public class Item : MonoBehaviour, IInteractable
 
     public void Rotate()
     {
-        // WIP
+        if (!Input.GetKey(KeyCode.E))
+            return;
+
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+        float rotationSpeed = 100f;
+
+        transform.Rotate(Vector3.up, mouseX * rotationSpeed * Time.deltaTime, Space.World);
+        transform.Rotate(Vector3.right, mouseY * rotationSpeed * Time.deltaTime, Space.World);
     }
 
     public void Snap()

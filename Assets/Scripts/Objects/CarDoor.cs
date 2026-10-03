@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class CarDoor : MonoBehaviour, IInteractable
 {
-    public Color OutlineColor { get; } = Color.white;
-    public Color HighlightedOutlineColor { get; } = Color.blue;
+    [SerializeField] private Color _outlineColor = Color.white;
+    [SerializeField] private Color _highlightedOutlineColor = Color.blue;
+    public Color OutlineColor => _outlineColor;
+    public Color HighlightedOutlineColor => _highlightedOutlineColor;
     public bool isDoorOpen = false;
 
     public void PickUp(Camera playerCamera = null)

@@ -6,9 +6,10 @@ public class PlayerHUD : Singleton<PlayerHUD>
     public enum InputTip
     {   
         PickUp = 0,
-        Rotate = 1,
-        Snap = 2,
-        StartCar = 3
+        Drop = 1,
+        Rotate = 2,
+        Snap = 3,
+        StartCar = 4,
     }
 
     [SerializeField] private List<GameObject> _inputTips = new List<GameObject>();
