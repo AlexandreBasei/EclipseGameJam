@@ -1,3 +1,7 @@
+#Main {
+    max-width: 400;
+}
+
 #TextContainer {
     display: flex;
     flex-direction: row;
@@ -32,4 +36,9 @@
 
 #ButtonContainer > #DeclineButton {
     background-color: red;
+}
+
+.command_accepted {
+    border-width: 2;
+    border-color: green;
 }

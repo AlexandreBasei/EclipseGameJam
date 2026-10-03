@@ -1,19 +1,19 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class Command : MonoBehaviour
 {
-    [SerializeField] private PanelRenderer uiDocument;
-    [SerializeField] private CommandSO[] commands;
+    [SerializeField] private List<CommandSO> commands;
 
     [SerializeField] private VisualTreeAsset commandComponent;
     [SerializeField] private VisualTreeAsset objectComponent;
     [SerializeField] private VisualTreeAsset tagComponent;
     
-    private int uiVersion = 0;
+    private int uiVersion;
     
     private void Awake()
     {
@@ -36,8 +36,9 @@ public class Command : MonoBehaviour
 
         foreach (var command in commands)
         { 
-            if (command.accepted)
-                return;
+            if (command.state is CommandState.Declined or CommandState.Finished)
+                continue;
+            
             //Create the command component
             VisualElement t_newCommand = commandComponent.Instantiate();
             t_newCommand.Q<Label>("ClientName").text = command.clientName;
@@ -45,13 +46,37 @@ public class Command : MonoBehaviour
 
             // Create the object component
             VisualElement t_newCommandObject = objectComponent.Instantiate();
-            t_newCommandObject.Q<Label>("ObjectName").text = command.ObjectSO.objectName;
+            t_newCommandObject.Q<Label>("ObjectName").text = $"Object : {command.ObjectSO.objectName}";
             
             // Generate the associated tags of the object
             GenerateTag(command.ObjectSO.tags, t_newCommandObject);
             
             //Insert the new object inside the command
-            t_newCommand.hierarchy.Insert(1, t_newCommandObject);
+            t_newCommand.Q<VisualElement>("Main").hierarchy.Insert(1, t_newCommandObject);
+            
+            if (command.state == CommandState.Accepted)
+            {
+                t_newCommand.Q<VisualElement>("Main").AddToClassList("command_accepted");
+                t_newCommand.Q<VisualElement>("ButtonContainer").RemoveFromHierarchy();
+            }
+            else
+            {
+                var buttons = t_newCommand.Q<VisualElement>("ButtonContainer");
+
+                buttons.Q<Button>("AcceptButton").RegisterCallback<ClickEvent>(e =>
+                {
+                    command.state = CommandState.Accepted;
+                    t_newCommand.Q<VisualElement>("Main").AddToClassList("command_accepted");
+                    buttons.RemoveFromHierarchy();
+                });
+
+                buttons.Q<Button>("DeclineButton").RegisterCallback<ClickEvent>(e =>
+                {
+                    command.state = CommandState.Declined;
+                    commands.Remove(command);
+                    t_newCommand.RemoveFromHierarchy();
+                });
+            }
             
             // Insert the new command into the list
             listCommand.hierarchy.Add(t_newCommand);
