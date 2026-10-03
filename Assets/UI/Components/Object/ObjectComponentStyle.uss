@@ -1,0 +1,4 @@
+#TagContainer {
+    display: flex;
+    flex-direction: row;
+}

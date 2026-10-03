@@ -1,0 +1,44 @@
+#Main {
+    max-width: 400;
+}
+
+#TextContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#TextContainer > #ClientName {
+    font-size: 20;
+}
+
+#TextContainer > #MoneyReward {
+    color: green;
+    -unity-font-style: bold;
+}
+
+#ButtonContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+#ButtonContainer > Button {
+    height: 25;
+    width: 100;
+    border-radius: 10;
+    color: white;
+    margin-top: 20;
+}
+
+#ButtonContainer > #AcceptButton {
+    background-color: green;
+}
+
+#ButtonContainer > #DeclineButton {
+    background-color: red;
+}
+
+.command_accepted {
+    border-width: 2;
+    border-color: green;
+}
