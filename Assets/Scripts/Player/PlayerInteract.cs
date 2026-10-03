@@ -7,7 +7,7 @@ public interface IInteractable
     Color HighlightedOutlineColor { get; }
     void PickUp(Camera playerCamera = null);
     void Rotate();
-    void Snap();
+    void TrySnap();
     void SetItemNameVisible(bool visible);
 }
 
