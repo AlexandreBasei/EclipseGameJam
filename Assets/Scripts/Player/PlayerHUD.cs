@@ -15,6 +15,16 @@ public class PlayerHUD : Singleton<PlayerHUD>
 
     [SerializeField] private List<GameObject> _inputTips = new List<GameObject>();
 
+    public PauseManager pauseManager;
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            pauseManager.PauseOpen();
+        }
+    }
     public void ShowInputTip(InputTip tip)
     {
         SetInputTipVisible(tip, true);

@@ -21,6 +21,7 @@ public enum Tag
     Noisy = 1 << 12,
     Handheld = 1 << 13,
     Cosy = 1 << 14,
+    Windy = 1 << 15,
 
 }
 
