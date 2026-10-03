@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 09134dac7d7e67e47ba8497eeae5394d
+AssetOrigin:
+  serializedVersion: 1
+  productId: 97213
+  packageName: Junkyard models pack
+  packageVersion: 1.0
+  assetPath: Assets/Junkyard models/Models/Bench/Bench.obj
+  uploadId: 193968
 ModelImporter:
   serializedVersion: 24600
   internalIDToNameTable:
@@ -138,10 +145,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 97213
-  packageName: Junkyard models pack
-  packageVersion: 1.0
-  assetPath: Assets/Junkyard models/Models/Bench/Bench.obj
-  uploadId: 193968
