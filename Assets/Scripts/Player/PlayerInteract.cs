@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 public interface IInteractable
 {
-    Color OutlineColor { get;}
-    Color HighlightedOutlineColor { get;}
+    Color OutlineColor { get; }
+    Color HighlightedOutlineColor { get; }
     void PickUp(Camera playerCamera = null);
     void Rotate();
     void Snap();
@@ -39,6 +39,19 @@ public class PlayerInteract : Singleton<PlayerInteract>
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             PickupCurrentTarget();
+        }
+
+        if (_grabbedItem != null)
+        {
+            if (Input.GetKey(KeyCode.E))
+            {
+                PlayerController.Instance.CanLook = false;
+                _grabbedItem.Rotate();
+            }
+            else
+            {
+                PlayerController.Instance.CanLook = true;
+            }
         }
     }
 
@@ -100,6 +113,15 @@ public class PlayerInteract : Singleton<PlayerInteract>
         bool shouldShowPickUpTip =
             hasValidTarget && target.GetComponent<Item>() != null;
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.PickUp, shouldShowPickUpTip);
+
+        bool shouldShowDropTip =
+            _grabbedItem != null;
+        if (shouldShowDropTip)
+            PlayerHUD.Instance.HideAllInputTips();
+        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Drop, shouldShowDropTip);
+        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Rotate, shouldShowDropTip);
+        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Snap, shouldShowDropTip);
+
 
         bool shouldShowCarTip =
             hasValidTarget && target.TryGetComponent<CarDoor>(out CarDoor carDoor) && !carDoor.isDoorOpen;
