@@ -10,7 +10,11 @@ public class DaysManager : MonoBehaviour
 
     public Item[] items;
 
-    public bool IsInWorkshop;
+    public bool isInWorkshop;
+
+    public int truckLevel = 1;
+
+    public Item[] truckContent;
 
 
     private void Awake()
@@ -26,16 +30,22 @@ public class DaysManager : MonoBehaviour
         items = new Item[10];
     }
 
-    public void NextDay(Item[] keptItems)
+    public void NextDay(Item[] keptItems, int truckSize)
     {
         currentDay++;
         items = keptItems;
+        truckContent = new Item[truckSize];
+    }
 
+    public void setTruckSize(int newSize)
+    {
+        truckContent = new Item[newSize];
     }
 
     public void ResetDays()
     {
         currentDay = 1;
         items = new Item[10];
+        truckLevel = 1;
     }
 }
