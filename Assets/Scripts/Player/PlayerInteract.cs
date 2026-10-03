@@ -3,9 +3,12 @@ using System.Collections.Generic;
 
 public interface IInteractable
 {
+    Color OutlineColor { get;}
+    Color HighlightedOutlineColor { get;}
     void PickUp(Camera playerCamera = null);
     void Rotate();
     void Snap();
+    void SetItemNameVisible(bool visible);
 }
 
 public class PlayerInteract : Singleton<PlayerInteract>
@@ -93,9 +96,14 @@ public class PlayerInteract : Singleton<PlayerInteract>
     private void UpdateInputTip(Outline target)
     {
         bool hasValidTarget = target != null;
+
         bool shouldShowPickUpTip =
-            hasValidTarget || Time.time - _lastTimePickUpTargetWasValid <= TargetLossGracePeriod;
+            hasValidTarget && target.GetComponent<Item>() != null;
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.PickUp, shouldShowPickUpTip);
+
+        bool shouldShowCarTip =
+            hasValidTarget && target.GetComponent<CarDoor>() != null;
+        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.StartCar, shouldShowCarTip);
     }
 
     private void UpdateOutlineAndName()
@@ -111,7 +119,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
 
             if (_highlightedOutline != null)
             {
-                Item previousItem = _highlightedOutline.GetComponent<Item>();
+                IInteractable previousItem = _highlightedOutline.GetComponent<IInteractable>();
                 if (previousItem != null)
                     previousItem.SetItemNameVisible(false);
             }
@@ -120,7 +128,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
 
             if (_highlightedOutline != null)
             {
-                Item highlightedItem = _highlightedOutline.GetComponent<Item>();
+                IInteractable highlightedItem = _highlightedOutline.GetComponent<IInteractable>();
                 if (highlightedItem != null && !_isInteracting)
                     _highlightedOutline.OutlineColor = highlightedItem.HighlightedOutlineColor;
             }
@@ -146,7 +154,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
         if (_highlightedOutline == null)
             return;
 
-        Item item = _highlightedOutline.GetComponent<Item>();
+        IInteractable item = _highlightedOutline.GetComponent<IInteractable>();
         if (item != null)
             _highlightedOutline.OutlineColor = item.OutlineColor;
     }
@@ -175,7 +183,14 @@ public class PlayerInteract : Singleton<PlayerInteract>
 
             if (!DaysManager.Instance.isInWorkshop)
             {
-                Invoke(nameof(StopInteracting), 0.2f);
+                if (_currentTarget.GetComponent<Item>() != null)
+                {
+                    Invoke(nameof(StopInteracting), 0.2f);
+                }
+                else if (_currentTarget.TryGetComponent<CarDoor>(out CarDoor carDoor))
+                {
+                    carDoor.PickUp(_playerCamera);
+                }
             }
             else
             {

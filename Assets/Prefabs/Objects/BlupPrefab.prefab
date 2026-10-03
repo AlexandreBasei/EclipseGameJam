@@ -175,7 +175,7 @@ MonoBehaviour:
   itemData: {fileID: 11400000, guid: 94f2363655280964bad7046a51883885, type: 2}
   _itemNameText: {fileID: 7474212420095773190}
   _outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  _highlightedOutlineColor: {r: 0, g: 0, b: 1, a: 1}
+  _highlightedOutlineColor: {r: 0.3632076, g: 0.36320752, b: 1, a: 1}
   _heldDistance: 2
 --- !u!54 &6611737983659887343
 Rigidbody:

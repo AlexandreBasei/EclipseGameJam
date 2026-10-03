@@ -7,11 +7,14 @@ public class DaysManager : PersistentSingleton<DaysManager>
 
     public Item[] items;
 
-    public bool isInWorkshop = true;
+    public bool isInWorkshop = false;
 
     public int truckLevel = 1;
 
     public Item[] truckContent;
+
+    [SerializeField] private string workshopSceneName = "WorkShopAlex";
+    [SerializeField] private string warehouseSceneName = "WAREHOUSEScene";
 
 
     protected override void Awake()
@@ -37,5 +40,17 @@ public class DaysManager : PersistentSingleton<DaysManager>
         currentDay = 1;
         items = new Item[10];
         truckLevel = 1;
+    }
+
+    public void loadWorkShopScene()
+    {
+        isInWorkshop = true;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(workshopSceneName);
+    }
+
+    public void loadWarehouseScene()
+    {
+        isInWorkshop = false;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(warehouseSceneName);
     }
 }
