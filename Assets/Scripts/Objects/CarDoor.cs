@@ -30,7 +30,7 @@ public class CarDoor : MonoBehaviour, IInteractable
         // Ne rien faire
     }
 
-    public void Snap()
+    public void TrySnap()
     {
         // Ne rien faire
     }

@@ -122,7 +122,7 @@ public class Item : MonoBehaviour, IInteractable
         transform.Rotate(Vector3.right, mouseY * rotationSpeed * Time.deltaTime, Space.World);
     }
 
-    public void Snap()
+    public void TrySnap()
     {
         // WIP
     }
