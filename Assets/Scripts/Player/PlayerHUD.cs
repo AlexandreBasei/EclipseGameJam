@@ -7,6 +7,8 @@ public class PlayerHUD : Singleton<PlayerHUD>
     {   
         PickUp = 0,
         Rotate = 1,
+        Snap = 2,
+        StartCar = 3
     }
 
     [SerializeField] private List<GameObject> _inputTips = new List<GameObject>();

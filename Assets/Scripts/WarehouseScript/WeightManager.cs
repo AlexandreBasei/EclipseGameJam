@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class WeightManager : MonoBehaviour
+public class WeightManager : Singleton<WeightManager>
 {
     [SerializeField] private Image ImageBarFill;
-    [SerializeField] private Slider SliderBar;
+    public Slider SliderBar;
     [SerializeField] private TextMeshProUGUI FullText;
 
     private void Start()

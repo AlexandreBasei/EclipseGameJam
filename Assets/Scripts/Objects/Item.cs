@@ -71,7 +71,6 @@ public class Item : MonoBehaviour, IInteractable
     {
         if (DaysManager.Instance.isInWorkshop)
         {
-            // WIP : prendre l'objet
             _rb.linearVelocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;
             _rb.isKinematic = true;
@@ -81,13 +80,17 @@ public class Item : MonoBehaviour, IInteractable
             _heldCamera = playerCamera;
             _isGrabbed = true;
             transform.SetParent(playerCamera.transform, true);
-            // transform.localRotation = Quaternion.identity;
             UpdateHeldPosition();
         }
         else
         {
-            // WIP : envoyer vers la voiture
-            Destroy(gameObject);
+            int weight = itemData.tags == Tag.Heavy ? 2 : 1;
+            
+            if (WeightManager.Instance.SliderBar.value + weight <= WeightManager.Instance.SliderBar.maxValue)
+            {
+                WeightManager.Instance.AddSliderValue(weight);
+                Destroy(gameObject);
+            }
         }
     }
 
