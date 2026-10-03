@@ -148,7 +148,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 8a32c420caa6f724bbf5be0762c4c6eb, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: a7fcc03c79c7a164fad1e8ae5f91bd04, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -250,10 +250,10 @@ CharacterController:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 55
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -299,7 +299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31038d6dd2bdc3c48bc44e73acd7c645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
-  _highlightedOutlineColor: {r: 0.5764706, g: 0.57254905, b: 1, a: 1}
 --- !u!114 &4968714127001003716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,7 +360,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &4961069767250883756
 GameObject:
@@ -447,7 +446,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: a7fcc03c79c7a164fad1e8ae5f91bd04, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: 8a32c420caa6f724bbf5be0762c4c6eb, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
