@@ -18,8 +18,6 @@ public class PlayerInteract : Singleton<PlayerInteract>
     private Outline _lookedAtTarget;
     private Outline _highlightedOutline;
     private float _lastTimePickUpTargetWasValid = float.NegativeInfinity;
-    private Color _originalOutlineColor = Color.white;
-    [SerializeField] private Color _highlightedOutlineColor = Color.blue;
 
     protected override void Awake()
     {
@@ -100,10 +98,10 @@ public class PlayerInteract : Singleton<PlayerInteract>
 
         if (_highlightedOutline != targetToHighlight)
         {
+            RestoreOutlineColor();
+
             if (_highlightedOutline != null)
             {
-                _highlightedOutline.OutlineColor = _originalOutlineColor;
-
                 Item previousItem = _highlightedOutline.GetComponent<Item>();
                 if (previousItem != null)
                     previousItem.SetItemNameVisible(false);
@@ -113,8 +111,9 @@ public class PlayerInteract : Singleton<PlayerInteract>
 
             if (_highlightedOutline != null)
             {
-                _originalOutlineColor = _highlightedOutline.OutlineColor;
-                _highlightedOutline.OutlineColor = _highlightedOutlineColor;
+                Item highlightedItem = _highlightedOutline.GetComponent<Item>();
+                if (highlightedItem != null)
+                    _highlightedOutline.OutlineColor = highlightedItem.HighlightedOutlineColor;
             }
         }
 
@@ -131,6 +130,16 @@ public class PlayerInteract : Singleton<PlayerInteract>
 
             item.SetItemNameVisible(shouldShowItemName);
         }
+    }
+
+    private void RestoreOutlineColor()
+    {
+        if (_highlightedOutline == null)
+            return;
+
+        Item item = _highlightedOutline.GetComponent<Item>();
+        if (item != null)
+            _highlightedOutline.OutlineColor = item.OutlineColor;
     }
 
     public void InteractWithCurrentTarget()
@@ -186,7 +195,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
     {
         if (_highlightedOutline != null)
         {
-            _highlightedOutline.OutlineColor = _originalOutlineColor;
+            RestoreOutlineColor();
             _highlightedOutline = null;
         }
 

@@ -5,12 +5,18 @@ public class Item : MonoBehaviour, IInteractable
 {
     public ObjectSO itemData;
     [SerializeField] private TextMeshProUGUI _itemNameText;
+    [SerializeField] private Color _outlineColor = Color.white;
+    [SerializeField] private Color _highlightedOutlineColor = Color.blue;
+    public Color OutlineColor => _outlineColor;
+    public Color HighlightedOutlineColor => _highlightedOutlineColor;
     void Start()
     {
         if (_itemNameText != null && itemData != null)
         {
             _itemNameText.text = itemData.objectName;
         }
+
+        GetComponent<Outline>().OutlineColor = _outlineColor;
     }
 
     public void SetItemNameVisible(bool visible)
