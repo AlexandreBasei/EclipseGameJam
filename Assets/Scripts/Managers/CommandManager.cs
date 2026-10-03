@@ -1,41 +1,57 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Command : MonoBehaviour
+public class CommandManager : PersistentSingleton<CommandManager>
 {
-    [SerializeField] private List<CommandSO> commands;
+    public List<CommandSO> CommandSos;
+    
+    [SerializeField] private CommandList AcceptedCommandUI;
+    [SerializeField] private CommandList PCCommandList;
+    
+    public VisualTreeAsset commandComponent;
+    public VisualTreeAsset objectComponent;
+    public VisualTreeAsset tagComponent;
 
-    [SerializeField] private VisualTreeAsset commandComponent;
-    [SerializeField] private VisualTreeAsset objectComponent;
-    [SerializeField] private VisualTreeAsset tagComponent;
-    
-    private int uiVersion;
-    
-    private void Awake()
+    private void Update()
     {
-        GetComponent<PanelRenderer>().RegisterUIReloadCallback(OnUIReload);
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {   
+            AcceptedCommandUI.gameObject.SetActive(!AcceptedCommandUI.gameObject.activeInHierarchy);
+        }
     }
-    
-    private void OnDestroy()
+
+    public List<CommandSO> CurrentCommands()
     {
-        GetComponent<PanelRenderer>().UnregisterUIReloadCallback(OnUIReload);
+        List<CommandSO> filterList = new List<CommandSO>();
+
+        foreach (var commandSo in CommandSos)
+        {
+            if (commandSo.state is CommandState.Accepted)
+            {
+                filterList.Add(commandSo);
+            }
+        }
+
+        return filterList;
     }
-    
-    private void OnUIReload(PanelRenderer panelRenderer, VisualElement root, int version)
+
+    public List<CommandSO> NewCommands()
     {
-        if (uiVersion == version)
-            return;
+        List<CommandSO> newCommands = new List<CommandSO>();
 
-        uiVersion = version;
 
-        ListView listCommand = root.Q<ListView>("CommandList");
+        return newCommands;
+    }
 
-        foreach (var command in commands)
+    private void CreateCommandElement(CommandList uiDocument)
+    {
+        foreach (var command in CommandSos)
         { 
+            ListView listCommand = uiDocument.uiRoot.Q<ListView>("CommandList");
+            
             if (command.state is CommandState.Declined or CommandState.Finished)
                 continue;
             
@@ -73,7 +89,7 @@ public class Command : MonoBehaviour
                 buttons.Q<Button>("DeclineButton").RegisterCallback<ClickEvent>(e =>
                 {
                     command.state = CommandState.Declined;
-                    commands.Remove(command);
+                    CommandSos.Remove(command);
                     t_newCommand.RemoveFromHierarchy();
                 });
             }
@@ -81,8 +97,8 @@ public class Command : MonoBehaviour
             // Insert the new command into the list
             listCommand.hierarchy.Add(t_newCommand);
         }
-        
     }
+    
     private void GenerateTag(Tag objectTags, VisualElement objectContainer)
     {
         var query = Enum.GetValues(typeof(Tag))
@@ -95,13 +111,12 @@ public class Command : MonoBehaviour
             foreach (Tag tag in query) 
                 objectContainer.Q<VisualElement>("TagContainer").hierarchy.Add(CreateTagElement($"{tag}"));
     }
-
+    
     private VisualElement CreateTagElement(string text)
     {
-        VisualElement t_newTagComponent = tagComponent.Instantiate();
+        VisualElement t_newTagComponent = CommandManager.Instance.tagComponent.Instantiate();
         t_newTagComponent.Q<Label>("TagName").text = text;
 
         return t_newTagComponent;
     }
 }
-
