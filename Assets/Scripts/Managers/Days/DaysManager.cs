@@ -1,11 +1,8 @@
 using NUnit.Framework;
 using UnityEngine;
 
-public class DaysManager : MonoBehaviour
+public class DaysManager : PersistentSingleton<DaysManager>
 {
-
-    public static DaysManager Instance;
-
     public int currentDay = 1;
 
     public Item[] items;
@@ -17,16 +14,9 @@ public class DaysManager : MonoBehaviour
     public Item[] truckContent;
 
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+        base.Awake();
         items = new Item[10];
     }
 
