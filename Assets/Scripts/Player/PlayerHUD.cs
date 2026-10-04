@@ -15,6 +15,7 @@ public class PlayerHUD : Singleton<PlayerHUD>
         RemoveChest = 7,
         GoToSleep = 8,
         GoToWareHouse = 9,
+        Computer = 10,
     }
 
     [SerializeField] private List<GameObject> _inputTips = new List<GameObject>();

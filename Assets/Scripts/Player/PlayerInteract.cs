@@ -174,6 +174,10 @@ public class PlayerInteract : Singleton<PlayerInteract>
         bool shouldShowSleepTip =
             hasValidTarget && target.GetComponent<SleepDoor>() != null;
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.GoToSleep, shouldShowSleepTip);
+
+        bool shouldShowComputerTip =
+            hasValidTarget && target.GetComponent<Computer>() != null;
+        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Computer, shouldShowComputerTip);
     }
 
     private void UpdateOutlineAndName()

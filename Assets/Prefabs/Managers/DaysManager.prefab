@@ -48,7 +48,7 @@ MonoBehaviour:
   chestContent: []
   isInWorkshop: 1
   hasVisitedWareHouse: 0
-  truckLevel: 1
+  truckLevel: 0
   maxTruckLevel: 4
   chestLevel: 1
   maxChestLevel: 4
@@ -56,5 +56,5 @@ MonoBehaviour:
   truckSize: 0
   defaultTruckSize: 6
   truckContent: []
-  workshopSceneName: AlexScene
+  workshopSceneName: ShopScene
   warehouseSceneName: WAREHOUSEScene
