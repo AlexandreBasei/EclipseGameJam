@@ -140,12 +140,14 @@ public class DaysManager : PersistentSingleton<DaysManager>
 
     public void loadWorkShopScene()
     {
+        AudioManager.Instance.PlayMusic(MusicMainMenuAndStore);
         isInWorkshop = true;
         UnityEngine.SceneManagement.SceneManager.LoadScene(workshopSceneName);
     }
 
     public void loadWarehouseScene()
     {
+        AudioManager.Instance.PlayMusic(MusicWarehouse);
         isInWorkshop = false;
         hasVisitedWareHouse = true;
         UnityEngine.SceneManagement.SceneManager.LoadScene(warehouseSceneName);

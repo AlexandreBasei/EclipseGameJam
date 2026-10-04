@@ -17,7 +17,7 @@ public class AudioManager : PersistentSingleton<AudioManager>
     
 
     [Header("-------AudioClipMusic-------")]
-    public AudioClip MusicMainMenueAndStore;
+    public AudioClip MusicMainMenuAndStore;
     public AudioClip MusicWarehouse;
 
 
