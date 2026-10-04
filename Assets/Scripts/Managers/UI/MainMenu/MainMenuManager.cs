@@ -13,24 +13,28 @@ public class MainMenuManager : MonoBehaviour
 
     public void PlayGameOnClick()
     {
+        AudioManager.Instance.PlayClic();
         SceneManager.LoadScene("MainScene");
         // AudioManager.Instance.PlayGameMusic();
     }
 
     public void OpenCreditOnClick()
     {
+        AudioManager.Instance.PlayClic();
         LeanTween.move(mainMenuRect.gameObject, new Vector3(-offscreenX, 0f, 0f), moveDuration).setEaseOutCubic();
         LeanTween.move(creditRect.gameObject, new Vector3(0, 0f, 0f), moveDuration).setEaseOutCubic();
     }
 
     public void CloseCreditsOnClick()
     {
+        AudioManager.Instance.PlayClic();
         LeanTween.move(creditRect.gameObject, new Vector3(offscreenX, 0f, 0f), moveDuration).setEaseOutCubic();
         LeanTween.move(mainMenuRect.gameObject, new Vector3(0f, 0f, 0f), moveDuration).setEaseOutCubic();
     }
 
     public void QuitGameOnClick()
     {
+        AudioManager.Instance.PlayClic();
         Application.Quit();
     }
 }
