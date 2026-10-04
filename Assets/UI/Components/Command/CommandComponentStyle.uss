@@ -1,6 +1,8 @@
 #Main {
     max-width: 400;
     background-color: white;
+    padding: 4;
+    border-radius: 10;
 }
 
 #TextContainer {
@@ -43,6 +45,5 @@
 }
 
 .command_accepted {
-    border-width: 2;
-    border-color: green;
+    margin-top: 10;
 }

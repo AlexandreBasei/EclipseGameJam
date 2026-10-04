@@ -96,6 +96,6 @@ public class PC : MonoBehaviour
         root.Q<VisualElement>("TruckView").style.display = new StyleEnum<DisplayStyle>(TruckDisplay);
 
         root.Q<Label>("UrlLabel").text =
-            currentTab is CurrentTab.Mail ? "https://your-mail.fr" : "https://junk-car-garage";
+            currentTab is CurrentTab.Mail ? "https://your-mail.fr" : "https://junk-car-garage.fr";
     }
 }
