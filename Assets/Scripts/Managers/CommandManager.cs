@@ -57,6 +57,11 @@ public class CommandManager : PersistentSingleton<CommandManager>
         return result;
     }
 
+    public void DiscardAllCurrentsCommands()
+    {
+        currentCommands.Clear();
+    }
+
     public void AcceptCommand(CommandSO command)
     {
         command.state = CommandState.Accepted;

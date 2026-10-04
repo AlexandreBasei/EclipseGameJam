@@ -16,7 +16,6 @@
 #UpgradeContainer {
     display: flex;
     flex-direction: column;
-    margin-top: 50;
 }
 
 #UpgradeContainer > VisualElement{

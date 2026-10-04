@@ -48,8 +48,6 @@ public class PC : MonoBehaviour
     {
         int requestedAmount = int.Parse(root.Q<Label>(upgradeName).text);
         
-        // check if have money
-        
         switch (upgradeName)
         {
             case "ChestAmount":
