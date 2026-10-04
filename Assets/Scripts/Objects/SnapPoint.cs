@@ -50,9 +50,10 @@ public class SnapPoint : MonoBehaviour
 
     public bool TryGetContact(out SnapPoint contactingSnapPoint)
     {
-        _contactingSnapPoints.RemoveWhere(point => point == null);
-        if (currentItem == null)
+        _contactingSnapPoints.RemoveWhere(point => !IsContactValid(point));
+        if (currentItem == null || collider == null || !collider.enabled)
         {
+            snapPointInContact = null;
             contactingSnapPoint = null;
             return false;
         }
@@ -62,12 +63,35 @@ public class SnapPoint : MonoBehaviour
             if (point.currentItem != null &&
                 point.currentItem.GetAssemblyRoot() != currentItem.GetAssemblyRoot())
             {
+                snapPointInContact = point;
                 contactingSnapPoint = point;
                 return true;
             }
         }
 
+        snapPointInContact = null;
         contactingSnapPoint = null;
         return false;
+    }
+
+    private bool IsContactValid(SnapPoint point)
+    {
+        return point != null &&
+               point.currentItem != null &&
+               point.collider != null &&
+               collider != null &&
+               point.collider.enabled &&
+               collider.enabled &&
+               gameObject.activeInHierarchy &&
+               point.gameObject.activeInHierarchy &&
+               Physics.ComputePenetration(
+                   collider,
+                   collider.transform.position,
+                   collider.transform.rotation,
+                   point.collider,
+                   point.collider.transform.position,
+                   point.collider.transform.rotation,
+                   out _,
+                   out _);
     }
 }
