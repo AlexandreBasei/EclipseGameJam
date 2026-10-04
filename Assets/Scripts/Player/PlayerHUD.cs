@@ -21,6 +21,7 @@ public class PlayerHUD : Singleton<PlayerHUD>
     [SerializeField] private List<GameObject> _inputTips = new List<GameObject>();
 
     public PauseManager pauseManager;
+    public int moneyValue;
 
 
     private void Update()
@@ -74,5 +75,10 @@ public class PlayerHUD : Singleton<PlayerHUD>
 
             _inputTips[i].gameObject.SetActive(false);
         }
+    }
+
+    public void ChangedMoneyValue(int newValue)
+    {
+        moneyValue = newValue;
     }
 }
