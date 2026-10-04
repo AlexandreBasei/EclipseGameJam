@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class ValidateCommand : MonoBehaviour
 {
     [SerializeField] private PanelRenderer commandUi;
+    [SerializeField] private SellManager sellManager;
 
     private void Start()
     {
@@ -22,18 +23,20 @@ public class ValidateCommand : MonoBehaviour
     {
         foreach (var command in commandList)
         {
-            
             Button shipButton = new Button();
             shipButton.text = "Ship";
             shipButton.AddToClassList("shipButton");
             
             command.Q<VisualElement>("Main").hierarchy.Add(shipButton);
+            var tags = command.Q<VisualElement>("TagContainer").Children().ToList();
+            
+            var rewardAmount = command.Q<Label>("MoneyReward").text.Split("$")[0];
             shipButton.RegisterCallback<ClickEvent>(e => ShipProduct());
         } 
     }
 
     private void ShipProduct()
     {
-        //TODO
+       
     }
 }
