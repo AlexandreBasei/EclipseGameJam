@@ -4507,6 +4507,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1392232588430232926, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3505688683066189930, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3505688683066189930, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 3505688683066189930, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -300
+      objectReference: {fileID: 0}
+    - target: {fileID: 3505688683066189930, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 6035429065791770283, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.807934
@@ -4546,6 +4566,22 @@ PrefabInstance:
     - target: {fileID: 6035429065791770283, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410978119461825996, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
+      propertyPath: m_text
+      value: "Find and collect the materials needed to fulfill orders within the time limit. Be careful, you can't bring everything back to the store.\_Once the trunk is full you can take it to leave"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410978119461825996, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
+      propertyPath: m_fontSize
+      value: 36.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410978119461825996, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410978119461825996, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
