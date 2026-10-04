@@ -5,7 +5,17 @@ using System.Collections.Generic;
 public class Item : MonoBehaviour, IInteractable
 {
     private const int MaxAssemblyItems = 3;
-    private const float HeldCollisionPadding = 0.02f;
+    private const float HeldCollisionPadding = 0.05f;
+    private const int DepenetrationIterations = 8;
+    private readonly Collider[] _overlapBuffer = new Collider[32];
+    private int _debugFallFramesLeft;
+    private bool _pendingRelease;
+    private Transform _pendingPlayerRoot;
+    private const float DropLiftOffset = 0.03f;
+    private const float MinHeldDistance = 0.5f;          // distance minimale caméra -> centre de l'objet tenu
+    private const float MaxHeldOffset = 1f;              // décalage max autorisé après un snap
+    private const float HeldOffsetRecenterSpeed = 2f;    // m/s : vitesse de recentrage après un snap
+    private const float MaxDepenetrationVelocity = 2f;
 
     public ObjectSO itemData;
     private readonly List<Item> _assemblyItems = new List<Item>();
@@ -70,6 +80,9 @@ public class Item : MonoBehaviour, IInteractable
         RefreshAssemblyItems();
         _outline = GetComponent<Outline>();
         _rb = GetComponent<Rigidbody>();
+        if (_rb != null)
+            _rb.maxDepenetrationVelocity = MaxDepenetrationVelocity;
+
         if (_itemNameText != null && itemData != null)
         {
             _itemNameText.text = itemData.objectName;
@@ -89,7 +102,8 @@ public class Item : MonoBehaviour, IInteractable
         print(AssemblyItems.Count);
     }
 
-    private void UpdateHeldPosition()
+    // Point devant le joueur où l'objet tenu est censé se trouver (sans offset de snap)
+    private Vector3 ComputeHeldBasePosition()
     {
         Vector3 cameraForward = _heldCamera.transform.forward;
         Vector3 horizontalForward = Vector3.ProjectOnPlane(cameraForward, Vector3.up);
@@ -99,14 +113,40 @@ public class Item : MonoBehaviour, IInteractable
 
         horizontalForward.Normalize();
 
-        float verticalComponent = Mathf.Clamp(cameraForward.y, -0.25f, 1f);
+        float verticalComponent = Mathf.Clamp(cameraForward.y, -1f, 1f);
         Vector3 direction =
             horizontalForward * Mathf.Sqrt(1f - verticalComponent * verticalComponent) +
             Vector3.up * verticalComponent;
 
+        return _heldCamera.transform.position + direction * _heldDistance;
+    }
+
+    // Recalcule l'offset pour que le centre ACTUEL de l'assemblage ne saute pas
+    // (appelé après un merge ou un unfuse, quand les bounds changent d'un coup).
+    private void RebaseHeldOffset()
+    {
+        if (_heldCamera == null || !TryGetAssemblyBounds(out Bounds bounds))
+        {
+            _heldPositionOffset = Vector3.zero;
+            return;
+        }
+
+        Vector3 worldOffset = Vector3.ClampMagnitude(
+            bounds.center - ComputeHeldBasePosition(),
+            MaxHeldOffset);
+        _heldPositionOffset = _heldCamera.transform.InverseTransformVector(worldOffset);
+    }
+
+    private void UpdateHeldPosition()
+    {
+        // L'offset de snap se résorbe doucement : l'assemblage glisse vers le point de tenue
+        _heldPositionOffset = Vector3.MoveTowards(
+            _heldPositionOffset,
+            Vector3.zero,
+            HeldOffsetRecenterSpeed * Time.deltaTime);
+
         Vector3 heldPosition =
-            _heldCamera.transform.position +
-            direction * _heldDistance +
+            ComputeHeldBasePosition() +
             _heldCamera.transform.TransformVector(_heldPositionOffset);
 
         bool hasBounds = TryGetAssemblyBounds(out Bounds bounds);
@@ -117,6 +157,17 @@ public class Item : MonoBehaviour, IInteractable
             _heldCamera.transform.position,
             heldPosition,
             halfExtents);
+
+        // Empêche l'objet de se retrouver collé dans la caméra (gros assemblage près d'un obstacle)
+        Vector3 cameraPosition = _heldCamera.transform.position;
+        Vector3 fromCamera = unobstructedPosition - cameraPosition;
+        if (fromCamera.magnitude < MinHeldDistance)
+        {
+            Vector3 pushDirection = fromCamera.sqrMagnitude > 0.0001f
+                ? fromCamera.normalized
+                : _heldCamera.transform.forward;
+            unobstructedPosition = cameraPosition + pushDirection * MinHeldDistance;
+        }
 
         if (hasBounds)
             transform.position += unobstructedPosition - bounds.center;
@@ -193,6 +244,8 @@ public class Item : MonoBehaviour, IInteractable
             _rb.linearVelocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;
             _rb.isKinematic = true;
+            _pendingRelease = false;
+            _pendingPlayerRoot = null;
             SetAssemblyCollidersEnabled(false);
 
             SetAssemblyPresentationVisible(false);
@@ -226,15 +279,111 @@ public class Item : MonoBehaviour, IInteractable
         if (!_isGrabbed)
             return;
 
+        Transform playerRoot = _heldCamera != null ? _heldCamera.transform.root : null;
+        Vector3 dropPosition = transform.position + Vector3.up * DropLiftOffset;
+        Quaternion dropRotation = transform.rotation;
+
         transform.SetParent(null, true);
+        transform.SetPositionAndRotation(dropPosition, dropRotation);
         _isGrabbed = false;
         _heldCamera = null;
         _heldPositionOffset = Vector3.zero;
+
+        // Le rigidbody reste kinematic : on réactive les colliders et on sort
+        // manuellement l'objet de tout ce qu'il chevauche AVANT que la physique ne s'en mêle.
+        SetAssemblyCollidersEnabled(true);
+        Physics.SyncTransforms();
+
+        Debug.Log($"[Drop] pos={transform.position} interp={_rb.interpolation} kinematic={_rb.isKinematic} gravity={_rb.useGravity} mass={_rb.mass}", this);
+        ResolveDropPenetration(playerRoot);
+
         _rb.position = transform.position;
+        _rb.rotation = transform.rotation;
+
+        // Le Rigidbody reste kinematic : il ne devient dynamique qu'au prochain FixedUpdate
+        _pendingPlayerRoot = playerRoot;
+        _pendingRelease = true;
+    }
+
+    void FixedUpdate()
+    {
+        if (_debugFallFramesLeft > 0 && _rb != null && !_rb.isKinematic)
+        {
+            Debug.Log($"[Fall] frames restantes={_debugFallFramesLeft} pos={_rb.position} vel={_rb.linearVelocity} |vel|={_rb.linearVelocity.magnitude:F2}", this);
+            _debugFallFramesLeft--;
+        }
+
+        if (!_pendingRelease)
+            return;
+
+        _pendingRelease = false;
+        if (_rb == null)
+            return;
+
+        // Dernière vérification juste avant que la physique ne reprenne la main
+        ResolveDropPenetration(_pendingPlayerRoot);
+        _pendingPlayerRoot = null;
+
+        _rb.position = transform.position;
+        _rb.rotation = transform.rotation;
+        _rb.isKinematic = false;
+        _rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        _rb.maxDepenetrationVelocity = MaxDepenetrationVelocity;
         _rb.linearVelocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
-        _rb.isKinematic = false;
-        SetAssemblyCollidersEnabled(true);
+        _rb.WakeUp();
+        _debugFallFramesLeft = 15;
+    }
+
+    // Déplace l'objet hors de tous les colliders qu'il chevauche (sol, murs, meubles...).
+    // Nécessite des colliders primitifs ou Mesh convexes sur l'item.
+    private void ResolveDropPenetration(Transform playerRoot)
+    {
+        Collider[] myColliders = GetComponentsInChildren<Collider>();
+
+        for (int iteration = 0; iteration < DepenetrationIterations; iteration++)
+        {
+            bool moved = false;
+
+            foreach (Collider mine in myColliders)
+            {
+                if (!mine.enabled || mine.isTrigger)
+                    continue;
+
+                Bounds b = mine.bounds;
+                int count = Physics.OverlapBoxNonAlloc(
+                    b.center,
+                    b.extents,
+                    _overlapBuffer,
+                    Quaternion.identity,
+                    ~0,
+                    QueryTriggerInteraction.Ignore);
+
+                for (int i = 0; i < count; i++)
+                {
+                    Collider other = _overlapBuffer[i];
+                    if (other == null || other == mine || other.transform.IsChildOf(transform))
+                        continue;
+
+                    if (playerRoot != null && other.transform.IsChildOf(playerRoot))
+                        continue;
+
+                    if (Physics.ComputePenetration(
+                            mine, mine.transform.position, mine.transform.rotation,
+                            other, other.transform.position, other.transform.rotation,
+                            out Vector3 direction, out float distance))
+                    {
+                        Debug.Log($"[Drop] PÉNÈTRE : {other.name} (layer {LayerMask.LayerToName(other.gameObject.layer)}) dir={direction} dist={distance:F3} (collider item : {mine.name})", other);
+                        transform.position += direction * (distance + 0.001f);
+                        Physics.SyncTransforms();
+                        moved = true;
+                    }
+                }
+            }
+
+            if (!moved)
+                break;
+        }
     }
 
     public void AddToChest()
@@ -291,8 +440,6 @@ public class Item : MonoBehaviour, IInteractable
 
             Vector3 snapOffset = contactingSnapPoint.transform.position - snapPoint.transform.position;
             transform.position += snapOffset;
-            if (_heldCamera != null)
-                _heldPositionOffset += _heldCamera.transform.InverseTransformVector(snapOffset);
 
             if (isInChest)
                 RemoveFromChest();
@@ -300,6 +447,7 @@ public class Item : MonoBehaviour, IInteractable
                 otherRoot.RemoveFromChest();
 
             otherRoot.MergeInto(this);
+            RebaseHeldOffset();
             return;
         }
     }
@@ -322,12 +470,9 @@ public class Item : MonoBehaviour, IInteractable
             if (item._rb == null)
                 item._rb = item.gameObject.AddComponent<Rigidbody>();
 
+            item._rb.maxDepenetrationVelocity = MaxDepenetrationVelocity;
             item._rb.detectCollisions = true;
-            item._rb.isKinematic = false;
-            item._rb.linearVelocity = Vector3.zero;
-            item._rb.angularVelocity = Vector3.zero;
-            item._rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-            item._rb.WakeUp();
+            item._rb.isKinematic = true; // reste kinematic jusqu'au prochain FixedUpdate
 
             item.SetItemCollidersEnabled(true);
 
@@ -336,6 +481,23 @@ public class Item : MonoBehaviour, IInteractable
         }
 
         Physics.SyncTransforms();
+        RebaseHeldOffset();
+
+        // Une fois TOUS les items détachés, on les écarte de ce qu'ils chevauchent
+        // (sol, joueur ignoré, et les autres pièces de l'assemblage), puis on diffère la physique.
+        Transform playerRoot = _heldCamera != null ? _heldCamera.transform.root : null;
+        foreach (Item item in assemblyItems)
+        {
+            if (item == this)
+                continue;
+
+            item.ResolveDropPenetration(playerRoot);
+            item._rb.position = item.transform.position;
+            item._rb.rotation = item.transform.rotation;
+            item._pendingPlayerRoot = playerRoot;
+            item._pendingRelease = true;
+        }
+
         RefreshAssemblyItems();
         foreach (Item item in assemblyItems)
         {
