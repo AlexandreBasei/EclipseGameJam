@@ -1,5 +1,6 @@
 #Main {
     max-width: 400;
+    background-color: white;
 }
 
 #TextContainer {
@@ -13,7 +14,10 @@
 }
 
 #TextContainer > #MoneyReward {
-    color: green;
+    padding: 8;
+    border-radius: 5;
+    background-color: darkgreen;
+    color: white;
     -unity-font-style: bold;
 }
 

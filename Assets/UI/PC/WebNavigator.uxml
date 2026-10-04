@@ -1,8 +1,13 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/PC/WebNavigatorStyle.uss?fileID=7433441132597879392&amp;guid=fc24a64f3f4c5cc41a366899b1747c60&amp;type=3#WebNavigatorStyle"/>
     <ui:VisualElement name="Main" style="flex-grow: 1;">
-        <ui:VisualElement name="Title">
-            <ui:Label text="IceFox" name="NavigatorName"/>
+        <ui:VisualElement name="Top">
+            <ui:VisualElement name="Title">
+                <ui:Label text="IceFox" name="NavigatorName"/>
+            </ui:VisualElement>
+            <ui:Button text="" name="Actions">
+                <ui:Image source="project://database/Assets/UI/Images/x-10327.svg?fileID=7388822144124034973&amp;guid=bb9d96bbe2716d54d97b792fd538d50d&amp;type=3#x-10327"/>
+            </ui:Button>
         </ui:VisualElement>
         <ui:VisualElement name="Header" style="flex-grow: 1;">
             <ui:VisualElement name="Url" style="flex-grow: 1;">
