@@ -54,7 +54,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
         hasVisitedWareHouse = false;
         CommandManager.Instance.DiscardAllCurrentsCommands();
         setTruckSize();
-        loadWarehouseScene();
+        loadWorkShopScene();
     }
 
     public void AddToTruck(Item item)

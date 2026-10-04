@@ -9,7 +9,7 @@ public class Computer : MonoBehaviour, IInteractable
 
     public void PickUp(Camera playerCamera = null)
     {
-        // OUVRIR UI MAGASIN ICI
+        print("COMPUTER INTERACTION");
         return;
     }
 
