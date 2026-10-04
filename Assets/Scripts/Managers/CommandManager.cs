@@ -2,121 +2,78 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
+
+public enum ListType
+{
+    New,
+    Current
+}
 
 public class CommandManager : PersistentSingleton<CommandManager>
 {
-    public List<CommandSO> CommandSos;
-    
-    [SerializeField] private CommandList AcceptedCommandUI;
-    [SerializeField] private CommandList PCCommandList;
-    
-    public VisualTreeAsset commandComponent;
-    public VisualTreeAsset objectComponent;
-    public VisualTreeAsset tagComponent;
+    [SerializeField] private List<CommandSO> allCommands;
 
-    private void Update()
+    private List<CommandSO> newCommands;
+    private List<CommandSO> currentCommands;
+    private bool initialized;
+
+    public event Action CommandsChanged;
+
+    public IReadOnlyList<CommandSO> GetList(ListType type)
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {   
-            AcceptedCommandUI.gameObject.SetActive(!AcceptedCommandUI.gameObject.activeInHierarchy);
-        }
+        Init();
+        return type is ListType.New ? newCommands : currentCommands;
     }
 
-    public List<CommandSO> CurrentCommands()
-    {
-        List<CommandSO> filterList = new List<CommandSO>();
+    private void Start() => Init();
 
-        foreach (var commandSo in CommandSos)
+    private void Init()
+    {
+        if (initialized) return;
+        initialized = true;
+
+        currentCommands = allCommands.Where(c => c.state is CommandState.Accepted).ToList();
+        newCommands = PickNewCommands();
+    }
+
+    private List<CommandSO> PickNewCommands()
+    {
+        var available = allCommands
+            .Distinct()
+            .Where(c => c.state is not (CommandState.Accepted or CommandState.Declined or CommandState.Finished))
+            .ToList();
+
+        var result = new List<CommandSO>();
+        int count = Mathf.Min(DaysManager.Instance.currentDay, available.Count);
+
+        for (int i = 0; i < count; i++)
         {
-            if (commandSo.state is CommandState.Accepted)
-            {
-                filterList.Add(commandSo);
-            }
+            int index = Random.Range(0, available.Count);
+            result.Add(available[index]);
+            available.RemoveAt(index);
         }
 
-        return filterList;
+        return result;
     }
 
-    public List<CommandSO> NewCommands()
+    public void AcceptCommand(CommandSO command)
     {
-        List<CommandSO> newCommands = new List<CommandSO>();
+        command.state = CommandState.Accepted;
+        newCommands.Remove(command);
 
+        if (!currentCommands.Contains(command))
+            currentCommands.Add(command);
 
-        return newCommands;
+        CommandsChanged?.Invoke();
     }
 
-    private void CreateCommandElement(CommandList uiDocument)
+    public void DeclineCommand(CommandSO command)
     {
-        foreach (var command in CommandSos)
-        { 
-            ListView listCommand = uiDocument.uiRoot.Q<ListView>("CommandList");
-            
-            if (command.state is CommandState.Declined or CommandState.Finished)
-                continue;
-            
-            //Create the command component
-            VisualElement t_newCommand = commandComponent.Instantiate();
-            t_newCommand.Q<Label>("ClientName").text = command.clientName;
-            t_newCommand.Q<Label>("MoneyReward").text = $"{command.moneyReward}$";
+        command.state = CommandState.Declined;
+        newCommands.Remove(command);
+        currentCommands.Remove(command);
 
-            // Create the object component
-            VisualElement t_newCommandObject = objectComponent.Instantiate();
-            t_newCommandObject.Q<Label>("ObjectName").text = $"Object : {command.ObjectSO.objectName}";
-            
-            // Generate the associated tags of the object
-            GenerateTag(command.ObjectSO.tags, t_newCommandObject);
-            
-            //Insert the new object inside the command
-            t_newCommand.Q<VisualElement>("Main").hierarchy.Insert(1, t_newCommandObject);
-            
-            if (command.state == CommandState.Accepted)
-            {
-                t_newCommand.Q<VisualElement>("Main").AddToClassList("command_accepted");
-                t_newCommand.Q<VisualElement>("ButtonContainer").RemoveFromHierarchy();
-            }
-            else
-            {
-                var buttons = t_newCommand.Q<VisualElement>("ButtonContainer");
-
-                buttons.Q<Button>("AcceptButton").RegisterCallback<ClickEvent>(e =>
-                {
-                    command.state = CommandState.Accepted;
-                    t_newCommand.Q<VisualElement>("Main").AddToClassList("command_accepted");
-                    buttons.RemoveFromHierarchy();
-                });
-
-                buttons.Q<Button>("DeclineButton").RegisterCallback<ClickEvent>(e =>
-                {
-                    command.state = CommandState.Declined;
-                    CommandSos.Remove(command);
-                    t_newCommand.RemoveFromHierarchy();
-                });
-            }
-            
-            // Insert the new command into the list
-            listCommand.hierarchy.Add(t_newCommand);
-        }
-    }
-    
-    private void GenerateTag(Tag objectTags, VisualElement objectContainer)
-    {
-        var query = Enum.GetValues(typeof(Tag))
-            .Cast<Tag>()
-            .Where(tag => tag != Tag.None && objectTags.HasFlag(tag)).ToList();
-
-        if (query.Count < 2)
-            objectContainer.Q<VisualElement>("TagContainer").hierarchy.Add(CreateTagElement("None"));
-        else
-            foreach (Tag tag in query) 
-                objectContainer.Q<VisualElement>("TagContainer").hierarchy.Add(CreateTagElement($"{tag}"));
-    }
-    
-    private VisualElement CreateTagElement(string text)
-    {
-        VisualElement t_newTagComponent = CommandManager.Instance.tagComponent.Instantiate();
-        t_newTagComponent.Q<Label>("TagName").text = text;
-
-        return t_newTagComponent;
+        CommandsChanged?.Invoke();
     }
 }
