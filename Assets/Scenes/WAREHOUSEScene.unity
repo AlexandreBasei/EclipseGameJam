@@ -149,9 +149,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DaysManager
   currentDay: 1
-  items: []
+  chestContent: []
   isInWorkshop: 0
   truckLevel: 1
+  maxTruckLevel: 4
+  chestLevel: 1
+  maxChestLevel: 4
+  truckSize: 0
+  defaultTruckSize: 6
   truckContent: []
   workshopSceneName: AlexScene
   warehouseSceneName: WAREHOUSEScene
@@ -4427,7 +4432,7 @@ PrefabInstance:
       addedObject: {fileID: 2074265264}
     - targetCorrespondingSourceObject: {fileID: 1835501386075370, guid: 20d6170d440e52b438267a860798bb0a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2074265265}
+      addedObject: {fileID: 2074265269}
   m_SourcePrefab: {fileID: 100100000, guid: 20d6170d440e52b438267a860798bb0a, type: 3}
 --- !u!1001 &1985812549
 PrefabInstance:
@@ -5532,7 +5537,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.31014594, y: 1.1841489, z: 1.0417832}
   m_Center: {x: 0.14959492, y: 0.1822753, z: -0.5208915}
---- !u!114 &2074265265
+--- !u!114 &2074265269
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5541,10 +5546,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2074265259}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dfe03de4c3a5044e9b581dc9d9605b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 625dd5359be0dd341b654a4dfcff7c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarDoor
-  sceneName: MainScene
+  _outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  _highlightedOutlineColor: {r: 0.38203105, g: 0.38203096, b: 0.9528302, a: 1}
+  isDoorOpen: 0
 --- !u!1001 &2115614373
 PrefabInstance:
   m_ObjectHideFlags: 0

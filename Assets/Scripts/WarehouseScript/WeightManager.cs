@@ -10,6 +10,7 @@ public class WeightManager : Singleton<WeightManager>
 
     private void Start()
     {
+        SliderBar.maxValue = DaysManager.Instance.truckSize;
         OnSliderChanged(SliderBar.value);
     }
 
@@ -49,9 +50,5 @@ public class WeightManager : Singleton<WeightManager>
         {
             ImageBarFill.color = Color.green;
         }
-
-        
-
-
     }
 }

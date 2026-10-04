@@ -27,5 +27,6 @@ public class ObjectSO : ScriptableObject
 {
     public string objectName;
     public Tag tags;
+    public GameObject prefab;
 }
 

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Blup
   tags: 68
+  prefab: {fileID: 2016549094676421755, guid: 0bfe529c162f2b742b8128fbc1c3f466, type: 3}
