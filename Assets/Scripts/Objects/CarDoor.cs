@@ -10,16 +10,31 @@ public class CarDoor : MonoBehaviour, IInteractable
 
     public void PickUp(Camera playerCamera = null)
     {
+        if (DaysManager.Instance.isInWorkshop && DaysManager.Instance.hasVisitedWareHouse)
+        {
+            return;
+        }
         isDoorOpen = true;
         GetComponent<Outline>().enabled = false;
         PlayerHUD.Instance.HideAllInputTips();
 
         // Son démarrage de la voiture
 
-        Invoke(nameof(goToWorkShop), 1.5f);
-        
+        if (DaysManager.Instance.isInWorkshop)
+        {
+            Invoke(nameof(goToWareHouse), 1.5f);
+        }
+        else
+        {
+            Invoke(nameof(goToWorkShop), 1.5f);
+        }
+
     }
 
+    private void goToWareHouse()
+    {
+        DaysManager.Instance.loadWarehouseScene();
+    }
     private void goToWorkShop()
     {
         DaysManager.Instance.loadWorkShopScene();

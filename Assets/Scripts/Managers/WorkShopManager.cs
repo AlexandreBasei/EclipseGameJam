@@ -25,5 +25,7 @@ public class WorkShopManager : MonoBehaviour
 
             Instantiate(chestItems[i], chestSpawnPoints[i].position, chestSpawnPoints[i].rotation);
         }
+
+        DaysManager.Instance.chestContent = new GameObject[DaysManager.Instance.maxChestLevel];
     }
 }
