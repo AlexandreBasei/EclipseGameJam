@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Lighter
   tags: 392
+  prefab: {fileID: 1179789650271714, guid: d6b3d932dd0157c4a9bd3f6890bfbf11, type: 3}

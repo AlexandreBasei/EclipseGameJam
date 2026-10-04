@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Valve
   tags: 67
+  prefab: {fileID: 7955927475527889797, guid: 2b9a200001d077846a465b74573716a5, type: 3}

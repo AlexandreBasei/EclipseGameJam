@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Barrel
   tags: 263232
+  prefab: {fileID: 924589539612020396, guid: 0bc8c20820a0e7c409c37d7a50e7aadf, type: 3}

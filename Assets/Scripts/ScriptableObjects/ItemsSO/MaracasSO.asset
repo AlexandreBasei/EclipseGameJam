@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Maracas
   tags: 14368
+  prefab: {fileID: 5219225256927356630, guid: d83dfc18ab503cb42a801a2d1c16ab54, type: 3}

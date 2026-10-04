@@ -8,6 +8,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
     public GameObject[] chestContent;
 
     public bool isInWorkshop = false;
+    public bool hasVisitedWareHouse = false;
 
     public int truckLevel = 0;
     public int maxTruckLevel = 4;
@@ -26,7 +27,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
     protected override void Awake()
     {
         base.Awake();
-        chestContent = new GameObject[4];
+        chestContent = new GameObject[maxChestLevel];
         truckSize = defaultTruckSize;
         setTruckSize();
     }
@@ -36,6 +37,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
         currentDay++;
         itemsInChest = 0;
         truckContentIndex = 0;
+        hasVisitedWareHouse = false;
         setTruckSize();
         loadWarehouseScene();
     }
@@ -123,6 +125,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
     public void loadWarehouseScene()
     {
         isInWorkshop = false;
+        hasVisitedWareHouse = true;
         UnityEngine.SceneManagement.SceneManager.LoadScene(warehouseSceneName);
     }
 }

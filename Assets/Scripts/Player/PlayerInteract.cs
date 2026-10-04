@@ -27,6 +27,8 @@ public class PlayerInteract : Singleton<PlayerInteract>
     [SerializeField] private KeyCode _unFuseKey = KeyCode.R;
     [SerializeField] private KeyCode _chestKey = KeyCode.F;
 
+    public MoneyUI moneyUi;
+
     protected override void Awake()
     {
         base.Awake();
@@ -74,6 +76,19 @@ public class PlayerInteract : Singleton<PlayerInteract>
                 }
             }
         }
+
+        /*
+        if(Input.GetKeyDown(KeyCode.Mouse1))
+        {
+           moneyUi.UpdateMoney(200); 
+        }
+
+        if(Input.GetKeyDown(KeyCode.Mouse2))
+        {
+           moneyUi.UpdateMoney(-200); 
+        }
+        */
+            
     }
 
     private void UpdateCurrentTarget()
@@ -124,7 +139,11 @@ public class PlayerInteract : Singleton<PlayerInteract>
 
         Outline target = hit.collider.GetComponentInParent<Outline>();
 
-        return target != null && IsOutlineInRange(target) ? target : null;
+        return target != null
+            && !IsUnavailableCarDoor(target)
+            && IsOutlineInRange(target)
+                ? target
+                : null;
     }
 
     private void UpdateInputTip(Outline target)
@@ -159,13 +178,21 @@ public class PlayerInteract : Singleton<PlayerInteract>
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.AddChest, ShouldShowAddChestTip);
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.RemoveChest, ShouldShowRemoveChestTip);
 
-        bool shouldShowCarTip =
-            hasValidTarget && target.TryGetComponent<CarDoor>(out CarDoor carDoor) && !carDoor.isDoorOpen;
-        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.StartCar, shouldShowCarTip);
+        bool shouldShowCarToWorkShopTip =
+            hasValidTarget && target.TryGetComponent<CarDoor>(out CarDoor carDoorWork) && !carDoorWork.isDoorOpen && !DaysManager.Instance.isInWorkshop;
+        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.StartCar, shouldShowCarToWorkShopTip);
+
+        bool shouldShowCarToWarehouseTip =
+            hasValidTarget && target.TryGetComponent<CarDoor>(out CarDoor carDoorWare) && !carDoorWare.isDoorOpen && DaysManager.Instance.isInWorkshop && !DaysManager.Instance.hasVisitedWareHouse;
+        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.GoToWareHouse, shouldShowCarToWarehouseTip);
 
         bool shouldShowSleepTip =
             hasValidTarget && target.GetComponent<SleepDoor>() != null;
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.GoToSleep, shouldShowSleepTip);
+
+        bool shouldShowComputerTip =
+            hasValidTarget && target.GetComponent<Computer>() != null;
+        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Computer, shouldShowComputerTip);
     }
 
     private void UpdateOutlineAndName()
@@ -231,7 +258,10 @@ public class PlayerInteract : Singleton<PlayerInteract>
             return;
         }
 
-        if (_currentTarget == null || !IsOutlineInRange(_currentTarget))
+        if (_currentTarget == null
+            || !IsOutlineInRange(_currentTarget)
+            || IsUnavailableCarDoor(_currentTarget)
+            || !IsOutlineInRange(_currentTarget))
         {
             _isInteracting = false;
             return;
@@ -279,6 +309,16 @@ public class PlayerInteract : Singleton<PlayerInteract>
         return false;
     }
 
+    private bool IsUnavailableCarDoor(Outline outline)
+    {
+        if (outline == null || DaysManager.Instance == null)
+            return false;
+
+        return outline.GetComponent<CarDoor>() != null
+            && DaysManager.Instance.isInWorkshop
+            && DaysManager.Instance.hasVisitedWareHouse;
+    }
+
     void OnTriggerEnter(Collider other)
     {
         _collidersInRange.Add(other);
@@ -286,7 +326,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
         Outline outline = other.GetComponentInParent<Outline>();
         if (outline != null)
         {
-            outline.enabled = true;
+            outline.enabled = !IsUnavailableCarDoor(outline);
         }
     }
 
