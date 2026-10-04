@@ -13,7 +13,8 @@ public class PlayerHUD : Singleton<PlayerHUD>
         StartCar = 5,
         AddChest = 6,
         RemoveChest = 7,
-        GoToSleep = 8
+        GoToSleep = 8,
+        GoToWareHouse = 9,
     }
 
     [SerializeField] private List<GameObject> _inputTips = new List<GameObject>();
