@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Basketball
   tags: 131200
+  prefab: {fileID: 4850077701257718920, guid: 7335fcb0559a71d4e856da0035207d55, type: 3}
