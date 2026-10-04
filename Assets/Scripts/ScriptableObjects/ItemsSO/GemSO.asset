@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Gem
   tags: 16
+  prefab: {fileID: 157733734484016851, guid: 698e9848e227cf5409ead11843b29a43, type: 3}

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Pillow
   tags: 17408
+  prefab: {fileID: 6401121072109068611, guid: ae3ff73151bf95944bca9fbf8f8fe1c4, type: 3}

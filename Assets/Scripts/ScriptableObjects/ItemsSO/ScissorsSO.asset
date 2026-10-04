@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Scissors
   tags: 65728
+  prefab: {fileID: 3371551942741173760, guid: dadbcd6ba15ae384e81417c70eb6042d, type: 3}

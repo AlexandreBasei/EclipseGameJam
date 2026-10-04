@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Tamburin
   tags: 6177
+  prefab: {fileID: 2950461431040985199, guid: 2f01e22c5c900a749b41862338500436, type: 3}

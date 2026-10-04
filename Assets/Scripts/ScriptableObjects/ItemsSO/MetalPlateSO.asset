@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: MetalPlate
   tags: 1088
+  prefab: {fileID: 875592293403979317, guid: 5958a410fcbea1e49b7dfcca7a4c9b15, type: 3}

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: SprayCan
   tags: 32832
+  prefab: {fileID: 7849058340064277874, guid: c8f8ad66a3c2db74bbdbb07319f5cb44, type: 3}

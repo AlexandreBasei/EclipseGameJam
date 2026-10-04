@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Sink
   tags: 262148
+  prefab: {fileID: 2810371587684432387, guid: 530471c9ccbc93a4eb02137f80eaeabe, type: 3}
