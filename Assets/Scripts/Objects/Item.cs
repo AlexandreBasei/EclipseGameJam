@@ -9,13 +9,20 @@ public class Item : MonoBehaviour, IInteractable
     private const int DepenetrationIterations = 8;
     private readonly Collider[] _overlapBuffer = new Collider[32];
     private int _debugFallFramesLeft;
+    private bool _warnedUnsupportedPenetration;
     private bool _pendingRelease;
     private Transform _pendingPlayerRoot;
+    private Vector3 _pendingRetreatPoint;
     private const float DropLiftOffset = 0.03f;
+    private const float GroundRecoveryY = 0.5f;
     private const float MinHeldDistance = 0.5f;          // distance minimale caméra -> centre de l'objet tenu
     private const float MaxHeldOffset = 1f;              // décalage max autorisé après un snap
+    private const float MaxPenetrationStep = 0.5f;       // une correction plus grande est jugée aberrante
+    private const int RetreatSteps = 30;                 // pas pour ramener l'objet vers le joueur
+    private const float LiftSearchHeight = 3f;           // hauteur max testée en dernier recours
+    private const float LiftSearchStep = 0.05f;
     private const float HeldOffsetRecenterSpeed = 2f;    // m/s : vitesse de recentrage après un snap
-    private const float MaxDepenetrationVelocity = 2f;
+    private const float MaxDepenetrationVelocity = 8f;
 
     public ObjectSO itemData;
     private readonly List<Item> _assemblyItems = new List<Item>();
@@ -280,6 +287,7 @@ public class Item : MonoBehaviour, IInteractable
             return;
 
         Transform playerRoot = _heldCamera != null ? _heldCamera.transform.root : null;
+        Vector3 retreatPoint = _heldCamera != null ? _heldCamera.transform.position : transform.position;
         Vector3 dropPosition = transform.position + Vector3.up * DropLiftOffset;
         Quaternion dropRotation = transform.rotation;
 
@@ -295,13 +303,14 @@ public class Item : MonoBehaviour, IInteractable
         Physics.SyncTransforms();
 
         Debug.Log($"[Drop] pos={transform.position} interp={_rb.interpolation} kinematic={_rb.isKinematic} gravity={_rb.useGravity} mass={_rb.mass}", this);
-        ResolveDropPenetration(playerRoot);
+        ResolveDropPenetration(playerRoot, retreatPoint);
 
         _rb.position = transform.position;
         _rb.rotation = transform.rotation;
 
         // Le Rigidbody reste kinematic : il ne devient dynamique qu'au prochain FixedUpdate
         _pendingPlayerRoot = playerRoot;
+        _pendingRetreatPoint = retreatPoint;
         _pendingRelease = true;
     }
 
@@ -321,7 +330,7 @@ public class Item : MonoBehaviour, IInteractable
             return;
 
         // Dernière vérification juste avant que la physique ne reprenne la main
-        ResolveDropPenetration(_pendingPlayerRoot);
+        ResolveDropPenetration(_pendingPlayerRoot, _pendingRetreatPoint);
         _pendingPlayerRoot = null;
 
         _rb.position = transform.position;
@@ -336,12 +345,14 @@ public class Item : MonoBehaviour, IInteractable
     }
 
     // Déplace l'objet hors de tous les colliders qu'il chevauche (sol, murs, meubles...).
-    // Nécessite des colliders primitifs ou Mesh convexes sur l'item.
-    private void ResolveDropPenetration(Transform playerRoot)
+    private void ResolveDropPenetration(Transform playerRoot, Vector3 retreatPoint)
     {
         Collider[] myColliders = GetComponentsInChildren<Collider>();
+        Vector3 startPosition = transform.position;
+        bool suspicious = false;
+        bool penetratesGround = false;
 
-        for (int iteration = 0; iteration < DepenetrationIterations; iteration++)
+        for (int iteration = 0; iteration < DepenetrationIterations && !suspicious; iteration++)
         {
             bool moved = false;
 
@@ -368,22 +379,209 @@ public class Item : MonoBehaviour, IInteractable
                     if (playerRoot != null && other.transform.IsChildOf(playerRoot))
                         continue;
 
-                    if (Physics.ComputePenetration(
-                            mine, mine.transform.position, mine.transform.rotation,
-                            other, other.transform.position, other.transform.rotation,
-                            out Vector3 direction, out float distance))
+                    if (TryComputePenetration(mine, other, out Vector3 direction, out float distance, out bool supported))
                     {
-                        Debug.Log($"[Drop] PÉNÈTRE : {other.name} (layer {LayerMask.LayerToName(other.gameObject.layer)}) dir={direction} dist={distance:F3} (collider item : {mine.name})", other);
+                        if (direction.y > 0.7f && other.bounds.center.y < mine.bounds.center.y)
+                            penetratesGround = true;
+
+                        bool hasRendererBounds = TryGetAssemblyBounds(out Bounds rendererBounds);
+                        Debug.Log(
+                            $"[Drop] PÉNÈTRE : {other.name} ({other.GetType().Name}, layer {LayerMask.LayerToName(other.gameObject.layer)}) dir={direction} dist={distance:F3}\n" +
+                            $"  autre.bounds = {other.bounds}\n" +
+                            $"  item ({mine.GetType().Name} sur '{mine.name}').bounds = {mine.bounds}\n" +
+                            $"  renderers.bounds = {(hasRendererBounds ? rendererBounds.ToString() : "aucun")}\n" +
+                            $"  pivot de l'item = {transform.position}",
+                            other);
+                        if (distance > MaxPenetrationStep)
+                        {
+                            suspicious = true;
+                            break;
+                        }
+
                         transform.position += direction * (distance + 0.001f);
                         Physics.SyncTransforms();
                         moved = true;
                     }
+                    else if (!supported)
+                    {
+                        WarnUnsupportedPenetration(mine, other);
+                    }
                 }
+
+                if (suspicious)
+                    break;
             }
 
             if (!moved)
                 break;
         }
+
+        // Une correction énorme (ex. plusieurs mètres) n'est pas crédible pour un objet tenu devant
+        // le joueur : on annule tout et on ramène l'objet vers le joueur à la place.
+        float totalMoved = (transform.position - startPosition).magnitude;
+        if (suspicious || totalMoved > MaxPenetrationStep * 2f)
+        {
+            Debug.LogWarning($"[Drop] Correction aberrante annulée (déplacement total={totalMoved:F2}) -> repli vers le joueur", this);
+            transform.position = startPosition;
+            Physics.SyncTransforms();
+            RetreatToFreeSpace(myColliders, playerRoot, retreatPoint);
+        }
+
+        if (penetratesGround)
+        {
+            Vector3 recoveredPosition = transform.position;
+            recoveredPosition.y = GroundRecoveryY;
+            transform.position = recoveredPosition;
+            Physics.SyncTransforms();
+            Debug.LogWarning($"[Drop] Item détecté dans le sol, téléporté à Y={GroundRecoveryY:F1}.", this);
+        }
+    }
+
+    // Dernier recours : ramène l'objet vers le joueur (zone forcément libre), puis vers le haut.
+    private void RetreatToFreeSpace(Collider[] myColliders, Transform playerRoot, Vector3 retreatPoint)
+    {
+        Vector3 start = transform.position;
+
+        for (int step = 1; step <= RetreatSteps; step++)
+        {
+            transform.position = Vector3.Lerp(start, retreatPoint, step / (float)RetreatSteps);
+            if (!IsOverlappingWorld(myColliders, playerRoot))
+            {
+                Physics.SyncTransforms();
+                return;
+            }
+        }
+
+        for (float lift = LiftSearchStep; lift <= LiftSearchHeight; lift += LiftSearchStep)
+        {
+            transform.position = start + Vector3.up * lift;
+            if (!IsOverlappingWorld(myColliders, playerRoot))
+            {
+                Physics.SyncTransforms();
+                return;
+            }
+        }
+
+        transform.position = start;
+        Physics.SyncTransforms();
+        Debug.LogWarning("[Drop] Aucune position libre trouvée autour de l'objet", this);
+    }
+
+    // Le test par bounds sert de broadphase ; ComputePenetration filtre les faux positifs.
+    private bool IsOverlappingWorld(Collider[] myColliders, Transform playerRoot)
+    {
+        foreach (Collider mine in myColliders)
+        {
+            if (!mine.enabled || mine.isTrigger)
+                continue;
+
+            int count;
+            if (mine is BoxCollider box)
+            {
+                Transform t = box.transform;
+                Vector3 scale = t.lossyScale;
+                Vector3 half = Vector3.Scale(
+                    box.size * 0.5f,
+                    new Vector3(Mathf.Abs(scale.x), Mathf.Abs(scale.y), Mathf.Abs(scale.z)));
+                half = Vector3.Max(half - Vector3.one * 0.005f, Vector3.one * 0.001f);
+
+                count = Physics.OverlapBoxNonAlloc(
+                    t.TransformPoint(box.center),
+                    half,
+                    _overlapBuffer,
+                    t.rotation,
+                    ~0,
+                    QueryTriggerInteraction.Ignore);
+            }
+            else
+            {
+                Bounds b = mine.bounds;
+                count = Physics.OverlapBoxNonAlloc(
+                    b.center,
+                    b.extents,
+                    _overlapBuffer,
+                    Quaternion.identity,
+                    ~0,
+                    QueryTriggerInteraction.Ignore);
+            }
+
+            for (int i = 0; i < count; i++)
+            {
+                Collider other = _overlapBuffer[i];
+                if (other == null || other == mine || other.transform.IsChildOf(transform))
+                    continue;
+
+                if (playerRoot != null && other.transform.IsChildOf(playerRoot))
+                    continue;
+
+                if (TryComputePenetration(mine, other, out _, out _, out bool supported))
+                    return true;
+
+                if (!supported)
+                {
+                    WarnUnsupportedPenetration(mine, other);
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private static bool CanBePenetrationSource(Collider collider)
+    {
+        return collider is BoxCollider ||
+               collider is SphereCollider ||
+               collider is CapsuleCollider ||
+               (collider is MeshCollider meshCollider && meshCollider.convex);
+    }
+
+    // ComputePenetration requires a primitive or convex mesh as its first collider.
+    // Reverse the pair when only the other collider satisfies that requirement.
+    private static bool TryComputePenetration(
+        Collider mine,
+        Collider other,
+        out Vector3 direction,
+        out float distance,
+        out bool supported)
+    {
+        if (CanBePenetrationSource(mine))
+        {
+            supported = true;
+            return Physics.ComputePenetration(
+                mine, mine.transform.position, mine.transform.rotation,
+                other, other.transform.position, other.transform.rotation,
+                out direction, out distance);
+        }
+
+        if (CanBePenetrationSource(other))
+        {
+            supported = true;
+            bool penetrates = Physics.ComputePenetration(
+                other, other.transform.position, other.transform.rotation,
+                mine, mine.transform.position, mine.transform.rotation,
+                out direction, out distance);
+            direction = -direction;
+            return penetrates;
+        }
+
+        supported = false;
+        direction = Vector3.zero;
+        distance = 0f;
+        return false;
+    }
+
+    private void WarnUnsupportedPenetration(Collider mine, Collider other)
+    {
+        if (_warnedUnsupportedPenetration)
+            return;
+
+        _warnedUnsupportedPenetration = true;
+        Debug.LogWarning(
+            $"[Drop] Impossible de calculer la pénétration entre '{mine.name}' ({mine.GetType().Name}) et " +
+            $"'{other.name}' ({other.GetType().Name}) : aucun n'est une primitive ou un MeshCollider convexe. " +
+            "Utilisez un MeshCollider convexe ou des colliders primitifs pour ces objets.",
+            this);
     }
 
     public void AddToChest()
@@ -486,15 +684,17 @@ public class Item : MonoBehaviour, IInteractable
         // Une fois TOUS les items détachés, on les écarte de ce qu'ils chevauchent
         // (sol, joueur ignoré, et les autres pièces de l'assemblage), puis on diffère la physique.
         Transform playerRoot = _heldCamera != null ? _heldCamera.transform.root : null;
+        Vector3 retreatPoint = _heldCamera != null ? _heldCamera.transform.position : transform.position;
         foreach (Item item in assemblyItems)
         {
             if (item == this)
                 continue;
 
-            item.ResolveDropPenetration(playerRoot);
+            item.ResolveDropPenetration(playerRoot, retreatPoint);
             item._rb.position = item.transform.position;
             item._rb.rotation = item.transform.rotation;
             item._pendingPlayerRoot = playerRoot;
+            item._pendingRetreatPoint = retreatPoint;
             item._pendingRelease = true;
         }
 

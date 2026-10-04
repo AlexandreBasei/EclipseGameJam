@@ -20,6 +20,8 @@ public class PlayerInteract : Singleton<PlayerInteract>
     private Outline _highlightedOutline;
     private float _lastTimePickUpTargetWasValid = float.NegativeInfinity;
     private bool _isInteracting = false;
+    private bool _isRotatingGrabbedItem;
+    private bool _canLookBeforeItemRotation;
     private Item _grabbedItem;
     [SerializeField] private KeyCode _snapKey = KeyCode.Mouse1;
     [SerializeField] private KeyCode _rotateKey = KeyCode.E;
@@ -48,12 +50,18 @@ public class PlayerInteract : Singleton<PlayerInteract>
         {
             if (Input.GetKey(_rotateKey))
             {
+                if (!_isRotatingGrabbedItem)
+                {
+                    _canLookBeforeItemRotation = PlayerController.Instance.CanLook;
+                    _isRotatingGrabbedItem = true;
+                }
+
                 PlayerController.Instance.CanLook = false;
                 _grabbedItem.Rotate();
             }
             else
             {
-                PlayerController.Instance.CanLook = true;
+                RestoreLookAfterItemRotation();
             }
 
             if (Input.GetKeyDown(_snapKey))
@@ -239,6 +247,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
         {
             _grabbedItem.Drop();
             _grabbedItem = null;
+            RestoreLookAfterItemRotation();
             _isInteracting = false;
             return;
         }
@@ -279,6 +288,15 @@ public class PlayerInteract : Singleton<PlayerInteract>
     private void StopInteracting()
     {
         _isInteracting = false;
+    }
+
+    private void RestoreLookAfterItemRotation()
+    {
+        if (!_isRotatingGrabbedItem)
+            return;
+
+        PlayerController.Instance.CanLook = _canLookBeforeItemRotation;
+        _isRotatingGrabbedItem = false;
     }
 
     private bool IsOutlineInRange(Outline outline)
@@ -330,6 +348,8 @@ public class PlayerInteract : Singleton<PlayerInteract>
 
     void OnDisable()
     {
+        RestoreLookAfterItemRotation();
+
         if (_highlightedOutline != null)
         {
             RestoreOutlineColor();

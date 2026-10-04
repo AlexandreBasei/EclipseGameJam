@@ -39,7 +39,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
         truckContentIndex = 0;
         hasVisitedWareHouse = false;
         setTruckSize();
-        loadWarehouseScene();
+        loadWorkShopScene();
     }
 
     public void AddToTruck(Item item)
