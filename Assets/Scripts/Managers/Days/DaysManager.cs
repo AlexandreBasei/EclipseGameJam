@@ -30,6 +30,8 @@ public class DaysManager : PersistentSingleton<DaysManager>
 
     public bool tutoStarted = false;
 
+    public int tutoProgress = 0;
+
     public TextMeshProUGUI tutoText;
 
     protected override void Awake()
@@ -70,6 +72,10 @@ public class DaysManager : PersistentSingleton<DaysManager>
         {
             chestContent[itemsInChest] = item.itemData.prefab;
             itemsInChest++;
+        }
+        if(tutoFinished == false && tutoProgress == 7)
+        {
+            tutoFirstBills();
         }
     }
 
@@ -128,6 +134,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
         setTruckSize();
         tutoFinished = false;
         tutoStarted = false;
+        tutoProgress = 0;
     }
 
     public void loadWorkShopScene()
@@ -154,6 +161,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
             if (!isInWorkshop)
             {
                 tutoText.text = "Find and collect the materials needed to fulfill orders within the time limit. Be careful, you can't bring everything back to the store. Once the trunk is full you can take it to leave.";
+                tutoProgress = 4;
             }
         }
     }
@@ -172,6 +180,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
             tutoObject.SetActive(true);
             tutoText = tutoObject.GetComponent<TextMeshProUGUI>();
             tutoText.text = "Check your computer for new commands and select your first command. ";
+            tutoProgress = 1;
         }
         else
         {
@@ -179,37 +188,44 @@ public class DaysManager : PersistentSingleton<DaysManager>
             tutoObject.SetActive(true);
             tutoText = tutoObject.GetComponent<TextMeshProUGUI>();
             tutoText.text = "Welcome back home.\rTake one object and bring it close to another to merge them and thus fulfill the command.\rYou can merge a maximum of 3 objects.";
+            tutoProgress = 5;
         }
     }
 
     public void tutoFirstTruck()
     {
         tutoText.text = "Take your truck to the warehouse.";
+        tutoProgress = 3;
     }
 
     public void tutoFirstSale()
     {
         tutoText.text = "The more your item matches the criteria, the more money you'll get. \rOnce you are satisfied with the item you created, place it in the sales area and confirm the sale on the tablet.";
+        tutoProgress = 6;
     }
 
     public void tutoFirstReview()
     {
         tutoText.text = "You can review the commands you have selected by pressing TAB.";
+        tutoProgress = 2;
     }
 
     public void tutoFirstChestUse()
     {
         tutoText.text = "If you didn't use some of the items today, you can store some of them in the chest, to have them available the next day.";
+        tutoProgress = 7;
     }
 
     public void tutoFirstBills()
     {
         tutoText.text = "Your money is used for two things:\r- paying your daily rent\r- buying upgrades for the trunk or for the storage box\rGo to your computer to purchase an upgrade";
+        tutoProgress = 8;
     }
 
     public void tutoFirstSleep()
     {
         tutoText.text = "At the start of each day, the rent will be automatically debited from your account. \rDo your best to avoid going bankrupt within the next 4 days. \r\rGood Luck !";
+        tutoProgress = 9;
         tutoStarted = false;
         tutoStarted = true;
     }
