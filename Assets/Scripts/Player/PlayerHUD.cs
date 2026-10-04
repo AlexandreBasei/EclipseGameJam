@@ -11,6 +11,9 @@ public class PlayerHUD : Singleton<PlayerHUD>
         Snap = 3,
         Detach = 4,
         StartCar = 5,
+        AddChest = 6,
+        RemoveChest = 7,
+        GoToSleep = 8
     }
 
     [SerializeField] private List<GameObject> _inputTips = new List<GameObject>();

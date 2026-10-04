@@ -6,8 +6,6 @@ public interface IInteractable
     Color OutlineColor { get; }
     Color HighlightedOutlineColor { get; }
     void PickUp(Camera playerCamera = null);
-    void Rotate();
-    void TrySnap();
     void SetItemNameVisible(bool visible);
 }
 
@@ -27,6 +25,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
     [SerializeField] private KeyCode _rotateKey = KeyCode.E;
     [SerializeField] private KeyCode _dropPickUpKey = KeyCode.Mouse0;
     [SerializeField] private KeyCode _unFuseKey = KeyCode.R;
+    [SerializeField] private KeyCode _chestKey = KeyCode.F;
 
     protected override void Awake()
     {
@@ -62,6 +61,18 @@ public class PlayerInteract : Singleton<PlayerInteract>
 
             if (Input.GetKeyDown(_unFuseKey))
                 _grabbedItem.UnFuse();
+
+            if (Input.GetKeyDown(_chestKey))
+            {
+                if (_grabbedItem.isInChest)
+                {
+                    _grabbedItem.RemoveFromChest();
+                }
+                else
+                {
+                    _grabbedItem.AddToChest();
+                }
+            }
         }
     }
 
@@ -130,17 +141,27 @@ public class PlayerInteract : Singleton<PlayerInteract>
             _grabbedItem != null && _grabbedItem.CanSnap;
         bool shouldShowDetachTip =
             _grabbedItem != null && _grabbedItem.CanUnFuse;
+        bool ShouldShowAddChestTip =
+            _grabbedItem != null && !_grabbedItem.isInChest && DaysManager.Instance.chestLevel != 0 && DaysManager.Instance.itemsInChest < DaysManager.Instance.chestLevel;
+        bool ShouldShowRemoveChestTip =
+            _grabbedItem != null && _grabbedItem.isInChest;
         if (shouldShowDropTip)
             PlayerHUD.Instance.HideAllInputTips();
+
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Drop, shouldShowDropTip);
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Rotate, shouldShowDropTip);
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Snap, shouldShowSnapTip);
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Detach, shouldShowDetachTip);
-
+        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.AddChest, ShouldShowAddChestTip);
+        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.RemoveChest, ShouldShowRemoveChestTip);
 
         bool shouldShowCarTip =
             hasValidTarget && target.TryGetComponent<CarDoor>(out CarDoor carDoor) && !carDoor.isDoorOpen;
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.StartCar, shouldShowCarTip);
+
+        bool shouldShowSleepTip =
+            hasValidTarget && target.GetComponent<SleepDoor>() != null;
+        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.GoToSleep, shouldShowSleepTip);
     }
 
     private void UpdateOutlineAndName()
@@ -227,10 +248,6 @@ public class PlayerInteract : Singleton<PlayerInteract>
                 if (targetItem != null)
                 {
                     Invoke(nameof(StopInteracting), 0.2f);
-                }
-                else if (_currentTarget.TryGetComponent<CarDoor>(out CarDoor carDoor))
-                {
-                    carDoor.PickUp(_playerCamera);
                 }
             }
             else

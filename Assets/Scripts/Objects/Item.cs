@@ -12,14 +12,17 @@ public class Item : MonoBehaviour, IInteractable
     [SerializeField] private TextMeshProUGUI _itemNameText;
     [SerializeField] private Color _outlineColor = Color.white;
     [SerializeField] private Color _highlightedOutlineColor = Color.blue;
+    [SerializeField] private Color _chestHighlightColor = Color.yellow;
     [SerializeField, Min(0.1f)] private float _heldDistance = 2f;
     public Color OutlineColor => _outlineColor;
     public Color HighlightedOutlineColor => _highlightedOutlineColor;
+    [HideInInspector] public bool isInChest = false;
     private Outline _outline;
     private bool _isGrabbed = false;
     private Rigidbody _rb;
     private Camera _heldCamera;
     private Vector3 _heldPositionOffset;
+    private Color defaultOutlineColor;
 
     public IReadOnlyList<Item> AssemblyItems
     {
@@ -67,6 +70,7 @@ public class Item : MonoBehaviour, IInteractable
         }
 
         _outline.OutlineColor = _outlineColor;
+        defaultOutlineColor = _outlineColor;
     }
 
     void LateUpdate()
@@ -138,6 +142,10 @@ public class Item : MonoBehaviour, IInteractable
             if (WeightManager.Instance.SliderBar.value + weight <= WeightManager.Instance.SliderBar.maxValue)
             {
                 WeightManager.Instance.AddSliderValue(weight);
+                DaysManager.Instance.AddToTruck(this);
+
+                // Son de ramassage d'objet
+
                 Destroy(gameObject);
             }
         }
@@ -157,6 +165,22 @@ public class Item : MonoBehaviour, IInteractable
         _rb.angularVelocity = Vector3.zero;
         _rb.isKinematic = false;
         SetAssemblyCollidersEnabled(true);
+    }
+
+    public void AddToChest()
+    {
+        _outline.OutlineColor = _chestHighlightColor;
+        _outlineColor = _chestHighlightColor;
+        DaysManager.Instance.AddToChest(this);
+        isInChest = true;
+    }
+
+    public void RemoveFromChest()
+    {
+        _outlineColor = defaultOutlineColor;
+        _outline.OutlineColor = _outlineColor;
+        DaysManager.Instance.RemoveFromChest(this);
+        isInChest = false;
     }
 
     public void Rotate()
