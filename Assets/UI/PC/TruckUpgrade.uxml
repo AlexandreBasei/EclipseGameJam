@@ -1,0 +1,19 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/PC/TruckUpgradeStyle.uss?fileID=7433441132597879392&amp;guid=d3b7cf4fc0f3d5e468c80b229bfe1ed7&amp;type=3#TruckUpgradeStyle"/>
+    <ui:VisualElement name="Main" style="flex-grow: 1;">
+        <ui:Label text="Truck Upgrades" name="Title"/>
+        <ui:Label text="Update your truck to be more efficient during your days" name="Subtitle"/>
+        <ui:VisualElement name="UpgradeContainer" style="flex-grow: 1;">
+            <ui:VisualElement name="TruckUpgrade" style="flex-grow: 1;">
+                <ui:Label text="Truck size" name="UpgradeTitle"/>
+                <ui:Button text="Buy" name="TruckUpgradeButton"/>
+                <ui:Label text="200" name="TruckAmount"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="ChestUpgrade" style="flex-grow: 1;">
+                <ui:Label text="Chest size" name="UpgradeTitle"/>
+                <ui:Button text="Buy" name="ChestUpgradeButton"/>
+                <ui:Label text="200" name="ChestAmount"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
