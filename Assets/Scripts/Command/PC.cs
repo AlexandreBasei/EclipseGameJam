@@ -49,6 +49,10 @@ public class PC : MonoBehaviour
     private void OnUpgradeClicked(VisualElement root, string upgradeName)
     {
         int requestedAmount = int.Parse(root.Q<Label>(upgradeName).text);
+        if(DaysManager.Instance.tutoProgress == 8)
+        {
+            DaysManager.Instance.tutoFirstSleep();
+        }
         
         if(PlayerHUD.Instance.moneyValue < requestedAmount) return;
         
