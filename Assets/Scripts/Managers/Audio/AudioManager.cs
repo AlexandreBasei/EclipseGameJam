@@ -17,9 +17,9 @@ public class AudioManager : PersistentSingleton<AudioManager>
     
 
     [Header("-------AudioClipMusic-------")]
-    public AudioClip MusicMainMenu;
-    public AudioClip MusicInGame;
-    public AudioClip MusicEndGame;
+    public AudioClip MusicMainMenueAndStore;
+    public AudioClip MusicWarehouse;
+
 
     [Foldout("AudioClipSFX/Step")]
     public AudioClip step1;
@@ -31,7 +31,7 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     void Start()
     {
-        PlayMusic(MusicMainMenu);
+        PlayMusic(MusicMainMenueAndStore);
     }
 
     public void PlaySFX(AudioClip clip)
