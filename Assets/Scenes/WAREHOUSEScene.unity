@@ -4550,42 +4550,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7940069412376923492, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1362396033}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
---- !u!1 &1362396031 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7940069412376923492, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
-  m_PrefabInstance: {fileID: 1362396030}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1362396032 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6334223365209489181, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
-  m_PrefabInstance: {fileID: 1362396030}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1362396031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!114 &1362396033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1362396031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fb123ffbe61a2641b37539cd65cb96b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MoneyUI
-  moneyText: {fileID: 1362396032}
-  actualMoney: 0
-  animationDuration: 0.5
 --- !u!1 &1387942038 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1184041611049132, guid: 90dc5f9dcd1ef4c42817b974f9671eda, type: 3}

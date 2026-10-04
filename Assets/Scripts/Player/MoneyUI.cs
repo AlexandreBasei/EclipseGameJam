@@ -40,12 +40,26 @@ public class MoneyUI : MonoBehaviour
 
             moneyText.text = displayedMoney + " $";
 
+            UpdateMoneyColor();
+
             yield return null;
         }
 
         displayedMoney = targetMoney;
         moneyText.text = displayedMoney + " $";
 
+        UpdateMoneyColor();
+
         moneyAnimation = null;
     }
+
+    private void UpdateMoneyColor()
+    {
+        if (displayedMoney > 0)
+            moneyText.color = new Color(47f / 255f, 183f / 255f, 79f / 255f);
+        else if (displayedMoney < 0)
+            moneyText.color = Color.red;
+
+    }
 }
+
