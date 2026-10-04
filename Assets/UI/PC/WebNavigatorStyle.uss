@@ -93,5 +93,7 @@
 #MainView {
     background-color: white;
     padding-left: 20;
+    border-bottom-left-radius: 20;
+    border-bottom-right-radius: 20;
 }
 
