@@ -7,7 +7,7 @@ public class CommandList : MonoBehaviour
     [SerializeField] private ListType listType;
     [SerializeField] private CommandUIAssets assets;
 
-    [Header("Optionnel : layout à injecter dans le panel (ex: le PC)")]
+    [Header("Layout")]
     [SerializeField] private VisualTreeAsset layout;
     [SerializeField] private string layoutParent = "MainView";
 

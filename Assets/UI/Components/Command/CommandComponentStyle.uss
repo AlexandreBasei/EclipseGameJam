@@ -3,6 +3,8 @@
     background-color: white;
     padding: 4;
     border-radius: 10;
+    border-color: black;
+    border-width: 4;
 }
 
 #TextContainer {
@@ -46,4 +48,19 @@
 
 .command_accepted {
     margin-top: 10;
+}
+
+.shipButton {
+    font-size: 20px;
+    border-width: 0px;
+    border-color: transparent;
+    border-radius: 10;
+    background-color: green;
+    color: white;
+    margin-top: 20px;
+    transition: all ease-in-out 300ms;
+}
+
+.shipButton:hover{
+    background-color: darkgreen;
 }
