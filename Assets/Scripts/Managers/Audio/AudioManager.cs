@@ -31,7 +31,7 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     void Start()
     {
-        PlayMusic(MusicMainMenueAndStore);
+        PlayMusic(MusicMainMenuAndStore);
     }
 
     public void PlaySFX(AudioClip clip)
