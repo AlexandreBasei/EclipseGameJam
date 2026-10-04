@@ -76,7 +76,9 @@ public class PC : MonoBehaviour
 
     private void OnCrossClicked()
     {
-        Cursor.visible = false;
+        PlayerController.Instance.CanLook = true;
+        PlayerController.Instance.CanMove = true;
+        PlayerController.Instance.LockCursor();
         gameObject.SetActive(false);
     }
 

@@ -109,6 +109,18 @@ public class PlayerController : Singleton<PlayerController>
         characterController.Move(moveDirection * Time.deltaTime);
     }
 
+    public void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     // private void fadeInGameOverText()
     // {
     //     LeanTween.value(
