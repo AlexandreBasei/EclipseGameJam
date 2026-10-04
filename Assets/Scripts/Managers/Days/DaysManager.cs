@@ -1,4 +1,6 @@
 using NUnit.Framework;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DaysManager : PersistentSingleton<DaysManager>
@@ -24,6 +26,12 @@ public class DaysManager : PersistentSingleton<DaysManager>
     [SerializeField] private string warehouseSceneName = "WAREHOUSEScene";
     private int truckContentIndex = 0;
 
+    public bool tutoFinished = false;
+
+    public bool tutoStarted = false;
+
+    public TextMeshProUGUI tutoText;
+
     protected override void Awake()
     {
         base.Awake();
@@ -34,6 +42,10 @@ public class DaysManager : PersistentSingleton<DaysManager>
 
     public void NextDay()
     {
+        if(tutoFinished == false)
+        {
+            tutoFinished = true;
+        }
         currentDay++;
         itemsInChest = 0;
         truckContentIndex = 0;
@@ -114,6 +126,8 @@ public class DaysManager : PersistentSingleton<DaysManager>
         truckLevel = 0;
         truckSize = defaultTruckSize;
         setTruckSize();
+        tutoFinished = false;
+        tutoStarted = false;
     }
 
     public void loadWorkShopScene()
@@ -127,5 +141,76 @@ public class DaysManager : PersistentSingleton<DaysManager>
         isInWorkshop = false;
         hasVisitedWareHouse = true;
         UnityEngine.SceneManagement.SceneManager.LoadScene(warehouseSceneName);
+        Invoke(nameof(findTuto), 1f);
+    }
+
+    private void findTuto()
+    {
+        if (tutoFinished != false)
+        {
+            GameObject tutoObject = GameObject.FindGameObjectWithTag("Tuto");
+            tutoObject.SetActive(true);
+            tutoText = tutoObject.GetComponent<TextMeshProUGUI>();
+            if (!isInWorkshop)
+            {
+                tutoText.text = "Find and collect the materials needed to fulfill orders within the time limit. Be careful, you can't bring everything back to the store. Once the trunk is full you can take it to leave.";
+            }
+        }
+    }
+
+
+    public void tutorialStart()
+    {
+        if(tutoStarted == false)
+        {
+            if (tutoFinished)
+            {
+                return;
+            }
+            tutoStarted = true;
+            GameObject tutoObject = GameObject.FindGameObjectWithTag("Tuto");
+            tutoObject.SetActive(true);
+            tutoText = tutoObject.GetComponent<TextMeshProUGUI>();
+            tutoText.text = "Check your computer for new commands and select your first command. ";
+        }
+        else
+        {
+            GameObject tutoObject = GameObject.FindGameObjectWithTag("Tuto");
+            tutoObject.SetActive(true);
+            tutoText = tutoObject.GetComponent<TextMeshProUGUI>();
+            tutoText.text = "Welcome back home.\rTake one object and bring it close to another to merge them and thus fulfill the command.\rYou can merge a maximum of 3 objects.";
+        }
+    }
+
+    public void tutoFirstTruck()
+    {
+        tutoText.text = "Take your truck to the warehouse.";
+    }
+
+    public void tutoFirstSale()
+    {
+        tutoText.text = "The more your item matches the criteria, the more money you'll get. \rOnce you are satisfied with the item you created, place it in the sales area and confirm the sale on the tablet.";
+    }
+
+    public void tutoFirstReview()
+    {
+        tutoText.text = "You can review the commands you have selected by pressing TAB.";
+    }
+
+    public void tutoFirstChestUse()
+    {
+        tutoText.text = "If you didn't use some of the items today, you can store some of them in the chest, to have them available the next day.";
+    }
+
+    public void tutoFirstBills()
+    {
+        tutoText.text = "Your money is used for two things:\r- paying your daily rent\r- buying upgrades for the trunk or for the storage box\rGo to your computer to purchase an upgrade";
+    }
+
+    public void tutoFirstSleep()
+    {
+        tutoText.text = "At the start of each day, the rent will be automatically debited from your account. \rDo your best to avoid going bankrupt within the next 4 days. \r\rGood Luck !";
+        tutoStarted = false;
+        tutoStarted = true;
     }
 }
