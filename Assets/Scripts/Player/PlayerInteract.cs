@@ -68,7 +68,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
                 {
                     _grabbedItem.RemoveFromChest();
                 }
-                else
+                else if (_grabbedItem.CanBeAddedToChest)
                 {
                     _grabbedItem.AddToChest();
                 }
@@ -142,7 +142,11 @@ public class PlayerInteract : Singleton<PlayerInteract>
         bool shouldShowDetachTip =
             _grabbedItem != null && _grabbedItem.CanUnFuse;
         bool ShouldShowAddChestTip =
-            _grabbedItem != null && !_grabbedItem.isInChest && DaysManager.Instance.chestLevel != 0 && DaysManager.Instance.itemsInChest < DaysManager.Instance.chestLevel;
+            _grabbedItem != null &&
+            !_grabbedItem.isInChest &&
+            _grabbedItem.CanBeAddedToChest &&
+            DaysManager.Instance.chestLevel != 0 &&
+            DaysManager.Instance.itemsInChest < DaysManager.Instance.chestLevel;
         bool ShouldShowRemoveChestTip =
             _grabbedItem != null && _grabbedItem.isInChest;
         if (shouldShowDropTip)
