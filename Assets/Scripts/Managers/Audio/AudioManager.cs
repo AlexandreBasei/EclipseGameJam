@@ -12,6 +12,10 @@ public class AudioManager : PersistentSingleton<AudioManager>
     public AudioClip clic2;
     public AudioClip clic3;
 
+    public AudioClip coqSound;
+    public AudioClip carsStartSound;
+    
+
     [Header("-------AudioClipMusic-------")]
     public AudioClip MusicMainMenu;
     public AudioClip MusicInGame;
