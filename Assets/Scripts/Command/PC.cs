@@ -1,6 +1,9 @@
+using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+using Cursor = UnityEngine.Cursor;
 
 enum CurrentTab
 {
@@ -11,7 +14,6 @@ enum CurrentTab
 public class PC : MonoBehaviour
 {
     [SerializeField] private PanelRenderer panelRenderer;
-    [SerializeField] private VisualTreeAsset truckUi;
 
     private CurrentTab currentTab = CurrentTab.Mail;
     private VisualElement currentContent;
@@ -63,8 +65,14 @@ public class PC : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        Cursor.visible = true;
+    }
+
     private void OnCrossClicked()
     {
+        Cursor.visible = false;
         gameObject.SetActive(false);
     }
 
