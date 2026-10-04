@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Battery
   tags: 66
+  prefab: {fileID: 3019161775642865684, guid: c0290ef4a7a2ec04993732f5fad09450, type: 3}

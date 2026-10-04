@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: AC
   tags: 34372
+  prefab: {fileID: 3159965677866332004, guid: f33248f6d5c88934f810da14a2d957f0, type: 3}

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Crank
   tags: 8258
+  prefab: {fileID: 1156424916853367509, guid: 9c288a10bf2742b4085f2929d7754318, type: 3}
