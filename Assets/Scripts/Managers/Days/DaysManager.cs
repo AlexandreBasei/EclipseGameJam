@@ -151,28 +151,25 @@ public class DaysManager : PersistentSingleton<DaysManager>
         isInWorkshop = false;
         hasVisitedWareHouse = true;
         UnityEngine.SceneManagement.SceneManager.LoadScene(warehouseSceneName);
-        Invoke(nameof(findTuto), 1f);
     }
 
-    private void findTuto()
+    public void findTuto()
     {
-        if (tutoFinished != false)
+        GameObject tutoObject = GameObject.FindGameObjectWithTag("Tuto");
+        tutoObject.SetActive(true);
+        tutoText = tutoObject.GetComponent<TextMeshProUGUI>();
+        if (tutoFinished == false)
         {
-            GameObject tutoObject = GameObject.FindGameObjectWithTag("Tuto");
-            tutoObject.SetActive(true);
-            tutoText = tutoObject.GetComponent<TextMeshProUGUI>();
-            if (!isInWorkshop)
-            {
-                tutoText.text = "Find and collect the materials needed to fulfill orders within the time limit. Be careful, you can't bring everything back to the store. Once the trunk is full you can take it to leave.";
-                tutoProgress = 4;
-            }
+            tutoText.text = "Find and collect the materials needed to fulfill orders within the time limit. Be careful, you can't bring everything back to the store. Once the trunk is full you can take it to leave.";
+            tutoProgress = 4;
         }
     }
 
 
     public void tutorialStart()
     {
-        if(tutoStarted == false)
+        print(tutoStarted);
+        if (tutoStarted == false)
         {
             if (tutoFinished)
             {
@@ -190,7 +187,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
             GameObject tutoObject = GameObject.FindGameObjectWithTag("Tuto");
             tutoObject.SetActive(true);
             tutoText = tutoObject.GetComponent<TextMeshProUGUI>();
-            tutoText.text = "Welcome back home.\rTake one object and bring it close to another to merge them and thus fulfill the command.\rYou can merge a maximum of 3 objects.";
+            tutoText.text = "Welcome back home.\nTake one object and bring it close to another to merge them and thus fulfill the command.\nYou can merge a maximum of 3 objects.";
             tutoProgress = 5;
         }
     }
@@ -203,7 +200,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
 
     public void tutoFirstSale()
     {
-        tutoText.text = "The more your item matches the criteria, the more money you'll get. \rOnce you are satisfied with the item you created, place it in the sales area and confirm the sale on the tablet.";
+        tutoText.text = "The more your item matches the criteria, the more money you'll get. \nOnce you are satisfied with the item you created, place it in the sales area and confirm the sale on the tablet.";
         tutoProgress = 6;
     }
 
@@ -221,13 +218,13 @@ public class DaysManager : PersistentSingleton<DaysManager>
 
     public void tutoFirstBills()
     {
-        tutoText.text = "Your money is used for two things:\r- paying your daily rent\r- buying upgrades for the trunk or for the storage box\rGo to your computer to purchase an upgrade";
+        tutoText.text = "Your money is used for two things:\n- paying your daily rent\n- buying upgrades for the trunk or for the storage box\nGo to your computer to purchase an upgrade";
         tutoProgress = 8;
     }
 
     public void tutoFirstSleep()
     {
-        tutoText.text = "At the start of each day, the rent will be automatically debited from your account. \rDo your best to avoid going bankrupt within the next 4 days. \r\rGood Luck !";
+        tutoText.text = "At the start of each day, the rent will be automatically debited from your account. \nDo your best to avoid going bankrupt within the next 4 days. \n\nGood Luck !";
         tutoProgress = 9;
         tutoStarted = false;
         tutoStarted = true;

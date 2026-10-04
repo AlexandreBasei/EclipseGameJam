@@ -750,6 +750,7 @@ public class Item : MonoBehaviour, IInteractable
         assemblyRoot.SetAssemblyCollidersEnabled(false);
         assemblyRoot.SetAssemblyPresentationVisible(false);
         assemblyRoot.RefreshAssemblyItems();
+        DaysManager.Instance.tutoFirstSale();
     }
 
     private bool CanMergeWith(Item otherRoot)
