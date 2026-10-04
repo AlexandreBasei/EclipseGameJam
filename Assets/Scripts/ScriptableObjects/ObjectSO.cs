@@ -18,10 +18,13 @@ public enum Tag
     Cold = 1 << 9,
     Seatable = 1 << 10,
     Organic = 1 << 11,
-    Noisy = 1 << 12,
+    Musical = 1 << 12,
     Handheld = 1 << 13,
     Cosy = 1 << 14,
     Windy = 1 << 15,
+    Sharp = 1 << 16,
+    Bouncy = 1 << 17,
+    Container = 1 << 18,
 
 }
 
