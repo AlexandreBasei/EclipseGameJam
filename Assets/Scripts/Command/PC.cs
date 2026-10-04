@@ -1,19 +1,22 @@
+using System;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+using Cursor = UnityEngine.Cursor;
 
 enum CurrentTab
 {
     Mail,
-    Gagare
+    Garage
 }
 
 public class PC : MonoBehaviour
 {
-    [SerializeField] private VisualTreeAsset commandListUI;
     [SerializeField] private PanelRenderer panelRenderer;
-    [SerializeField] private CommandList pcCommandList; 
 
     private CurrentTab currentTab = CurrentTab.Mail;
+    private VisualElement currentContent;
     private int uiVersion = -1;
 
     private void Awake()
@@ -31,28 +34,62 @@ public class PC : MonoBehaviour
         if (uiVersion == version) return;
         uiVersion = version;
 
-        VisualElement newCommandList = commandListUI.Instantiate();
-        root.Q<VisualElement>("MainView").hierarchy.Add(newCommandList);
-        
+        RegisterCallbacks(root);
     }
 
     private void RegisterCallbacks(VisualElement root)
     {
-        root.Q<Button>("Mail").RegisterCallback<ClickEvent>(e => OnMailClicked());
-        root.Q<Button>("Garage").RegisterCallback<ClickEvent>(e => OnCarClicked());
+        root.Q<Button>("Mail").RegisterCallback<ClickEvent>(e => SwitchTab(root, CurrentTab.Mail));
+        root.Q<Button>("Garage").RegisterCallback<ClickEvent>(e => SwitchTab(root, CurrentTab.Garage));
+        root.Q<Button>("Cross").RegisterCallback<ClickEvent>(e => OnCrossClicked());
+        root.Q<Button>("TruckUpgradeButton").RegisterCallback<ClickEvent>(e => OnUpgradeClicked(root, "TruckAmount"));
+        root.Q<Button>("ChestUpgradeButton").RegisterCallback<ClickEvent>(e => OnUpgradeClicked(root, "ChestAmount"));
     }
 
-    private void OnMailClicked()
+    private void OnUpgradeClicked(VisualElement root, string upgradeName)
     {
-        if (currentTab is CurrentTab.Mail) return;
-
-        currentTab = CurrentTab.Gagare;
+        int requestedAmount = int.Parse(root.Q<Label>(upgradeName).text);
+        
+        if(PlayerHUD.Instance.moneyValue < requestedAmount) return;
+        
+        switch (upgradeName)
+        {
+            case "ChestAmount":
+                DaysManager.Instance.UpgradeChest();
+                root.Q<Label>("ChestAmount").text = DaysManager.Instance.chestLevel == DaysManager.Instance.maxChestLevel ? "Max" : $"{(DaysManager.Instance.chestLevel + 1) * 200}";
+                break;
+            case "TruckAmount":
+                DaysManager.Instance.UpgradeTruck();
+                root.Q<Label>("TruckAmount").text = DaysManager.Instance.truckLevel == DaysManager.Instance.maxTruckLevel ? "Max" :$"{(DaysManager.Instance.truckLevel + 1) * 200}";
+                break;
+        }
     }
 
-    private void OnCarClicked()
+    private void OnEnable()
     {
-        if (currentTab is CurrentTab.Gagare) return;
+        Cursor.visible = true;
+    }
 
-        currentTab = CurrentTab.Mail;
+    private void OnCrossClicked()
+    {
+        Cursor.visible = false;
+        gameObject.SetActive(false);
+    }
+
+    private void SwitchTab(VisualElement root, CurrentTab newTab)
+    {
+        if(currentTab == newTab) return;
+        
+        currentTab = currentTab is CurrentTab.Mail ? CurrentTab.Garage : CurrentTab.Mail;
+        
+        DisplayStyle CommandDisplay = currentTab is CurrentTab.Mail ? DisplayStyle.Flex : DisplayStyle.None;
+        DisplayStyle TruckDisplay = currentTab is CurrentTab.Mail ? DisplayStyle.None : DisplayStyle.Flex;
+        
+        root.Q<VisualElement>("MainView").hierarchy.ElementAt(1).style.display =
+            new StyleEnum<DisplayStyle>(CommandDisplay);
+        root.Q<VisualElement>("TruckView").style.display = new StyleEnum<DisplayStyle>(TruckDisplay);
+
+        root.Q<Label>("UrlLabel").text =
+            currentTab is CurrentTab.Mail ? "https://your-mail.fr" : "https://junk-car-garage";
     }
 }
