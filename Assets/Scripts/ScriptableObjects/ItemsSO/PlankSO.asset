@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Plank
   tags: 3104
+  prefab: {fileID: 572672852822359274, guid: 5b0c01c475ca20f4583cc495b19f5e32, type: 3}

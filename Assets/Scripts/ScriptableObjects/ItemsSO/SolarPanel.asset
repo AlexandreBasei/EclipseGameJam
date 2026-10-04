@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: SolarPanel
   tags: 1094
+  prefab: {fileID: 6522003612515085360, guid: ed105fb6f1370e54a9f6171982fd4808, type: 3}

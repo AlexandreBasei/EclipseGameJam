@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Gear
   tags: 1093
+  prefab: {fileID: 3563433456280184289, guid: 7546001c4608149428da45f738584aa6, type: 3}

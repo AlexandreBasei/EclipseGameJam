@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Fan
   tags: 41540
-  prefab: {fileID: 0}
+  prefab: {fileID: 7228196235439861639, guid: 1d41897888fa2e844a92e12f5c2820d9, type: 3}

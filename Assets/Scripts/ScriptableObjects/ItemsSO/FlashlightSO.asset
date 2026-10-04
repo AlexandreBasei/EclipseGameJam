@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Flashlight
   tags: 8200
+  prefab: {fileID: 4411579099418477358, guid: 72f657791294a3e4ab4137e84cee5861, type: 3}

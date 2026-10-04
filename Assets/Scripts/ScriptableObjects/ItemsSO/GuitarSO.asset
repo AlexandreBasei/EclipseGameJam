@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Guitar
   tags: 14368
+  prefab: {fileID: 4866559512875462507, guid: a8f6bc5644f93244f9722846d5d96893, type: 3}
