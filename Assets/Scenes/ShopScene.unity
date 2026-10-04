@@ -14278,6 +14278,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 346371932420417743, guid: ff51c8769083e7746b88097cf333976e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.615
+      objectReference: {fileID: 0}
     - target: {fileID: 554016970283133297, guid: ff51c8769083e7746b88097cf333976e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -14318,9 +14322,61 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 739879740891997304, guid: ff51c8769083e7746b88097cf333976e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.615
+      objectReference: {fileID: 0}
+    - target: {fileID: 752554241618556865, guid: ff51c8769083e7746b88097cf333976e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.615
+      objectReference: {fileID: 0}
+    - target: {fileID: 1143139711837271304, guid: ff51c8769083e7746b88097cf333976e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.665
+      objectReference: {fileID: 0}
+    - target: {fileID: 3736334769512254215, guid: ff51c8769083e7746b88097cf333976e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.665
+      objectReference: {fileID: 0}
+    - target: {fileID: 4323499463441560389, guid: ff51c8769083e7746b88097cf333976e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.615
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758238324381458039, guid: ff51c8769083e7746b88097cf333976e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.665
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827001985146088250, guid: ff51c8769083e7746b88097cf333976e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.615
+      objectReference: {fileID: 0}
     - target: {fileID: 5053832465930150344, guid: ff51c8769083e7746b88097cf333976e, type: 3}
       propertyPath: m_Name
       value: WorkShopManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5126619645929891503, guid: ff51c8769083e7746b88097cf333976e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.665
+      objectReference: {fileID: 0}
+    - target: {fileID: 6575437011045194219, guid: ff51c8769083e7746b88097cf333976e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.615
+      objectReference: {fileID: 0}
+    - target: {fileID: 6646495002247747753, guid: ff51c8769083e7746b88097cf333976e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.615
+      objectReference: {fileID: 0}
+    - target: {fileID: 7681048254475796252, guid: ff51c8769083e7746b88097cf333976e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.615
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897658767272205694, guid: ff51c8769083e7746b88097cf333976e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.615
+      objectReference: {fileID: 0}
+    - target: {fileID: 8945480173205613399, guid: ff51c8769083e7746b88097cf333976e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.615
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

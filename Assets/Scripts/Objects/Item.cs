@@ -5,9 +5,11 @@ using System.Collections.Generic;
 public class Item : MonoBehaviour, IInteractable
 {
     private const int MaxAssemblyItems = 3;
+    private const float HeldCollisionPadding = 0.02f;
 
     public ObjectSO itemData;
     private readonly List<Item> _assemblyItems = new List<Item>();
+    private readonly RaycastHit[] _heldPositionHits = new RaycastHit[32];
     private IReadOnlyList<Item> _assemblyItemsReadOnly;
     [SerializeField] private TextMeshProUGUI _itemNameText;
     [SerializeField] private Color _outlineColor = Color.white;
@@ -107,10 +109,69 @@ public class Item : MonoBehaviour, IInteractable
             direction * _heldDistance +
             _heldCamera.transform.TransformVector(_heldPositionOffset);
 
-        if (TryGetAssemblyBounds(out Bounds bounds))
-            transform.position += heldPosition - bounds.center;
+        bool hasBounds = TryGetAssemblyBounds(out Bounds bounds);
+        Vector3 halfExtents = hasBounds
+            ? Vector3.Max(bounds.extents, Vector3.one * 0.025f)
+            : Vector3.one * 0.025f;
+        Vector3 unobstructedPosition = GetUnobstructedHeldPosition(
+            _heldCamera.transform.position,
+            heldPosition,
+            halfExtents);
+
+        if (hasBounds)
+            transform.position += unobstructedPosition - bounds.center;
         else
-            transform.position = heldPosition;
+            transform.position = unobstructedPosition;
+    }
+
+    private Vector3 GetUnobstructedHeldPosition(Vector3 origin, Vector3 target, Vector3 halfExtents)
+    {
+        Vector3 offset = target - origin;
+        float distance = offset.magnitude;
+        if (distance <= 0f)
+            return target;
+
+        Vector3 direction = offset / distance;
+        int hitCount = Physics.BoxCastNonAlloc(
+            origin,
+            halfExtents,
+            direction,
+            _heldPositionHits,
+            Quaternion.identity,
+            distance,
+            ~0,
+            QueryTriggerInteraction.Ignore);
+
+        RaycastHit[] hits = _heldPositionHits;
+        if (hitCount == hits.Length)
+        {
+            hits = Physics.BoxCastAll(
+                origin,
+                halfExtents,
+                direction,
+                Quaternion.identity,
+                distance,
+                ~0,
+                QueryTriggerInteraction.Ignore);
+            hitCount = hits.Length;
+        }
+
+        float closestDistance = distance;
+        Transform playerRoot = _heldCamera.transform.root;
+        for (int i = 0; i < hitCount; i++)
+        {
+            Collider hitCollider = hits[i].collider;
+            if (hitCollider == null)
+                continue;
+
+            Transform hitTransform = hitCollider.transform;
+            if (hitTransform == playerRoot || hitTransform.IsChildOf(playerRoot))
+                continue;
+
+            closestDistance = Mathf.Min(closestDistance, hits[i].distance);
+        }
+
+        return origin + direction * Mathf.Max(0f, closestDistance - HeldCollisionPadding);
     }
 
     public void SetItemNameVisible(bool visible)
