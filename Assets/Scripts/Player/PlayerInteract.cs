@@ -23,6 +23,8 @@ public class PlayerInteract : Singleton<PlayerInteract>
     private bool _isRotatingGrabbedItem;
     private bool _canLookBeforeItemRotation;
     private Item _grabbedItem;
+    [SerializeField, Tooltip("Layers ignored by the raycast used to select and grab objects.")]
+    private LayerMask _raycastIgnoredLayers;
     [SerializeField] private KeyCode _snapKey = KeyCode.Mouse1;
     [SerializeField] private KeyCode _rotateKey = KeyCode.E;
     [SerializeField] private KeyCode _dropPickUpKey = KeyCode.Mouse0;
@@ -140,7 +142,8 @@ public class PlayerInteract : Singleton<PlayerInteract>
         }
 
         Ray ray = _playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        if (!Physics.Raycast(ray, out RaycastHit hit))
+        int layerMask = Physics.DefaultRaycastLayers & ~_raycastIgnoredLayers.value;
+        if (!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask))
         {
             return null;
         }
