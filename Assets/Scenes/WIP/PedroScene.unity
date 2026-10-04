@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 1286738710}
   - component: {fileID: 1286738709}
   - component: {fileID: 1286738711}
+  - component: {fileID: 1286738712}
   m_Layer: 0
   m_Name: PC
   m_TagString: Untagged
@@ -279,6 +280,20 @@ MonoBehaviour:
   assets: {fileID: 11400000, guid: fe409f740a8306444be55b0da5fc39da, type: 2}
   layout: {fileID: 9197481963319205126, guid: a0a6365d1eb9ea34fb807797103e5514, type: 3}
   layoutParent: MainView
+--- !u!114 &1286738712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286738708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0f8b5911f26d044e94f41f5a52818a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PC
+  panelRenderer: {fileID: 1286738709}
+  truckUi: {fileID: 0}
 --- !u!1 &2015051123
 GameObject:
   m_ObjectHideFlags: 0
