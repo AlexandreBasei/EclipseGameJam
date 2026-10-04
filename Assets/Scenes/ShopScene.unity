@@ -11940,8 +11940,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8675779164785030345, guid: c70a569e86b05db4590d03e4ab57316a, type: 3}
-      insertIndex: -1
+      insertIndex: 1
       addedObject: {fileID: 6912002754981194795}
+    - targetCorrespondingSourceObject: {fileID: 8675779164785030345, guid: c70a569e86b05db4590d03e4ab57316a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6912002754981194798}
     - targetCorrespondingSourceObject: {fileID: 8675779164785030345, guid: c70a569e86b05db4590d03e4ab57316a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6912002754981194794}
@@ -11963,7 +11966,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6912002754981194793}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -13986,6 +13989,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Computer
   _outlineColor: {r: 1, g: 1, b: 1, a: 1}
   _highlightedOutlineColor: {r: 0.41981137, g: 0.4198113, b: 1, a: 1}
+--- !u!65 &6912002754981194798
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6912002754981194793}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.7019724, y: 0.6276898, z: 0.7958316}
+  m_Center: {x: 0.00000047683716, y: 0.000000029802322, z: -0.0000009834766}
 --- !u!1001 &7171104736134969350
 PrefabInstance:
   m_ObjectHideFlags: 0
