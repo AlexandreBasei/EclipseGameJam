@@ -48,6 +48,8 @@ public class PC : MonoBehaviour
     {
         int requestedAmount = int.Parse(root.Q<Label>(upgradeName).text);
         
+        if(PlayerHUD.Instance.moneyValue < requestedAmount) return;
+        
         switch (upgradeName)
         {
             case "ChestAmount":
