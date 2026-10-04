@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb5098bd655a30e489c7c2696c28f4ff, type: 3}
+  m_Name: CommandUIAsset
+  m_EditorClassIdentifier: Assembly-CSharp::CommandUIAssets
+  commandComponent: {fileID: 9197481963319205126, guid: 7104643542222264ab658a22590abe0b, type: 3}
+  objectComponent: {fileID: 9197481963319205126, guid: 1f645caf9c79c2f42b4899f4f39d1693, type: 3}
+  tagComponent: {fileID: 9197481963319205126, guid: e6393cea308185b4e8876357ed083f6c, type: 3}

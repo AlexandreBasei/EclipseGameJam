@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 public enum CommandState
 {
     Idle,
@@ -16,5 +15,4 @@ public class CommandSO : ScriptableObject
     public int moneyReward;
     public ObjectSO ObjectSO;
     public CommandState state;
-
 }

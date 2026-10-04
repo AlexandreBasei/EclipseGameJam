@@ -1,0 +1,29 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/PC/WebNavigatorStyle.uss?fileID=7433441132597879392&amp;guid=fc24a64f3f4c5cc41a366899b1747c60&amp;type=3#WebNavigatorStyle"/>
+    <ui:VisualElement name="Main" style="flex-grow: 1;">
+        <ui:VisualElement name="Top">
+            <ui:VisualElement name="Title">
+                <ui:Label text="IceFox" name="NavigatorName"/>
+            </ui:VisualElement>
+            <ui:Button text="" name="Actions">
+                <ui:Image source="project://database/Assets/UI/Images/x-10327.svg?fileID=7388822144124034973&amp;guid=bb9d96bbe2716d54d97b792fd538d50d&amp;type=3#x-10327"/>
+            </ui:Button>
+        </ui:VisualElement>
+        <ui:VisualElement name="Header" style="flex-grow: 1;">
+            <ui:VisualElement name="Url" style="flex-grow: 1;">
+                <ui:Label text="https://your-mail.fr"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Tabs">
+                <ui:Button name="Mail" class="first-item">
+                    <ui:Image source="project://database/Assets/UI/Images/mail-5888.svg?fileID=7388822144124034973&amp;guid=3df45f693ca06c04985810683b665fc2&amp;type=3#mail-5888"/>
+                    <ui:Label text="Mail"/>
+                </ui:Button>
+                <ui:Button name="Garage">
+                    <ui:Image source="project://database/Assets/UI/Images/car-repair-12840.svg?fileID=7388822144124034973&amp;guid=9f64d18679a86fc4ea591fa8e9bf555b&amp;type=3#car-repair-12840"/>
+                    <ui:Label text="Junk Car Garage"/>
+                </ui:Button>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="MainView" style="flex-grow: 1;"/>
+    </ui:VisualElement>
+</ui:UXML>
