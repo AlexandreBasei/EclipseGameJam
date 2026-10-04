@@ -302,7 +302,7 @@ public class Item : MonoBehaviour, IInteractable
         SetAssemblyCollidersEnabled(true);
         Physics.SyncTransforms();
 
-        Debug.Log($"[Drop] pos={transform.position} interp={_rb.interpolation} kinematic={_rb.isKinematic} gravity={_rb.useGravity} mass={_rb.mass}", this);
+        // Debug.Log($"[Drop] pos={transform.position} interp={_rb.interpolation} kinematic={_rb.isKinematic} gravity={_rb.useGravity} mass={_rb.mass}", this);
         ResolveDropPenetration(playerRoot, retreatPoint);
 
         _rb.position = transform.position;
@@ -318,7 +318,7 @@ public class Item : MonoBehaviour, IInteractable
     {
         if (_debugFallFramesLeft > 0 && _rb != null && !_rb.isKinematic)
         {
-            Debug.Log($"[Fall] frames restantes={_debugFallFramesLeft} pos={_rb.position} vel={_rb.linearVelocity} |vel|={_rb.linearVelocity.magnitude:F2}", this);
+            // Debug.Log($"[Fall] frames restantes={_debugFallFramesLeft} pos={_rb.position} vel={_rb.linearVelocity} |vel|={_rb.linearVelocity.magnitude:F2}", this);
             _debugFallFramesLeft--;
         }
 
@@ -385,13 +385,13 @@ public class Item : MonoBehaviour, IInteractable
                             penetratesGround = true;
 
                         bool hasRendererBounds = TryGetAssemblyBounds(out Bounds rendererBounds);
-                        Debug.Log(
-                            $"[Drop] PÉNÈTRE : {other.name} ({other.GetType().Name}, layer {LayerMask.LayerToName(other.gameObject.layer)}) dir={direction} dist={distance:F3}\n" +
-                            $"  autre.bounds = {other.bounds}\n" +
-                            $"  item ({mine.GetType().Name} sur '{mine.name}').bounds = {mine.bounds}\n" +
-                            $"  renderers.bounds = {(hasRendererBounds ? rendererBounds.ToString() : "aucun")}\n" +
-                            $"  pivot de l'item = {transform.position}",
-                            other);
+                        // Debug.Log(
+                        //     $"[Drop] PÉNÈTRE : {other.name} ({other.GetType().Name}, layer {LayerMask.LayerToName(other.gameObject.layer)}) dir={direction} dist={distance:F3}\n" +
+                        //     $"  autre.bounds = {other.bounds}\n" +
+                        //     $"  item ({mine.GetType().Name} sur '{mine.name}').bounds = {mine.bounds}\n" +
+                        //     $"  renderers.bounds = {(hasRendererBounds ? rendererBounds.ToString() : "aucun")}\n" +
+                        //     $"  pivot de l'item = {transform.position}",
+                        //     other);
                         if (distance > MaxPenetrationStep)
                         {
                             suspicious = true;
@@ -577,11 +577,11 @@ public class Item : MonoBehaviour, IInteractable
             return;
 
         _warnedUnsupportedPenetration = true;
-        Debug.LogWarning(
-            $"[Drop] Impossible de calculer la pénétration entre '{mine.name}' ({mine.GetType().Name}) et " +
-            $"'{other.name}' ({other.GetType().Name}) : aucun n'est une primitive ou un MeshCollider convexe. " +
-            "Utilisez un MeshCollider convexe ou des colliders primitifs pour ces objets.",
-            this);
+        // Debug.LogWarning(
+        //     $"[Drop] Impossible de calculer la pénétration entre '{mine.name}' ({mine.GetType().Name}) et " +
+        //     $"'{other.name}' ({other.GetType().Name}) : aucun n'est une primitive ou un MeshCollider convexe. " +
+        //     "Utilisez un MeshCollider convexe ou des colliders primitifs pour ces objets.",
+        //     this);
     }
 
     public void AddToChest()

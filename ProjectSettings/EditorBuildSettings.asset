@@ -6,16 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainScene.unity
-    guid: 7cfd9a8044183d848a3557c57907fa72
-  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: b23bfe82b86ff5241aa94f5f12e776a5
   - enabled: 1
-    path: Assets/Scenes/WIP/AlexScene.unity
-    guid: 29d1ba39bbf494e48a98f50c1e1c494b
-  - enabled: 1
     path: Assets/Scenes/WAREHOUSEScene.unity
     guid: 5db189356b8b8c448b0736af5988e699
+  - enabled: 1
+    path: Assets/Scenes/ShopScene.unity
+    guid: e544e9bc911851047a3c0ca4770df192
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
