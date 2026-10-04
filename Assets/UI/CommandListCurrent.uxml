@@ -1,6 +1,9 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/CommandListCurrentStyle.uss?fileID=7433441132597879392&amp;guid=d211fcaebe20df348adf481748db796a&amp;type=3#CommandListCurrentStyle"/>
     <ui:VisualElement name="MainContainer" style="flex-grow: 1;">
-        <ui:Label text="Commands" name="ContainerName"/>
-        <ui:ScrollView name="CommandList" horizontal-scroller-visibility="Hidden" mode="Vertical"/>
+        <ui:VisualElement name="CommandContainer" style="flex-grow: 1;">
+            <ui:Label text="Current Commands" name="Title"/>
+            <ui:ScrollView name="CommandList" horizontal-scroller-visibility="Hidden" mode="Vertical"/>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
