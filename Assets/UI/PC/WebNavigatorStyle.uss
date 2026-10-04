@@ -1,0 +1,54 @@
+#Main {
+    background-color: slategrey;
+    padding: 8px;
+}
+
+#Header {
+    max-height: 120px;
+    background-color: white;
+    padding: 20px;
+}
+
+#Header > #Url {
+    max-height: 40px;
+    background-color: rgb(74, 74, 74);
+    color: white;
+    border-radius: 5px;
+    padding-left: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#Header > #Tabs {
+    margin-top: 10px;
+    min-height: 10px;
+    display: flex;
+    flex-direction: row;
+    max-width: 40%;
+}
+
+#Header > #Tabs > Button {
+    display: flex;
+    flex-direction: row;
+    max-width: 50%;
+    max-height: 10px;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+#Header > #Tabs > Button > Image {
+    width: 16px;
+    height: 16px;
+}
+
+.first-item {
+    margin-right: 20px;
+}
+
+#Title {
+    padding: 0 10px;
+    background-color: white;
+    max-width: 200px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
