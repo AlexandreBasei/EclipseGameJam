@@ -1,0 +1,48 @@
+#Main {
+    padding-left: 20;
+    background-color: white;
+}
+
+#Title {
+    font-size: 32;
+    -unity-font-style: italic;
+    margin: 0;
+}
+
+#Subtitle {
+    font-size: 24;
+}
+
+#UpgradeContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+#UpgradeContainer > VisualElement{
+    max-width: 300;
+    max-height: 50;
+    margin-top: 20;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#UpgradeTitle {
+    font-size: 20;
+    -unity-font-style: bold;
+}
+
+#TruckUpgradeButton, #ChestUpgradeButton {
+    margin: 0;
+    padding: 8 20;
+    border-radius: 10;
+}
+
+#TruckAmount, #ChestAmount {
+    padding: 8;
+    border-radius: 5;
+    background-color: darkgreen;
+    color: white;
+    -unity-font-style: bold;
+}

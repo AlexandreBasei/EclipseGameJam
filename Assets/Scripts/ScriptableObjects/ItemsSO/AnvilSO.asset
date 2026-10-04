@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Anvil
   tags: 1092
+  prefab: {fileID: 7076708529602560942, guid: 77f35c49439fb1449b8b04b0853d4109, type: 3}

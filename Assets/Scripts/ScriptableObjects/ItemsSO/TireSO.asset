@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Tire
   tags: 132229
+  prefab: {fileID: 2221032798889339656, guid: 0076cd7f293c75d4f9981d5e5f8427c7, type: 3}

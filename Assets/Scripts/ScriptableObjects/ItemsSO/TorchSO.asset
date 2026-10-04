@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Torch
   tags: 10272
+  prefab: {fileID: 210251035309890084, guid: 6cfa0418802d32c40bcc7c861c20221c, type: 3}

@@ -15,7 +15,7 @@
     border-top-left-radius: 10px;
 }
 
-#Top > #Actions {
+#Top > #Cross {
     margin: 0;
     border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;
     display: flex;
@@ -27,9 +27,9 @@
     border-top-right-radius: 10px;
 }
 
-#Top > #Actions > Image {
-    width: 32px;
-    height: 32px;
+#Top > #Cross > Image {
+    width: 16px;
+    height: 16px;
 }
 
 
@@ -97,3 +97,6 @@
     border-bottom-right-radius: 20;
 }
 
+#TruckView {
+    display: none;
+}

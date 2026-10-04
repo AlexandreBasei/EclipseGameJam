@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: Drawer
   tags: 262212
+  prefab: {fileID: 8470561988688103640, guid: 92eb771917eea584c9e9e89bf183790a, type: 3}

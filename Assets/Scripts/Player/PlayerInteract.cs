@@ -29,6 +29,8 @@ public class PlayerInteract : Singleton<PlayerInteract>
     [SerializeField] private KeyCode _unFuseKey = KeyCode.R;
     [SerializeField] private KeyCode _chestKey = KeyCode.F;
 
+    public MoneyUI moneyUi;
+
     protected override void Awake()
     {
         base.Awake();
@@ -82,6 +84,19 @@ public class PlayerInteract : Singleton<PlayerInteract>
                 }
             }
         }
+
+        /*
+        if(Input.GetKeyDown(KeyCode.Mouse1))
+        {
+           moneyUi.UpdateMoney(200); 
+        }
+
+        if(Input.GetKeyDown(KeyCode.Mouse2))
+        {
+           moneyUi.UpdateMoney(-200); 
+        }
+        */
+            
     }
 
     private void UpdateCurrentTarget()

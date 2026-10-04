@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
   objectName: TrafficCone
   tags: 262272
+  prefab: {fileID: 96696470497980200, guid: 41300fec08b78a846a4cc0a50988c6cf, type: 3}
