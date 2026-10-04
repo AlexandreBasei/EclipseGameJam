@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class SellManager : MonoBehaviour
     private readonly Dictionary<Item, int> _colliderCountsByAssembly = new Dictionary<Item, int>();
     private readonly List<Collider> _staleColliders = new List<Collider>();
     public bool canSell = false;
+    public Tag[] tagsInSellZone = Array.Empty<Tag>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -50,7 +52,8 @@ public class SellManager : MonoBehaviour
         else
         {
             _colliderCountsByAssembly.Add(assemblyRoot, 1);
-            print("Item entered sell zone : " + assemblyRoot.itemData.name);
+            UpdateTagsInSellZone();
+            print("Item entered sell zone : " + assemblyRoot.itemData.name + ", item tags : " + string.Join(", ", GetAssemblyTags(assemblyRoot)));
         }
 
         UpdateCanSell();
@@ -73,6 +76,7 @@ public class SellManager : MonoBehaviour
         else
         {
             _colliderCountsByAssembly.Remove(assemblyRoot);
+            UpdateTagsInSellZone();
             print("Item exited sell zone : " + assemblyRoot.itemData.name);
         }
 
@@ -82,5 +86,48 @@ public class SellManager : MonoBehaviour
     private void UpdateCanSell()
     {
         canSell = _colliderCountsByAssembly.Count == 1;
+    }
+
+    private void UpdateTagsInSellZone()
+    {
+        List<Tag> tags = new List<Tag>();
+        HashSet<Tag> uniqueTags = new HashSet<Tag>();
+
+        foreach (Item assemblyRoot in _colliderCountsByAssembly.Keys)
+        {
+            foreach (Tag tag in GetAssemblyTags(assemblyRoot))
+            {
+                if (uniqueTags.Add(tag))
+                    tags.Add(tag);
+            }
+        }
+
+        tagsInSellZone = tags.ToArray();
+    }
+
+    public List<Tag> GetAssemblyTags(Item item)
+    {
+        List<Tag> tags = new List<Tag>();
+        if (item == null)
+            return tags;
+
+        HashSet<Tag> uniqueTags = new HashSet<Tag>();
+        foreach (Item assemblyItem in item.AssemblyItems)
+        {
+            if (assemblyItem == null || assemblyItem.itemData == null)
+                continue;
+
+            foreach (Tag tag in Enum.GetValues(typeof(Tag)))
+            {
+                if (tag != Tag.None &&
+                    (assemblyItem.itemData.tags & tag) == tag &&
+                    uniqueTags.Add(tag))
+                {
+                    tags.Add(tag);
+                }
+            }
+        }
+
+        return tags;
     }
 }
