@@ -19,6 +19,8 @@ public class MoneyUI : MonoBehaviour
 
     private void NewMoney(int newMoney)
     {
+        PlayerHUD.Instance.ChangedMoneyValue(newMoney);
+
         if (moneyAnimation != null)
             StopCoroutine(moneyAnimation);
 
