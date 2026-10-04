@@ -12,14 +12,21 @@ public class Item : MonoBehaviour, IInteractable
     [SerializeField] private TextMeshProUGUI _itemNameText;
     [SerializeField] private Color _outlineColor = Color.white;
     [SerializeField] private Color _highlightedOutlineColor = Color.blue;
+    [SerializeField] private Color _chestHighlightColor = Color.yellow;
     [SerializeField, Min(0.1f)] private float _heldDistance = 2f;
     public Color OutlineColor => _outlineColor;
     public Color HighlightedOutlineColor => _highlightedOutlineColor;
+    [HideInInspector] public bool isInChest = false;
+    public bool CanBeAddedToChest =>
+    GetAssemblyRoot() == this &&
+    GetComponentsInChildren<Item>(true).Length == 1;
     private Outline _outline;
     private bool _isGrabbed = false;
     private Rigidbody _rb;
     private Camera _heldCamera;
     private Vector3 _heldPositionOffset;
+    private Color defaultOutlineColor;
+    private Color defaultHighlightColor;
 
     public IReadOnlyList<Item> AssemblyItems
     {
@@ -67,6 +74,8 @@ public class Item : MonoBehaviour, IInteractable
         }
 
         _outline.OutlineColor = _outlineColor;
+        defaultOutlineColor = _outlineColor;
+        defaultHighlightColor = _highlightedOutlineColor;
     }
 
     void LateUpdate()
@@ -124,7 +133,11 @@ public class Item : MonoBehaviour, IInteractable
             _rb.angularVelocity = Vector3.zero;
             _rb.isKinematic = true;
             SetAssemblyCollidersEnabled(false);
+
             SetAssemblyPresentationVisible(false);
+            if (isInChest)
+                SetOutlineVisible(true);
+
             _heldCamera = playerCamera;
             _heldPositionOffset = Vector3.zero;
             _isGrabbed = true;
@@ -138,6 +151,10 @@ public class Item : MonoBehaviour, IInteractable
             if (WeightManager.Instance.SliderBar.value + weight <= WeightManager.Instance.SliderBar.maxValue)
             {
                 WeightManager.Instance.AddSliderValue(weight);
+                DaysManager.Instance.AddToTruck(this);
+
+                // Son de ramassage d'objet
+
                 Destroy(gameObject);
             }
         }
@@ -157,6 +174,31 @@ public class Item : MonoBehaviour, IInteractable
         _rb.angularVelocity = Vector3.zero;
         _rb.isKinematic = false;
         SetAssemblyCollidersEnabled(true);
+    }
+
+    public void AddToChest()
+    {
+        if (!CanBeAddedToChest)
+        {
+            Debug.LogWarning("Only individual items can be added to the chest.", this);
+            return;
+        }
+
+        _outline.OutlineColor = _chestHighlightColor;
+        _outlineColor = _chestHighlightColor;
+        _highlightedOutlineColor = _chestHighlightColor;
+        SetOutlineVisible(true);
+        DaysManager.Instance.AddToChest(this);
+        isInChest = true;
+    }
+
+    public void RemoveFromChest()
+    {
+        _outlineColor = defaultOutlineColor;
+        _outline.OutlineColor = _outlineColor;
+        _highlightedOutlineColor = defaultHighlightColor;
+        DaysManager.Instance.RemoveFromChest(this);
+        isInChest = false;
     }
 
     public void Rotate()
@@ -190,6 +232,12 @@ public class Item : MonoBehaviour, IInteractable
             transform.position += snapOffset;
             if (_heldCamera != null)
                 _heldPositionOffset += _heldCamera.transform.InverseTransformVector(snapOffset);
+
+            if (isInChest)
+                RemoveFromChest();
+            if (otherRoot.isInChest)
+                otherRoot.RemoveFromChest();
+
             otherRoot.MergeInto(this);
             return;
         }

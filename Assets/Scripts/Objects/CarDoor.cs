@@ -25,16 +25,6 @@ public class CarDoor : MonoBehaviour, IInteractable
         DaysManager.Instance.loadWorkShopScene();
     }
 
-    public void Rotate()
-    {
-        // Ne rien faire
-    }
-
-    public void TrySnap()
-    {
-        // Ne rien faire
-    }
-
     public void SetItemNameVisible(bool visible)
     {
         // Ne rien faire
