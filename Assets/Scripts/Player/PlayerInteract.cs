@@ -52,6 +52,10 @@ public class PlayerInteract : Singleton<PlayerInteract>
 
         if (_grabbedItem != null)
         {
+            float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+            if (scrollInput != 0f)
+                _grabbedItem.AdjustHeldDistance(scrollInput);
+
             if (Input.GetKey(_rotateKey))
             {
                 if (!_isRotatingGrabbedItem)
@@ -166,7 +170,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
             hasValidTarget && target.GetComponent<Item>() != null;
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.PickUp, shouldShowPickUpTip);
 
-        bool shouldShowDropTip =
+        bool shouldShowGrabTips =
             _grabbedItem != null;
         bool shouldShowSnapTip =
             _grabbedItem != null && _grabbedItem.CanSnap;
@@ -180,11 +184,12 @@ public class PlayerInteract : Singleton<PlayerInteract>
             DaysManager.Instance.itemsInChest < DaysManager.Instance.chestLevel;
         bool ShouldShowRemoveChestTip =
             _grabbedItem != null && _grabbedItem.isInChest;
-        if (shouldShowDropTip)
+        if (shouldShowGrabTips)
             PlayerHUD.Instance.HideAllInputTips();
 
-        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Drop, shouldShowDropTip);
-        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Rotate, shouldShowDropTip);
+        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Drop, shouldShowGrabTips);
+        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Rotate, shouldShowGrabTips);
+        PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Zoom, shouldShowGrabTips);
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Snap, shouldShowSnapTip);
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.Detach, shouldShowDetachTip);
         PlayerHUD.Instance.SetInputTipVisible(PlayerHUD.InputTip.AddChest, ShouldShowAddChestTip);
