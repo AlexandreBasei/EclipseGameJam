@@ -72,7 +72,7 @@ public class ValidateCommand : MonoBehaviour
                 finalReward /= 2;
         }
 
-        PlayerHUD.Instance.moneyValue += finalReward;
+        MoneyUI.Instance.UpdateMoney(finalReward);
         CommandManager.Instance.ShipCommand(command);
         sellManager.SellCurrentAssembly();
         SetupShipButton();
