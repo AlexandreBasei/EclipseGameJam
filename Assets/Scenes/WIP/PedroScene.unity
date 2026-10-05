@@ -225,8 +225,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CommandManager
   allCommands:
-  - {fileID: 11400000, guid: d1144507857a27f4e8e5544ae4a26b3b, type: 2}
-  - {fileID: 11400000, guid: c3e93c4d86d39bc48be22a3544d93df5, type: 2}
+  - {fileID: 11400000, guid: bd87536c656911b49abe7e7234a1ce86, type: 2}
+  - {fileID: 11400000, guid: 253f96f64093ad24ab05317c8b84049b, type: 2}
+  - {fileID: 11400000, guid: 084d8c464a62fbb44a29d4337e37dfad, type: 2}
+  - {fileID: 11400000, guid: 92ddeacc51b2f5048bfd9de6fda4521c, type: 2}
+  - {fileID: 11400000, guid: 68b316900f12e6846b715f89e60596e1, type: 2}
+  - {fileID: 11400000, guid: 4e2ff68c0788a094983e9837ec27510e, type: 2}
+  - {fileID: 11400000, guid: 4f3b1795c0ea1214ba3184639df29ae9, type: 2}
+  - {fileID: 11400000, guid: 4a27944b158771441b98ea580d30ddd2, type: 2}
+  - {fileID: 11400000, guid: 7ec1d6345b5f9e94b8b15eace7f42894, type: 2}
+  - {fileID: 11400000, guid: 4ce4f1e0ece302d479da8d4e69b70b23, type: 2}
+  - {fileID: 11400000, guid: 32022a129f102a5479400954206cb1d4, type: 2}
+  - {fileID: 11400000, guid: 65805afde4c734c43b17b95dd4a44079, type: 2}
+  - {fileID: 11400000, guid: 06de4e132a5677f4c948f1febd455c95, type: 2}
+  - {fileID: 11400000, guid: bb4119d8d74e1ca439e0e450b5c8784e, type: 2}
+  - {fileID: 11400000, guid: 63db95864d12be74e8014ff2a3286c0b, type: 2}
+  - {fileID: 11400000, guid: 61ff266b355aa3e42817d8d4683296a9, type: 2}
+  - {fileID: 11400000, guid: 1918df3a928092d49beba50b537d1456, type: 2}
+  - {fileID: 11400000, guid: b6b987a1e012d90489447cec0b58bf48, type: 2}
+  - {fileID: 11400000, guid: 53792b413a5bcc44dabd3f6deb77fdab, type: 2}
+  - {fileID: 11400000, guid: a3280e452de71264296aedb193cc2eec, type: 2}
+  - {fileID: 11400000, guid: 70a1e23c36d2cd94d9931d70a5231c0c, type: 2}
+  - {fileID: 11400000, guid: 758abaa0a9cff974483c3045d88f287f, type: 2}
+  - {fileID: 11400000, guid: 453eae89cfc90a34cab551785e208b37, type: 2}
+  - {fileID: 11400000, guid: 494627cb9e939f34fa1c7c620126ac51, type: 2}
+  - {fileID: 11400000, guid: b6a05e07e6d3f6a47a6e068572bc8e10, type: 2}
+  - {fileID: 11400000, guid: 3df95b122ad99964b90c9ca8afa46999, type: 2}
+  - {fileID: 11400000, guid: 732da6aab1e1854428bfb5ed34b5290e, type: 2}
+  - {fileID: 11400000, guid: 29d4ac39559183041bb147a757a93945, type: 2}
+  - {fileID: 11400000, guid: 05fb79774f51d234c9e6eb98b833e2f2, type: 2}
+  - {fileID: 11400000, guid: 92978382c19156b40b987f9f8f2921d7, type: 2}
+  - {fileID: 11400000, guid: 34168a214f5627f4ab96f9221d8f10d2, type: 2}
   computerUI: {fileID: 0}
 --- !u!1 &2015051123
 GameObject:
