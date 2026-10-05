@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599866e94a3afea4d97bc42465a440cf, type: 3}
   m_Name: SolarPanel
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
-  objectName: SolarPanel
+  objectName: Solar Panel
   tags: 1094
   prefab: {fileID: 6522003612515085360, guid: ed105fb6f1370e54a9f6171982fd4808, type: 3}
