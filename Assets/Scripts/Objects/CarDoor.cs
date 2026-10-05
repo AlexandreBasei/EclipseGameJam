@@ -22,10 +22,12 @@ public class CarDoor : MonoBehaviour, IInteractable
 
         if (DaysManager.Instance.isInWorkshop)
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.carsStartSound);
             Invoke(nameof(goToWareHouse), 1.5f);
         }
         else
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.carsStartSound);
             Invoke(nameof(goToWorkShop), 1.5f);
         }
 

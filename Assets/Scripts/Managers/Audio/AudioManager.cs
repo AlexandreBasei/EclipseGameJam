@@ -14,6 +14,8 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     public AudioClip coqSound;
     public AudioClip carsStartSound;
+
+    public AudioClip mergeItem;
     
 
     [Header("-------AudioClipMusic-------")]
