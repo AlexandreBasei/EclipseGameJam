@@ -98,9 +98,9 @@ public class Item : MonoBehaviour, IInteractable
             _itemNameText.text = itemData.objectName;
         }
 
-        _outline.OutlineColor = _outlineColor;
         defaultOutlineColor = _outlineColor;
         defaultHighlightColor = _highlightedOutlineColor;
+        ApplyChestAppearance();
     }
 
     void LateUpdate()
@@ -602,21 +602,34 @@ public class Item : MonoBehaviour, IInteractable
             return;
         }
 
-        _outline.OutlineColor = _chestHighlightColor;
-        _outlineColor = _chestHighlightColor;
-        _highlightedOutlineColor = _chestHighlightColor;
+        isInChest = true;
+        ApplyChestAppearance();
         SetOutlineVisible(true);
         DaysManager.Instance.AddToChest(this);
+    }
+
+    public void RestoreToChest()
+    {
         isInChest = true;
+        ApplyChestAppearance();
+        SetOutlineVisible(true);
     }
 
     public void RemoveFromChest()
     {
-        _outlineColor = defaultOutlineColor;
-        _outline.OutlineColor = _outlineColor;
-        _highlightedOutlineColor = defaultHighlightColor;
-        DaysManager.Instance.RemoveFromChest(this);
         isInChest = false;
+        ApplyChestAppearance();
+        DaysManager.Instance.RemoveFromChest(this);
+    }
+
+    private void ApplyChestAppearance()
+    {
+        if (_outline == null)
+            return;
+
+        _outlineColor = isInChest ? _chestHighlightColor : defaultOutlineColor;
+        _highlightedOutlineColor = isInChest ? _chestHighlightColor : defaultHighlightColor;
+        _outline.OutlineColor = _outlineColor;
     }
 
     public void Rotate()

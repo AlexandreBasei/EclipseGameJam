@@ -10,24 +10,34 @@ public class ValidateCommand : MonoBehaviour
     [SerializeField] private SellManager sellManager;
 
     private VisualElement rootUI;
-    private IReadOnlyList<CommandSO> commandList;
 
     private void Start()
     {
         commandUi.RegisterUIReloadCallback(OnUIReload);
+        CommandManager.Instance.CommandsChanged += RefreshShipButtons;
     }
 
     private void OnDestroy()
     {
         commandUi.UnregisterUIReloadCallback(OnUIReload);
+
+        if (CommandManager.Instance != null)
+            CommandManager.Instance.CommandsChanged -= RefreshShipButtons;
     }
 
     private void OnUIReload(PanelRenderer renderer, VisualElement root, int version)
     {
-        commandList = CommandManager.Instance.GetList(ListType.Current);
         rootUI = root;
-        SetupShipButton();
-        root.Q<Button>("CrossButton").RegisterCallback<ClickEvent>(OnCrossButtonClicked);
+        rootUI.Q<Button>("CrossButton").RegisterCallback<ClickEvent>(OnCrossButtonClicked);
+
+        // Attend que la liste des commandes ait fini d'être reconstruite.
+        rootUI.schedule.Execute(SetupShipButton);
+    }
+
+    private void RefreshShipButtons()
+    {
+        if (rootUI != null)
+            rootUI.schedule.Execute(SetupShipButton);
     }
 
     private void OnCrossButtonClicked(ClickEvent e)
@@ -41,17 +51,26 @@ public class ValidateCommand : MonoBehaviour
 
     private void SetupShipButton()
     {
-        List<VisualElement> commandListUI = rootUI.Q<VisualElement>("CommandList").Children().ToList();
+        if (rootUI == null)
+            return;
 
-        for (int i = 0; i < commandList.Count; i++)
+        var commands = CommandManager.Instance.GetList(ListType.Current);
+        var commandListUI = rootUI.Q<VisualElement>("CommandList").Children().ToList();
+
+        foreach (var button in rootUI.Query<Button>("ShipButton").ToList())
+            button.RemoveFromHierarchy();
+
+        int count = Mathf.Min(commands.Count, commandListUI.Count);
+
+        for (int i = 0; i < count; i++)
         {
-            var command = commandList[i];
-            var newShipButotn = new Button { text = "Ship" };
-            newShipButotn.AddToClassList("shipButton");
-            newShipButotn.name = "ShipButton";
+            var command = commands[i];
+            var shipButton = new Button { text = "Ship", name = "ShipButton" };
+            shipButton.AddToClassList("shipButton");
+            shipButton.style.display = DisplayStyle.Flex;
 
-            commandListUI[i].Q<VisualElement>("Main").hierarchy.Add(newShipButotn);
-            newShipButotn.RegisterCallback<ClickEvent>(e => ShipProduct(command));
+            commandListUI[i].Q<VisualElement>("Main").hierarchy.Add(shipButton);
+            shipButton.RegisterCallback<ClickEvent>(_ => ShipProduct(command));
         }
     }
 
@@ -59,7 +78,8 @@ public class ValidateCommand : MonoBehaviour
     {
         var objectTags = sellManager.tagsInSellZone;
 
-        if (objectTags.Length < 1 || !sellManager.canSell) return;
+        if (objectTags.Length < 1 || !sellManager.canSell)
+            return;
 
         int finalReward = command.moneyReward;
 
@@ -75,9 +95,9 @@ public class ValidateCommand : MonoBehaviour
 
         if (DaysManager.Instance.tutoProgress == 6)
             DaysManager.Instance.tutoFirstChestUse();
+
         MoneyUI.Instance.UpdateMoney(finalReward);
         CommandManager.Instance.ShipCommand(command);
         sellManager.SellCurrentAssembly();
-        SetupShipButton();
     }
 }

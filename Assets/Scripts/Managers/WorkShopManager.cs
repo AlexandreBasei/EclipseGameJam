@@ -24,7 +24,8 @@ public class WorkShopManager : MonoBehaviour
             if (chestItems[i] == null || chestSpawnPoints[i] == null)
                 continue;
 
-            Instantiate(chestItems[i], chestSpawnPoints[i].position, chestSpawnPoints[i].rotation);
+            GameObject chestItem = Instantiate(chestItems[i], chestSpawnPoints[i].position, chestSpawnPoints[i].rotation);
+            chestItem.GetComponentInChildren<Item>().RestoreToChest();
         }
 
         if (DaysManager.Instance.currentDay == 1 && DaysManager.Instance.hasVisitedWareHouse)
@@ -45,6 +46,9 @@ public class WorkShopManager : MonoBehaviour
             }
         }
 
-        DaysManager.Instance.chestContent = new GameObject[DaysManager.Instance.maxChestLevel];
+        if (DaysManager.Instance.hasVisitedWareHouse)
+        {
+            DaysManager.Instance.chestContent = new GameObject[DaysManager.Instance.maxChestLevel];
+        }
     }
 }
