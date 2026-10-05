@@ -16,6 +16,8 @@ public class Item : MonoBehaviour, IInteractable
     private const float DropLiftOffset = 0.03f;
     private const float GroundRecoveryY = 0.5f;
     private const float MinHeldDistance = 0.5f;          // distance minimale caméra -> centre de l'objet tenu
+    private const float MaxHeldDistance = 6f;
+    private const float HeldDistanceStep = 0.5f;
     private const float MaxHeldOffset = 1f;              // décalage max autorisé après un snap
     private const float MaxPenetrationStep = 0.5f;       // une correction plus grande est jugée aberrante
     private const int RetreatSteps = 30;                 // pas pour ramener l'objet vers le joueur
@@ -165,21 +167,21 @@ public class Item : MonoBehaviour, IInteractable
             heldPosition,
             halfExtents);
 
-        // Empêche l'objet de se retrouver collé dans la caméra (gros assemblage près d'un obstacle)
-        Vector3 cameraPosition = _heldCamera.transform.position;
-        Vector3 fromCamera = unobstructedPosition - cameraPosition;
-        if (fromCamera.magnitude < MinHeldDistance)
-        {
-            Vector3 pushDirection = fromCamera.sqrMagnitude > 0.0001f
-                ? fromCamera.normalized
-                : _heldCamera.transform.forward;
-            unobstructedPosition = cameraPosition + pushDirection * MinHeldDistance;
-        }
-
         if (hasBounds)
             transform.position += unobstructedPosition - bounds.center;
         else
             transform.position = unobstructedPosition;
+    }
+
+    public void AdjustHeldDistance(float scrollInput)
+    {
+        if (!_isGrabbed || scrollInput == 0f)
+            return;
+
+        _heldDistance = Mathf.Clamp(
+            _heldDistance + scrollInput * HeldDistanceStep,
+            MinHeldDistance,
+            MaxHeldDistance);
     }
 
     private Vector3 GetUnobstructedHeldPosition(Vector3 origin, Vector3 target, Vector3 halfExtents)
