@@ -2067,6 +2067,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5795854548300156778, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
+      propertyPath: goalToMoneyEnding
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 6035429065791770283, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.015

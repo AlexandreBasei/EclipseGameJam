@@ -5,7 +5,7 @@ public class WorkShopManager : MonoBehaviour
 {
     [SerializeField] private Transform[] truckSpawnPoints = new Transform[10];
     [SerializeField] private Transform[] chestSpawnPoints = new Transform[4];
-    [SerializeField] private GameObject[] defaultDay0Items = new GameObject[3];
+    [SerializeField] private GameObject[] defaultDay0Items = new GameObject[4];
     void Start()
     {
         GameObject[] truckItems = DaysManager.Instance.truckContent;
