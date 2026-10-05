@@ -172,7 +172,6 @@ public class DaysManager : PersistentSingleton<DaysManager>
 
     public void tutorialStart()
     {
-        print(tutoStarted);
         if (tutoStarted == false)
         {
             if (tutoFinished)
