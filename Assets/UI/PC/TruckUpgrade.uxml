@@ -7,12 +7,12 @@
             <ui:VisualElement name="TruckUpgrade" style="flex-grow: 1;">
                 <ui:Label text="Truck size" name="UpgradeTitle"/>
                 <ui:Button text="Buy" name="TruckUpgradeButton"/>
-                <ui:Label text="200" name="TruckAmount"/>
+                <ui:Label text="0" name="TruckAmount"/>
             </ui:VisualElement>
             <ui:VisualElement name="ChestUpgrade" style="flex-grow: 1;">
                 <ui:Label text="Chest size" name="UpgradeTitle"/>
                 <ui:Button text="Buy" name="ChestUpgradeButton"/>
-                <ui:Label text="200" name="ChestAmount"/>
+                <ui:Label text="0" name="ChestAmount"/>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

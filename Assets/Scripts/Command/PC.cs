@@ -1,7 +1,4 @@
-using System;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
 
@@ -66,11 +63,11 @@ public class PC : MonoBehaviour
         {
             case "ChestAmount":
                 DaysManager.Instance.UpgradeChest();
-                uiRoot.Q<Label>("ChestAmount").text = DaysManager.Instance.chestLevel == DaysManager.Instance.maxChestLevel ? "Max" : $"{(DaysManager.Instance.chestLevel + 1) * 200}";
+                uiRoot.Q<Label>("ChestAmount").text = DaysManager.Instance.chestLevel == DaysManager.Instance.maxChestLevel ? "Max" : $"{(DaysManager.Instance.chestLevel - 1) * 200}";
                 break;
             case "TruckAmount":
                 DaysManager.Instance.UpgradeTruck();
-                uiRoot.Q<Label>("TruckAmount").text = DaysManager.Instance.truckLevel == DaysManager.Instance.maxTruckLevel ? "Max" :$"{(DaysManager.Instance.truckLevel + 1) * 200}";
+                uiRoot.Q<Label>("TruckAmount").text = DaysManager.Instance.truckLevel == DaysManager.Instance.maxTruckLevel ? "Max" :$"{DaysManager.Instance.truckLevel * 200}";
                 break;
         }
         PlayerHUD.Instance.ChangedMoneyValue(playerMoney - requestedAmount);
