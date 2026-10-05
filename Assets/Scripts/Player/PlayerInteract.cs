@@ -30,6 +30,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
     [SerializeField] private KeyCode _dropPickUpKey = KeyCode.Mouse0;
     [SerializeField] private KeyCode _unFuseKey = KeyCode.R;
     [SerializeField] private KeyCode _chestKey = KeyCode.F;
+    [HideInInspector] public bool isInComputer = false;
 
     public MoneyUI moneyUi;
 
