@@ -15,7 +15,7 @@ public class CommandManager : PersistentSingleton<CommandManager>
     [SerializeField] private List<CommandSO> allCommands;
 
     private List<CommandSO> newCommands;
-    private List<CommandSO> currentCommands;
+    public List<CommandSO> currentCommands;
     private bool initialized;
     public GameObject computerUI;
 
@@ -33,9 +33,8 @@ public class CommandManager : PersistentSingleton<CommandManager>
     {
         if (initialized) return;
         initialized = true;
-        ResetAllCommand();  
-        currentCommands = allCommands.Where(c => c.state is CommandState.Accepted).ToList();
-        newCommands = PickNewCommands();
+        currentCommands ??= new List<CommandSO>();
+        ResetAllCommand();
     }
 
     public List<CommandSO> PickNewCommands()
@@ -105,11 +104,15 @@ public class CommandManager : PersistentSingleton<CommandManager>
 
     public void ResetAllCommand()
     {
+        currentCommands ??= new List<CommandSO>();
         currentCommands.Clear();
-        newCommands.Clear();
+        newCommands = new List<CommandSO>();
         foreach (var command in allCommands)
         {
             command.state = CommandState.Idle;
         }
+
+        newCommands = PickNewCommands();
+        CommandsChanged?.Invoke();
     }
 }
