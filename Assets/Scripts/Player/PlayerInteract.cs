@@ -247,13 +247,13 @@ public class PlayerInteract : Singleton<PlayerInteract>
         if (_highlightedOutline == null)
             return;
 
-        Item item = _highlightedOutline.GetComponent<Item>();
+        IInteractable item = _highlightedOutline.GetComponent<IInteractable>();
         if (item != null)
         {
             bool shouldShowItemName =
                 _currentTarget == _highlightedOutline &&
                 Time.time - _lastTimePickUpTargetWasValid <= TargetLossGracePeriod &&
-                item.itemData != null && !_isInteracting;
+                item.ItemNameText != null && !_isInteracting;
 
             item.SetItemNameVisible(shouldShowItemName);
         }

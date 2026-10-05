@@ -636,7 +636,7 @@ public class Item : MonoBehaviour, IInteractable
     {
         if (!CanSnap)
             return;
-        
+
         AudioManager.Instance.PlaySFX(AudioManager.Instance.mergeItem);
 
         foreach (SnapPoint snapPoint in GetComponentsInChildren<SnapPoint>(true))
@@ -666,7 +666,7 @@ public class Item : MonoBehaviour, IInteractable
     {
         if (!CanUnFuse)
             return;
-        
+
         AudioManager.Instance.PlaySFX(AudioManager.Instance.mergeItem);
 
         Item[] assemblyItems = GetComponentsInChildren<Item>(true);

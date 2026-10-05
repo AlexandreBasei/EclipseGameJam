@@ -8,11 +8,12 @@ public class SleepDoor : MonoBehaviour, IInteractable
     [SerializeField] private Color _highlightedOutlineColor = Color.blue;
     public Color OutlineColor => _outlineColor;
     public Color HighlightedOutlineColor => _highlightedOutlineColor;
-    public TextMeshProUGUI ItemNameText => null;
+    [SerializeField] private TextMeshProUGUI _itemNameText;
+    public TextMeshProUGUI ItemNameText => _itemNameText;
 
     public void PickUp(Camera playerCamera = null)
     {
-        if(DaysManager.Instance.tutoFinished == false)
+        if (DaysManager.Instance.tutoFinished == false)
         {
             return;
         }
@@ -24,12 +25,12 @@ public class SleepDoor : MonoBehaviour, IInteractable
 
     public void SetItemNameVisible(bool visible)
     {
-        if (_itemNameText != null)
+        if (ItemNameText != null)
         {
-            _itemNameText.text = DaysManager.Instance.rentPrice.ToString() + " $";
+            ItemNameText.text = DaysManager.Instance.rentPrice.ToString() + " $";
             print(visible);
-            _itemNameText.gameObject.SetActive(visible);
+            ItemNameText.gameObject.SetActive(visible);
         }
-            
+
     }
 }
