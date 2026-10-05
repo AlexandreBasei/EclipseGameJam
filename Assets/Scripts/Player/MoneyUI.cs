@@ -2,7 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class MoneyUI : MonoBehaviour
+public class MoneyUI : Singleton<MoneyUI>
 {
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private int actualMoney;
@@ -17,7 +17,7 @@ public class MoneyUI : MonoBehaviour
         NewMoney(actualMoney);
     }
 
-    private void NewMoney(int newMoney)
+    public void NewMoney(int newMoney)
     {
         PlayerHUD.Instance.ChangedMoneyValue(newMoney);
 
