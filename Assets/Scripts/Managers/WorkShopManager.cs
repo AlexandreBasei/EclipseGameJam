@@ -37,7 +37,7 @@ public class WorkShopManager : MonoBehaviour
                     truckItemCount++;
             }
 
-            for (int i = truckItemCount; i < 3 && i < defaultDay0Items.Length && i < truckSpawnPoints.Length; i++)
+            for (int i = truckItemCount; i < defaultDay0Items.Length && i < truckSpawnPoints.Length; i++)
             {
                 if (defaultDay0Items[i] == null || truckSpawnPoints[i] == null)
                     continue;
