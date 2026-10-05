@@ -13,8 +13,10 @@ public class SleepDoor : MonoBehaviour, IInteractable
         {
             return;
         }
+        FadeInOut.Instance.FadeIn();
         AudioManager.Instance.PlaySFX(AudioManager.Instance.coqSound);
         DaysManager.Instance.NextDay();
+        FadeInOut.Instance.FadeOut();
     }
 
     public void SetItemNameVisible(bool visible)

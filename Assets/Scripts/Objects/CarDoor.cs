@@ -39,11 +39,15 @@ public class CarDoor : MonoBehaviour, IInteractable
 
     private void goToWareHouse()
     {
+        FadeInOut.Instance.FadeIn();
         DaysManager.Instance.loadWarehouseScene();
+        FadeInOut.Instance.FadeOut();
     }
     private void goToWorkShop()
     {
+        FadeInOut.Instance.FadeIn();
         DaysManager.Instance.loadWorkShopScene();
+        FadeInOut.Instance.FadeOut();
     }
 
     public void SetItemNameVisible(bool visible)
