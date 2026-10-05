@@ -48,6 +48,7 @@ public class PC : MonoBehaviour
 
     private void OnUpgradeClicked(VisualElement root, string upgradeName)
     {
+        AudioManager.Instance.PlayClic();
         int requestedAmount = int.Parse(root.Q<Label>(upgradeName).text);
         if(DaysManager.Instance.tutoProgress == 8)
         {
@@ -76,6 +77,7 @@ public class PC : MonoBehaviour
 
     private void OnCrossClicked()
     {
+        AudioManager.Instance.PlayClic();
         PlayerController.Instance.CanLook = true;
         PlayerController.Instance.CanMove = true;
         PlayerController.Instance.LockCursor();
@@ -88,6 +90,7 @@ public class PC : MonoBehaviour
 
     private void SwitchTab(VisualElement root, CurrentTab newTab)
     {
+        AudioManager.Instance.PlayClic();
         if(currentTab == newTab) return;
         
         currentTab = currentTab is CurrentTab.Mail ? CurrentTab.Garage : CurrentTab.Mail;
