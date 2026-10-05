@@ -23,6 +23,10 @@
                     <ui:Image source="project://database/Assets/UI/Images/car-repair-12840.svg?fileID=7388822144124034973&amp;guid=9f64d18679a86fc4ea591fa8e9bf555b&amp;type=3#car-repair-12840"/>
                     <ui:Label text="Junk Car Garage"/>
                 </ui:Button>
+                <ui:VisualElement name="MoneyContainer">
+                    <ui:Label text="Bank account :"/>
+                    <ui:Label text="" name="CurrentMoney"/>
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="MainView" style="flex-grow: 1;">
