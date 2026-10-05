@@ -72,6 +72,8 @@ public class ValidateCommand : MonoBehaviour
                 finalReward /= 2;
         }
 
+        if(DaysManager.Instance.tutoProgress == 6)
+            DaysManager.Instance.tutoFirstChestUse();
         MoneyUI.Instance.UpdateMoney(finalReward);
         CommandManager.Instance.ShipCommand(command);
         sellManager.SellCurrentAssembly();
