@@ -68,9 +68,6 @@ public class CommandListView : IDisposable
                 buttons.Q<Button>("DeclineButton").clicked += () => manager.DeclineCommand(command);
         }
 
-        item.Q<Button>("ShipButton").style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
-
-        
         return item;
     }
 
