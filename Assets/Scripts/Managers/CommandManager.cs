@@ -59,6 +59,12 @@ public class CommandManager : PersistentSingleton<CommandManager>
         return result;
     }
 
+    public void SetNewCommands()
+    {
+        DiscardAllCurrentsCommands();
+        newCommands = PickNewCommands();
+    }
+
     public void DiscardAllCurrentsCommands()
     {
         currentCommands.Clear();

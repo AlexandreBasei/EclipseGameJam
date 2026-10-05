@@ -54,8 +54,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
         itemsInChest = 0;
         truckContentIndex = 0;
         hasVisitedWareHouse = false;
-        CommandManager.Instance.PickNewCommands();
-        CommandManager.Instance.DiscardAllCurrentsCommands();
+        CommandManager.Instance.SetNewCommands();
         setTruckSize();
         rentPrice = Mathf.RoundToInt(rentPrice * 1.8f);
         loadWorkShopScene();
