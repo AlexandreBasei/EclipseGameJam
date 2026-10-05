@@ -45,14 +45,10 @@ public class ValidateCommand : MonoBehaviour
 
         for (int i = 0; i < commandList.Count; i++)
         {
-            rootUI.Remove(rootUI.Q<Button>("ShipButton"));
+            var shipButton = rootUI.Q<Button>("ShipButton");
+            shipButton.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
             var command = commandList[i];
-            var newShipButotn = new Button { text = "Ship" };
-            newShipButotn.AddToClassList("shipButton");
-            newShipButotn.name = "ShipButton";
-
-            commandListUI[i].Q<VisualElement>("Main").hierarchy.Add(newShipButotn);
-            newShipButotn.RegisterCallback<ClickEvent>(e => ShipProduct(command));
+            shipButton.RegisterCallback<ClickEvent>(e => ShipProduct(command));
         }
     }
 

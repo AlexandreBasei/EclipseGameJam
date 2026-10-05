@@ -8,6 +8,7 @@
         <ui:VisualElement name="ButtonContainer">
             <ui:Button text="Accept" name="AcceptButton"/>
             <ui:Button text="Decline" name="DeclineButton"/>
+            <ui:Button text="Ship" name="ShipButton"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
