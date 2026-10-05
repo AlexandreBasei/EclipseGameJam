@@ -20,6 +20,8 @@ public class CurrentCommandTab : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            if(Time.timeScale == 0) return;
+            
             commandUi.SetActive(!commandUi.activeInHierarchy);
             if (DaysManager.Instance.tutoStarted && DaysManager.Instance.tutoProgress == 2 && commandUi.activeInHierarchy)
             {

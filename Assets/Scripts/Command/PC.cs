@@ -71,6 +71,7 @@ public class PC : MonoBehaviour
                 break;
         }
         PlayerHUD.Instance.ChangedMoneyValue(playerMoney - requestedAmount);
+        MoneyUI.Instance.NewMoney(playerMoney - requestedAmount);
         UpdateMoneyUI();
     }
 
