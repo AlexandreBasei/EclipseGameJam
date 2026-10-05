@@ -43,6 +43,7 @@ public class CommandManager : PersistentSingleton<CommandManager>
         var available = allCommands
             .Distinct()
             .Where(c => c.state is not (CommandState.Accepted or CommandState.Declined or CommandState.Finished))
+            .Where(c => c.ObjectSO.tags.Count() <= DaysManager.Instance.currentDay + 1)
             .ToList();
 
         var result = new List<CommandSO>();
@@ -69,7 +70,7 @@ public class CommandManager : PersistentSingleton<CommandManager>
         command.state = CommandState.Accepted;
         newCommands.Remove(command);
 
-        if (!currentCommands.Contains(command))
+        if (!currentCommands.Contains(command) && currentCommands.Count < 3)
             currentCommands.Add(command);
 
         CommandsChanged?.Invoke();
