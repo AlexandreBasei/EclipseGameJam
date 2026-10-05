@@ -262,6 +262,7 @@ public class Item : MonoBehaviour, IInteractable
             _heldCamera = playerCamera;
             _heldPositionOffset = Vector3.zero;
             _isGrabbed = true;
+            SnapPoint.SetVisualizationActive(this, true);
             transform.SetParent(playerCamera.transform, true);
             UpdateHeldPosition();
         }
@@ -294,6 +295,7 @@ public class Item : MonoBehaviour, IInteractable
         transform.SetParent(null, true);
         transform.SetPositionAndRotation(dropPosition, dropRotation);
         _isGrabbed = false;
+        SnapPoint.SetVisualizationActive(this, false);
         _heldCamera = null;
         _heldPositionOffset = Vector3.zero;
 
@@ -312,6 +314,11 @@ public class Item : MonoBehaviour, IInteractable
         _pendingPlayerRoot = playerRoot;
         _pendingRetreatPoint = retreatPoint;
         _pendingRelease = true;
+    }
+
+    void OnDisable()
+    {
+        SnapPoint.SetVisualizationActive(this, false);
     }
 
     void FixedUpdate()
