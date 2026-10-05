@@ -20,6 +20,7 @@ public class SleepDoor : MonoBehaviour, IInteractable
         }
         FadeInOut.Instance.FadeIn();
         AudioManager.Instance.PlaySFX(AudioManager.Instance.coqSound);
+        MoneyUI.Instance.UpdateMoney(-DaysManager.Instance.rentPrice);
         DaysManager.Instance.NextDay();
         FadeInOut.Instance.FadeOut();
     }
