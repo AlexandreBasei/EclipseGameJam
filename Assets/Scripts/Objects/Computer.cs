@@ -9,6 +9,7 @@ public class Computer : MonoBehaviour, IInteractable
 
     public void PickUp(Camera playerCamera = null)
     {
+        PlayerInteract.Instance.isInComputer = true;
         CommandManager.Instance.computerUI.SetActive(true);
         PlayerController.Instance.CanLook = false;
         PlayerController.Instance.CanMove = false;

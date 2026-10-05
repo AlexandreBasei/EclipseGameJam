@@ -93,6 +93,7 @@ public class PC : MonoBehaviour
         PlayerController.Instance.CanLook = true;
         PlayerController.Instance.CanMove = true;
         PlayerController.Instance.LockCursor();
+        PlayerInteract.Instance.isInComputer = false;
         gameObject.SetActive(false);
         if (DaysManager.Instance.tutoStarted && DaysManager.Instance.tutoProgress == 1)
         {

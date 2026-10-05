@@ -4,7 +4,9 @@ public class PauseManager : MonoBehaviour
 {
     public void PauseOpen()
     {
-
+        if (PlayerInteract.Instance.isInComputer)
+            return;
+            
         gameObject.SetActive(true);
         PlayerController.Instance.CanLook = false;
         Cursor.lockState = CursorLockMode.Confined;
