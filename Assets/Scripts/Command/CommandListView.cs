@@ -62,7 +62,10 @@ public class CommandListView : IDisposable
         else
         {
             buttons.Q<Button>("AcceptButton").clicked += () => manager.AcceptCommand(command);
-            buttons.Q<Button>("DeclineButton").clicked += () => manager.DeclineCommand(command);
+            if (DaysManager.Instance.currentDay == 1)
+                buttons.Remove(buttons.Q<Button>("DeclineButton"));
+            else
+                buttons.Q<Button>("DeclineButton").clicked += () => manager.DeclineCommand(command);
         }
 
         return item;
