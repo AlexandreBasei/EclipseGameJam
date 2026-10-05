@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Tahlia Love
   m_EditorClassIdentifier: Assembly-CSharp::CommandSO
   clientName: Tahlia Love
-  moneyReward: 250
+  moneyReward: 500
   ObjectSO: {fileID: 11400000, guid: 26ffbce7f5e117649a27f0231a2ebf1c, type: 2}
   state: 0

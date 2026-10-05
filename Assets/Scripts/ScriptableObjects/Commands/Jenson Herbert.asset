@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Jenson Herbert
   m_EditorClassIdentifier: Assembly-CSharp::CommandSO
   clientName: Jenson Herbert
-  moneyReward: 200
+  moneyReward: 400
   ObjectSO: {fileID: 11400000, guid: b7c8685b1d6e73d4e9b16b0572329848, type: 2}
   state: 0

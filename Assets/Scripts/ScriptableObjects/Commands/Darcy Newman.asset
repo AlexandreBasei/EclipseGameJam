@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Darcy Newman
   m_EditorClassIdentifier: Assembly-CSharp::CommandSO
   clientName: Darcy Newman
-  moneyReward: 150
+  moneyReward: 300
   ObjectSO: {fileID: 11400000, guid: e3f50494e60586043b234cd8079e6fd2, type: 2}
   state: 0

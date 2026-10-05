@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Freddie Stewart
   m_EditorClassIdentifier: Assembly-CSharp::CommandSO
   clientName: Freddie Stewart
-  moneyReward: 100
+  moneyReward: 200
   ObjectSO: {fileID: 11400000, guid: 6b145b1272eab65448c17201d54673b9, type: 2}
   state: 0

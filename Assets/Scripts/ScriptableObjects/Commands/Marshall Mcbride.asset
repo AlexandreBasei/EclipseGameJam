@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Marshall Mcbride
   m_EditorClassIdentifier: Assembly-CSharp::CommandSO
   clientName: Marshall Mcbride
-  moneyReward: 150
+  moneyReward: 300
   ObjectSO: {fileID: 11400000, guid: 2e98c163a50388d449bd6f5d5b9b9a6b, type: 2}
   state: 0

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Eleri Kerr
   m_EditorClassIdentifier: Assembly-CSharp::CommandSO
   clientName: Eleri Kerr
-  moneyReward: 200
+  moneyReward: 400
   ObjectSO: {fileID: 11400000, guid: b5c01e1b0c3cf214c990c5f3b9b75cf2, type: 2}
   state: 0

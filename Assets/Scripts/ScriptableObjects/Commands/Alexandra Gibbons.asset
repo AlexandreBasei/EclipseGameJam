@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Alexandra Gibbons
   m_EditorClassIdentifier: Assembly-CSharp::CommandSO
   clientName: Alexandra Gibbons
-  moneyReward: 150
+  moneyReward: 300
   ObjectSO: {fileID: 11400000, guid: bc1d99b75d0e4494fa28a43731f3eca5, type: 2}
   state: 0

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Xanthe Davenport
   m_EditorClassIdentifier: Assembly-CSharp::CommandSO
   clientName: Xanthe Davenport
-  moneyReward: 100
+  moneyReward: 200
   ObjectSO: {fileID: 11400000, guid: 43aeec90695cdae4a847b64f634f578f, type: 2}
   state: 0

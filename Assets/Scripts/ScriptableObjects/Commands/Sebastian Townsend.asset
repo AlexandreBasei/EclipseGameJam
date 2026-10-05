@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Sebastian Townsend
   m_EditorClassIdentifier: Assembly-CSharp::CommandSO
   clientName: Sebastian Townsend
-  moneyReward: 100
+  moneyReward: 200
   ObjectSO: {fileID: 11400000, guid: ac9c5ae427292ee42adaf822532e04c7, type: 2}
   state: 0

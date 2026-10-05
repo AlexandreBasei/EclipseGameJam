@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Osian Ritchie
   m_EditorClassIdentifier: Assembly-CSharp::CommandSO
   clientName: Osian Ritchie
-  moneyReward: 100
+  moneyReward: 200
   ObjectSO: {fileID: 11400000, guid: 0e6cc6975f731cc40a14f1cff82dda62, type: 2}
   state: 0

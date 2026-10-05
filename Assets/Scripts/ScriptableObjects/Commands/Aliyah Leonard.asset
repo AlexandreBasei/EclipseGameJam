@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Aliyah Leonard
   m_EditorClassIdentifier: Assembly-CSharp::CommandSO
   clientName: Aliyah Leonard
-  moneyReward: 150
+  moneyReward: 300
   ObjectSO: {fileID: 11400000, guid: 84d7ca3614728ee4cba56712033fa3f4, type: 2}
   state: 0

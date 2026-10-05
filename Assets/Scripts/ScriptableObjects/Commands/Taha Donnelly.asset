@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Taha Donnelly
   m_EditorClassIdentifier: Assembly-CSharp::CommandSO
   clientName: Taha Donnelly
-  moneyReward: 200
+  moneyReward: 400
   ObjectSO: {fileID: 11400000, guid: f5af813fd63743349ba3802090de6922, type: 2}
   state: 0

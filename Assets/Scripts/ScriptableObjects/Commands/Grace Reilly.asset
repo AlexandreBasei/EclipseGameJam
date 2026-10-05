@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Grace Reilly
   m_EditorClassIdentifier: Assembly-CSharp::CommandSO
   clientName: Grace Reilly
-  moneyReward: 200
+  moneyReward: 400
   ObjectSO: {fileID: 11400000, guid: 046b2b60e0ecdd34eb2510c1878580c7, type: 2}
   state: 0

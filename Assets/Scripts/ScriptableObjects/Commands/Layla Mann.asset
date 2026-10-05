@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Layla Mann
   m_EditorClassIdentifier: Assembly-CSharp::CommandSO
   clientName: Layla Mann
-  moneyReward: 200
+  moneyReward: 400
   ObjectSO: {fileID: 11400000, guid: adab2e593c59caf4ba037ba1e086d693, type: 2}
   state: 0

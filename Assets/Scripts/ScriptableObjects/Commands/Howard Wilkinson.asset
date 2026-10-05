@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Howard Wilkinson
   m_EditorClassIdentifier: Assembly-CSharp::CommandSO
   clientName: Howard Wilkinson
-  moneyReward: 50
+  moneyReward: 100
   ObjectSO: {fileID: 11400000, guid: 2747c58d7917bef46b462c366cab4a0a, type: 2}
   state: 0
