@@ -39,4 +39,11 @@ public class FadeInOut : Singleton<FadeInOut>
         color.a = endAlpha;
         fadeImage.color = color;
     }
+
+    public void AllBlack()
+    {
+        Color color = fadeImage.color;
+        color.a = 1f;
+        fadeImage.color = color;
+    }
 }

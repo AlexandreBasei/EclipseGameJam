@@ -9,6 +9,11 @@ public class SleepDoor : MonoBehaviour, IInteractable
 
     public void PickUp(Camera playerCamera = null)
     {
+        if(DaysManager.Instance.currentDay == 5)
+        {
+            EndingScript.Instance.EndGame();
+            return;
+        }
         if(DaysManager.Instance.tutoFinished == false)
         {
             return;
