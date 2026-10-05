@@ -32,11 +32,23 @@ public class WarehouseTimer : MonoBehaviour
     {
         AudioManager.Instance.PlaySFX(AudioManager.Instance.carsStartSound);
         timerDone = true;
-        Invoke(nameof(goToWorkShop), 1.5f);
+        goToWorkShop();
     }
 
     private void goToWorkShop()
     {
-        DaysManager.Instance.loadWorkShopScene();
+        FadeInOut.Instance.FadeIn();
+        Invoke(nameof(goToWorkShopEnd), 1f);
+        
     }
+
+    private void goToWorkShopEnd()
+    {
+        DaysManager.Instance.loadWorkShopScene();
+        FadeInOut.Instance.FadeOut();
+    }
+
+    
+
+    
 }

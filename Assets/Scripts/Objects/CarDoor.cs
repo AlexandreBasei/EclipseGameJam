@@ -27,23 +27,41 @@ public class CarDoor : MonoBehaviour, IInteractable
         if (DaysManager.Instance.isInWorkshop)
         {
             AudioManager.Instance.PlaySFX(AudioManager.Instance.carsStartSound);
-            Invoke(nameof(goToWareHouse), 1.5f);
+            goToWareHouse();
         }
         else
         {
             AudioManager.Instance.PlaySFX(AudioManager.Instance.carsStartSound);
-            Invoke(nameof(goToWorkShop), 1.5f);
+            goToWorkShop();
         }
 
     }
 
     private void goToWareHouse()
     {
-        DaysManager.Instance.loadWarehouseScene();
+        FadeInOut.Instance.FadeIn();
+        Invoke(nameof(goToWareHouseEnd), 1f);
+
     }
+
+    private void goToWareHouseEnd()
+    {
+        DaysManager.Instance.loadWarehouseScene();
+        FadeInOut.Instance.FadeOut();
+    }
+
+    
     private void goToWorkShop()
     {
+        FadeInOut.Instance.FadeIn();
+        Invoke(nameof(goToWorkShopEnd), 1f);
+        
+    }
+
+    private void goToWorkShopEnd()
+    {
         DaysManager.Instance.loadWorkShopScene();
+        FadeInOut.Instance.FadeOut();
     }
 
     public void SetItemNameVisible(bool visible)

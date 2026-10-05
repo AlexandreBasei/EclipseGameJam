@@ -12,7 +12,8 @@ public class CurrentCommandTab : MonoBehaviour
 
     public void HideTab()
     {
-        commandUi.SetActive(false);
+        if (commandUi.activeSelf)
+            commandUi.SetActive(false);
     }
 
     void Update()
