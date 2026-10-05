@@ -1,9 +1,20 @@
+using System;
 using UnityEngine;
 
 public class CurrentCommandTab : MonoBehaviour
 {
     [SerializeField] private GameObject commandUi;
-    
+
+    private void Awake()
+    {
+        commandUi.SetActive(false);
+    }
+
+    public void HideTab()
+    {
+        commandUi.SetActive(false);
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))

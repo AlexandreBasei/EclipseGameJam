@@ -1,12 +1,5 @@
 fileFormatVersion: 2
-guid: 650711d44ac4ac04b9a9006562d35a7f
-AssetOrigin:
-  serializedVersion: 1
-  productId: 399454
-  packageName: Musical Instruments - PolyPack - Low Poly Assets
-  packageVersion: 1.0
-  assetPath: Assets/ALSTRA INFINITE/PolyPack Starter/Musical Instruments/Models/TamburinV1.fbx
-  uploadId: 971114
+guid: 8ddfaedc93bf8a047bc953e765db7087
 ModelImporter:
   serializedVersion: 24600
   internalIDToNameTable: []
@@ -16,7 +9,7 @@ ModelImporter:
     materialName: 0
     materialSearch: 1
     materialLocation: 1
-    searchTexturesGlobally: 1
+    searchTexturesGlobally: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -38,7 +31,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -90,7 +83,7 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-    calculateBlendshapeNormalsDeltaFromImportedNormals: 1
+    calculateBlendshapeNormalsDeltaFromImportedNormals: 0
   referencedClips: []
   importAnimation: 1
   humanDescription:
