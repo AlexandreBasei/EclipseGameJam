@@ -34,6 +34,8 @@ public class DaysManager : PersistentSingleton<DaysManager>
 
     public TextMeshProUGUI tutoText;
 
+    public int rentPrice = 50;
+
     protected override void Awake()
     {
         base.Awake();
@@ -54,6 +56,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
         hasVisitedWareHouse = false;
         CommandManager.Instance.DiscardAllCurrentsCommands();
         setTruckSize();
+        rentPrice = Mathf.RoundToInt(rentPrice * 1.8f);
         loadWorkShopScene();
     }
 
@@ -136,6 +139,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
         tutoFinished = false;
         tutoStarted = false;
         tutoProgress = 0;
+        rentPrice = 50;
     }
 
     public void loadWorkShopScene()
@@ -168,7 +172,6 @@ public class DaysManager : PersistentSingleton<DaysManager>
 
     public void tutorialStart()
     {
-        print(tutoStarted);
         if (tutoStarted == false)
         {
             if (tutoFinished)

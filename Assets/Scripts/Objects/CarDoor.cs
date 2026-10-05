@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class CarDoor : MonoBehaviour, IInteractable
 {
@@ -6,6 +7,7 @@ public class CarDoor : MonoBehaviour, IInteractable
     [SerializeField] private Color _highlightedOutlineColor = Color.blue;
     public Color OutlineColor => _outlineColor;
     public Color HighlightedOutlineColor => _highlightedOutlineColor;
+    public TextMeshProUGUI ItemNameText => null;
     public bool isDoorOpen = false;
 
     public void PickUp(Camera playerCamera = null)
