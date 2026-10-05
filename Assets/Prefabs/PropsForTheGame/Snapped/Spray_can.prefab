@@ -212,7 +212,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &2814311897597479287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,7 +229,9 @@ MonoBehaviour:
   _itemNameText: {fileID: 1030446082997286919}
   _outlineColor: {r: 1, g: 1, b: 1, a: 1}
   _highlightedOutlineColor: {r: 0, g: 0, b: 1, a: 1}
+  _chestHighlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _heldDistance: 2
+  isInChest: 0
 --- !u!114 &8035479027941728783
 MonoBehaviour:
   m_ObjectHideFlags: 0

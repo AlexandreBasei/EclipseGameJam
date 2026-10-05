@@ -32,8 +32,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 440644188709908655}
   - {fileID: 8356212288655517231}
@@ -112,7 +112,9 @@ MonoBehaviour:
   _itemNameText: {fileID: 3793564118438336594}
   _outlineColor: {r: 1, g: 1, b: 1, a: 1}
   _highlightedOutlineColor: {r: 0, g: 0, b: 1, a: 1}
+  _chestHighlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _heldDistance: 2
+  isInChest: 0
 --- !u!114 &2391235577280759372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,7 +611,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300718, guid: fde463d1640be964dad05cce1c744989, type: 3}
 --- !u!54 &487930832659455494
@@ -638,7 +640,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1 &6434035718474038081
 GameObject:
   m_ObjectHideFlags: 0

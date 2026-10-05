@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4382071522870698}
+  - component: {fileID: 8765797272893747790}
   m_Layer: 0
   m_Name: Lighter_Prefab
   m_TagString: Untagged
@@ -35,6 +36,33 @@ Transform:
   - {fileID: 4846824965983810}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &8765797272893747790
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179789650271714}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!1 &1207515084871104
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +173,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300004, guid: 437eb59b1a725a44eb0a2ec15d272d5b, type: 3}
 --- !u!1 &1442531895003412
@@ -258,7 +286,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300006, guid: 437eb59b1a725a44eb0a2ec15d272d5b, type: 3}
 --- !u!1 &1522236235555568
@@ -371,7 +399,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300002, guid: 437eb59b1a725a44eb0a2ec15d272d5b, type: 3}
 --- !u!1 &1772882541765132
@@ -488,7 +516,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 437eb59b1a725a44eb0a2ec15d272d5b, type: 3}
 --- !u!114 &319147720607249908
@@ -507,7 +535,9 @@ MonoBehaviour:
   _itemNameText: {fileID: 6487041523142026008}
   _outlineColor: {r: 1, g: 1, b: 1, a: 1}
   _highlightedOutlineColor: {r: 0, g: 0, b: 1, a: 1}
+  _chestHighlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _heldDistance: 2
+  isInChest: 0
 --- !u!114 &253055889843101054
 MonoBehaviour:
   m_ObjectHideFlags: 0

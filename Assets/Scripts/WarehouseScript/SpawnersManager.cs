@@ -14,6 +14,8 @@ public class SpawnersManager : MonoBehaviour
         DisableRandomSpawners();
 
         GenerateObjects();
+
+        DaysManager.Instance.findTuto();
     }
 
     private void DisableRandomSpawners()

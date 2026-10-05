@@ -367,7 +367,9 @@ MonoBehaviour:
   _itemNameText: {fileID: 5858600018806478335}
   _outlineColor: {r: 1, g: 1, b: 1, a: 1}
   _highlightedOutlineColor: {r: 0, g: 0, b: 1, a: 1}
+  _chestHighlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _heldDistance: 2
+  isInChest: 0
 --- !u!114 &5783126393776082771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,7 +495,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6091699235446317264, guid: 11325f8951580b6408ba381320c84660, type: 3}
 --- !u!54 &2764897176917364890

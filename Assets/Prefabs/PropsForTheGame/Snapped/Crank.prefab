@@ -26,8 +26,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3123320040273369980}
   m_Father: {fileID: 0}
@@ -264,7 +264,9 @@ MonoBehaviour:
   _itemNameText: {fileID: 1670624089958078653}
   _outlineColor: {r: 1, g: 1, b: 1, a: 1}
   _highlightedOutlineColor: {r: 0, g: 0, b: 1, a: 1}
+  _chestHighlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _heldDistance: 2
+  isInChest: 0
 --- !u!64 &5606806565348379707
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -284,7 +286,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7687955033234908518, guid: 576c615aede1b3e44b1022bae3e08b6a, type: 3}
 --- !u!54 &4193933208597891981

@@ -155,6 +155,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: fcaf0b0664a269b4d9ee80e888bba45b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: fcaf0b0664a269b4d9ee80e888bba45b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: fcaf0b0664a269b4d9ee80e888bba45b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: fcaf0b0664a269b4d9ee80e888bba45b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.5762339
       objectReference: {fileID: 0}
@@ -193,6 +205,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: fcaf0b0664a269b4d9ee80e888bba45b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: fcaf0b0664a269b4d9ee80e888bba45b, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: fcaf0b0664a269b4d9ee80e888bba45b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -254,7 +270,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4379760893682877003, guid: fcaf0b0664a269b4d9ee80e888bba45b, type: 3}
 --- !u!54 &3909978162760099011
@@ -283,7 +299,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &6135349149088549717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,7 +316,9 @@ MonoBehaviour:
   _itemNameText: {fileID: 4200301892852735957}
   _outlineColor: {r: 1, g: 1, b: 1, a: 1}
   _highlightedOutlineColor: {r: 0, g: 0, b: 1, a: 1}
+  _chestHighlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _heldDistance: 2
+  isInChest: 0
 --- !u!114 &8811315242820226414
 MonoBehaviour:
   m_ObjectHideFlags: 0

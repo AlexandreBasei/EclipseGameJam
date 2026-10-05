@@ -17,6 +17,7 @@ public class CommandManager : PersistentSingleton<CommandManager>
     private List<CommandSO> newCommands;
     private List<CommandSO> currentCommands;
     private bool initialized;
+    public GameObject computerUI;
 
     public event Action CommandsChanged;
 

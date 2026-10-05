@@ -236,7 +236,9 @@ MonoBehaviour:
   _itemNameText: {fileID: 3874663286338849802}
   _outlineColor: {r: 1, g: 1, b: 1, a: 1}
   _highlightedOutlineColor: {r: 0, g: 0, b: 1, a: 1}
+  _chestHighlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _heldDistance: 2
+  isInChest: 0
 --- !u!114 &4659224185338097458
 MonoBehaviour:
   m_ObjectHideFlags: 0

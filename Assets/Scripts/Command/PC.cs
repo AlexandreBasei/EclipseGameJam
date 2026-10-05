@@ -80,6 +80,10 @@ public class PC : MonoBehaviour
         PlayerController.Instance.CanMove = true;
         PlayerController.Instance.LockCursor();
         gameObject.SetActive(false);
+        if (DaysManager.Instance.tutoStarted && DaysManager.Instance.tutoProgress == 1)
+        {
+            DaysManager.Instance.tutoFirstReview();
+        }
     }
 
     private void SwitchTab(VisualElement root, CurrentTab newTab)
