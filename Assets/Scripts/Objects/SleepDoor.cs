@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using TMPro;
 
@@ -23,6 +24,12 @@ public class SleepDoor : MonoBehaviour, IInteractable
 
     public void SetItemNameVisible(bool visible)
     {
-        return;
+        if (_itemNameText != null)
+        {
+            _itemNameText.text = DaysManager.Instance.rentPrice.ToString() + " $";
+            print(visible);
+            _itemNameText.gameObject.SetActive(visible);
+        }
+            
     }
 }

@@ -33,7 +33,7 @@ public class CommandManager : PersistentSingleton<CommandManager>
     {
         if (initialized) return;
         initialized = true;
-        ResetAllCommand();
+        ResetAllCommand();  
         currentCommands = allCommands.Where(c => c.state is CommandState.Accepted).ToList();
         newCommands = PickNewCommands();
     }
