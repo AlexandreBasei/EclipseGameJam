@@ -1,7 +1,12 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/CommandListTabletStyle.uss?fileID=7433441132597879392&amp;guid=375254a513e26ea43904c83025301053&amp;type=3#CommandListTabletStyle"/>
     <ui:VisualElement name="MainContainer" style="flex-grow: 1;">
-        <ui:Label text="Current Commands" name="Title"/>
-        <ui:ScrollView name="CommandList" horizontal-scroller-visibility="Hidden" mode="Vertical"/>
+        <ui:VisualElement name="Tablet">
+            <ui:Button text="" name="CrossButton">
+                <ui:Image source="project://database/Assets/UI/Images/x-10327.svg?fileID=7388822144124034973&amp;guid=bb9d96bbe2716d54d97b792fd538d50d&amp;type=3#x-10327"/>
+            </ui:Button>
+            <ui:Label text="Current Commands" name="Title"/>
+            <ui:ScrollView name="CommandList" horizontal-scroller-visibility="Hidden" mode="Vertical"/>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
