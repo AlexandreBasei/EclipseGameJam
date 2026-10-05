@@ -9,6 +9,10 @@ public class SleepDoor : MonoBehaviour, IInteractable
 
     public void PickUp(Camera playerCamera = null)
     {
+        if(DaysManager.Instance.tutoFinished == false)
+        {
+            return;
+        }
         AudioManager.Instance.PlaySFX(AudioManager.Instance.coqSound);
         DaysManager.Instance.NextDay();
     }

@@ -45,7 +45,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.12
+  m_Volume: 0.01
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -306,9 +306,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   music: {fileID: 418663228341974191}
   SFX: {fileID: 27034272534205975}
-  clic1: {fileID: 0}
-  clic2: {fileID: 0}
-  clic3: {fileID: 0}
-  MusicMainMenu: {fileID: 0}
-  MusicInGame: {fileID: 0}
-  MusicEndGame: {fileID: 0}
+  clic1: {fileID: 8300000, guid: 83f07512a073f0942bbfa10440f069b7, type: 3}
+  clic2: {fileID: 8300000, guid: 705746c294938204b9b0aefa3a8effb5, type: 3}
+  clic3: {fileID: 8300000, guid: 576e28a8f9431bf40a3bf9806e072f30, type: 3}
+  coqSound: {fileID: 8300000, guid: 08d705d1646d40d49972de1e6d5f9029, type: 3}
+  carsStartSound: {fileID: 8300000, guid: 33a9c430a186bfa4ba5bbe73ce5915ee, type: 3}
+  mergeItem: {fileID: 8300000, guid: d57fd503a8668474d87ef4b3102ca9ef, type: 3}
+  inChest: {fileID: 8300000, guid: 77956290024a88e4b92a2c0a52403a20, type: 3}
+  MusicMainMenuAndStore: {fileID: 8300000, guid: 5ce9913b1b44fe245bef530ff69a3918, type: 3}
+  MusicWarehouse: {fileID: 8300000, guid: bb73f79daac8bed40aa871a1464357f6, type: 3}
+  step1: {fileID: 8300000, guid: 1206b368199917d48a331d44e78196ff, type: 3}
+  step2: {fileID: 8300000, guid: 27df6861a48503a4d9948add3f2c49d9, type: 3}
+  step3: {fileID: 8300000, guid: 583c4a108788ea2409bf404a6894ba54, type: 3}
+  putInTrunk1: {fileID: 8300000, guid: 2844522b4fb4f0a4cb55ef998e621fce, type: 3}
+  putInTrunk2: {fileID: 8300000, guid: 81bad26cb4889aa458cbb9290aae3788, type: 3}
+  putInTrunk3: {fileID: 8300000, guid: ede34f7dc81f1b24092a45dd06068601, type: 3}
+  putInTrunk4: {fileID: 8300000, guid: 29a11219ded31aa48b60b3c182927e83, type: 3}

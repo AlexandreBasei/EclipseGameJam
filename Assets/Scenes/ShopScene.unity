@@ -1433,6 +1433,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TabCurrentCommands
       objectReference: {fileID: 0}
+    - target: {fileID: 9153815552612511711, guid: ca549cf46c507cd46a095034506ad0d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1974,7 +1978,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8410978119461825996, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
       propertyPath: m_fontSize
-      value: 18
+      value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 8410978119461825996, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
       propertyPath: m_enableAutoSizing
@@ -6829,6 +6833,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 681ad26c268bac542b1fb59602706b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SellManager
+  canSell: 0
+  tagsInSellZone: 
 --- !u!1001 &1328285901
 PrefabInstance:
   m_ObjectHideFlags: 0

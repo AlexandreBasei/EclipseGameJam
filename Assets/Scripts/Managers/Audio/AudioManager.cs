@@ -16,6 +16,8 @@ public class AudioManager : PersistentSingleton<AudioManager>
     public AudioClip carsStartSound;
 
     public AudioClip mergeItem;
+
+    public AudioClip inChest;
     
 
     [Header("-------AudioClipMusic-------")]
@@ -29,6 +31,19 @@ public class AudioManager : PersistentSingleton<AudioManager>
     public AudioClip step2;
     [Foldout("AudioClipSFX/Step")]
     public AudioClip step3;
+
+    [Foldout("AudioClipSFX/Trunk")]
+    public AudioClip putInTrunk1;
+
+    [Foldout("AudioClipSFX/Trunk")]
+    public AudioClip putInTrunk2;
+
+    [Foldout("AudioClipSFX/Trunk")]
+    public AudioClip putInTrunk3;
+
+    [Foldout("AudioClipSFX/Trunk")]
+    public AudioClip putInTrunk4;
+
 
 
     void Start()
@@ -92,6 +107,33 @@ public class AudioManager : PersistentSingleton<AudioManager>
         if (stepClip != null)
         {
             PlaySFX(stepClip);
+        }
+    }
+
+    public void PlayPutInTrunk()
+    {
+        int randomIndex = Random.Range(0, 4);
+        AudioClip putInTrunk = null;
+
+        switch (randomIndex)
+        {
+            case 0:
+                putInTrunk = putInTrunk1;
+                break;
+            case 1:
+                putInTrunk = putInTrunk2;
+                break;
+            case 2:
+                putInTrunk = putInTrunk3;
+                break;
+            case 3:
+                putInTrunk = putInTrunk4;
+                break;
+        }
+
+        if (putInTrunk != null)
+        {
+            PlaySFX(putInTrunk);
         }
     }
 }
