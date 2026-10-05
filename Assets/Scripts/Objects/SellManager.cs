@@ -9,10 +9,11 @@ public class SellManager : MonoBehaviour
     private readonly List<Collider> _staleColliders = new List<Collider>();
     public bool canSell = false;
     public Tag[] tagsInSellZone = Array.Empty<Tag>();
+    public Item AssemblyToSell { get; private set; }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -85,7 +86,21 @@ public class SellManager : MonoBehaviour
 
     private void UpdateCanSell()
     {
-        canSell = _colliderCountsByAssembly.Count == 1;
+        AssemblyToSell = null;
+
+        if (_colliderCountsByAssembly.Count != 1)
+        {
+            canSell = false;
+            return;
+        }
+
+        foreach (Item assemblyRoot in _colliderCountsByAssembly.Keys)
+        {
+            AssemblyToSell = assemblyRoot;
+            break;
+        }
+
+        canSell = AssemblyToSell != null;
     }
 
     private void UpdateTagsInSellZone()
@@ -129,5 +144,25 @@ public class SellManager : MonoBehaviour
         }
 
         return tags;
+    }
+
+    public void SellCurrentAssembly()
+    {
+        if (!canSell || AssemblyToSell == null)
+            return;
+
+        Item soldAssembly = AssemblyToSell;
+
+        _staleColliders.Clear();
+        foreach (KeyValuePair<Collider, Item> entry in _colliderAssemblies)
+        {
+            if (entry.Value == soldAssembly)
+                _staleColliders.Add(entry.Key);
+        }
+
+        foreach (Collider collider in _staleColliders)
+            RemoveCollider(collider);
+
+        Destroy(soldAssembly.gameObject);
     }
 }

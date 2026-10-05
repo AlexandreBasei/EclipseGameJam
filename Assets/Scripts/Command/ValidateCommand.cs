@@ -27,7 +27,16 @@ public class ValidateCommand : MonoBehaviour
         commandList = CommandManager.Instance.GetList(ListType.Current);
         rootUI = root;
         SetupShipButton();
-        root.Q<Button>("CrossButton").RegisterCallback<ClickEvent>(e => gameObject.SetActive(false));
+        root.Q<Button>("CrossButton").RegisterCallback<ClickEvent>(OnCrossButtonClicked);
+    }
+
+    private void OnCrossButtonClicked(ClickEvent e)
+    {
+        PlayerController.Instance.CanLook = true;
+        PlayerController.Instance.CanMove = true;
+        PlayerController.Instance.LockCursor();
+        PlayerInteract.Instance.isInComputer = false;
+        gameObject.SetActive(false);
     }
 
     private void SetupShipButton()
@@ -48,8 +57,8 @@ public class ValidateCommand : MonoBehaviour
     private void ShipProduct(CommandSO command)
     {
         var objectTags = sellManager.tagsInSellZone;
-        
-        if(objectTags.Length < 1 || !sellManager.canSell) return;
+
+        if (objectTags.Length < 1 || !sellManager.canSell) return;
 
         int finalReward = command.moneyReward;
 
@@ -65,6 +74,7 @@ public class ValidateCommand : MonoBehaviour
 
         PlayerHUD.Instance.moneyValue += finalReward;
         CommandManager.Instance.ShipCommand(command);
+        sellManager.SellCurrentAssembly();
         SetupShipButton();
     }
 }
