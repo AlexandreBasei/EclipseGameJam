@@ -86,6 +86,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
                 }
                 else if (_grabbedItem.CanBeAddedToChest)
                 {
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.inChest);
                     _grabbedItem.AddToChest();
                 }
             }
@@ -298,6 +299,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
             {
                 if (targetItem != null)
                 {
+                    AudioManager.Instance.PlayPutInTrunk();
                     Invoke(nameof(StopInteracting), 0.2f);
                 }
             }
