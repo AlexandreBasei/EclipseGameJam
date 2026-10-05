@@ -5,20 +5,24 @@ using UnityEngine;
 public class MoneyUI : Singleton<MoneyUI>
 {
     [SerializeField] private TextMeshProUGUI moneyText;
-    [SerializeField] private int actualMoney;
     [SerializeField] private float animationDuration = 0.5f;
 
     private int displayedMoney;
     private Coroutine moneyAnimation;
 
+    private void Start()
+    {
+        NewMoney(DaysManager.Instance.MoneyValue);
+    }
+
     public void UpdateMoney(int valueToAdd)
     {
-        actualMoney += valueToAdd;
-        NewMoney(actualMoney);
+        NewMoney(DaysManager.Instance.MoneyValue + valueToAdd);
     }
 
     public void NewMoney(int newMoney)
     {
+        DaysManager.Instance.SetMoneyValue(newMoney);
         PlayerHUD.Instance.ChangedMoneyValue(newMoney);
 
         if (moneyAnimation != null)
@@ -64,4 +68,3 @@ public class MoneyUI : Singleton<MoneyUI>
 
     }
 }
-

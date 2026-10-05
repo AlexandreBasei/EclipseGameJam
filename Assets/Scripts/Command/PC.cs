@@ -70,8 +70,7 @@ public class PC : MonoBehaviour
                 uiRoot.Q<Label>("TruckAmount").text = DaysManager.Instance.truckLevel == DaysManager.Instance.maxTruckLevel ? "Max" :$"{DaysManager.Instance.truckLevel * 200}";
                 break;
         }
-        PlayerHUD.Instance.ChangedMoneyValue(playerMoney - requestedAmount);
-        MoneyUI.Instance.NewMoney(playerMoney - requestedAmount);
+        MoneyUI.Instance.UpdateMoney(-requestedAmount);
         UpdateMoneyUI();
     }
 
@@ -83,6 +82,9 @@ public class PC : MonoBehaviour
     private void OnEnable()
     {
         Cursor.visible = true;
+
+        if (uiRoot != null)
+            UpdateMoneyUI();
     }
 
     private void OnCrossClicked()

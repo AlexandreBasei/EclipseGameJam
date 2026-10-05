@@ -6,6 +6,9 @@ using UnityEngine;
 public class DaysManager : PersistentSingleton<DaysManager>
 {
     public int currentDay = 1;
+    private int moneyValue;
+
+    public int MoneyValue => moneyValue;
 
     public GameObject[] chestContent;
 
@@ -110,6 +113,11 @@ public class DaysManager : PersistentSingleton<DaysManager>
         truckContent = new GameObject[truckSize];
     }
 
+    public void SetMoneyValue(int newValue)
+    {
+        moneyValue = newValue;
+    }
+
     public void UpgradeChest()
     {
         if (chestLevel == maxChestLevel)
@@ -131,6 +139,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
     public void ResetDays()
     {
         currentDay = 1;
+        moneyValue = 0;
         chestContent = new GameObject[4];
         chestLevel = 0;
         truckLevel = 0;
