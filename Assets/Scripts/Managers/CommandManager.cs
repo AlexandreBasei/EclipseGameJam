@@ -38,7 +38,7 @@ public class CommandManager : PersistentSingleton<CommandManager>
         newCommands = PickNewCommands();
     }
 
-    private List<CommandSO> PickNewCommands()
+    public List<CommandSO> PickNewCommands()
     {
         var available = allCommands
             .Distinct()
