@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae44cefd6a249e9951110c7da6e6fa9, type: 3}
+  m_Name: Tahlia Love
+  m_EditorClassIdentifier: Assembly-CSharp::CommandSO
+  clientName: Tahlia Love
+  moneyReward: 250
+  ObjectSO: {fileID: 11400000, guid: 26ffbce7f5e117649a27f0231a2ebf1c, type: 2}
+  state: 0
