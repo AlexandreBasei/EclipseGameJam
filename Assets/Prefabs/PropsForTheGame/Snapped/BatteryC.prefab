@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3846824949152579431}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BatteryC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,6 +40,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8387144466603898159}
     m_Modifications:
+    - target: {fileID: 2019746059712950183, guid: 4cf0b2cfae5e32d4e89f77856f294414, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3288584538266942121, guid: 4cf0b2cfae5e32d4e89f77856f294414, type: 3}
       propertyPath: m_Name
       value: NameCanvas
@@ -110,7 +114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5168755324076798256, guid: 4cf0b2cfae5e32d4e89f77856f294414, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.166
       objectReference: {fileID: 0}
     - target: {fileID: 5168755324076798256, guid: 4cf0b2cfae5e32d4e89f77856f294414, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -123,6 +127,22 @@ PrefabInstance:
     - target: {fileID: 5168755324076798256, guid: 4cf0b2cfae5e32d4e89f77856f294414, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8673967767156956932, guid: 4cf0b2cfae5e32d4e89f77856f294414, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8673967767156956932, guid: 4cf0b2cfae5e32d4e89f77856f294414, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8673967767156956932, guid: 4cf0b2cfae5e32d4e89f77856f294414, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8673967767156956932, guid: 4cf0b2cfae5e32d4e89f77856f294414, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -291,6 +311,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BatteryC
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4b17199607ef6b640882e97ed67c0920, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -340,7 +364,9 @@ MonoBehaviour:
   _itemNameText: {fileID: 5661580318167094571}
   _outlineColor: {r: 1, g: 1, b: 1, a: 1}
   _highlightedOutlineColor: {r: 0, g: 0, b: 1, a: 1}
+  _chestHighlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _heldDistance: 2
+  isInChest: 0
 --- !u!114 &86048188240524453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,7 +374,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9164490818524721045}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 

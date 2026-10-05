@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4382071522870698}
   - component: {fileID: 8765797272893747790}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Lighter_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 33258554375369876}
   - component: {fileID: 23351892738787070}
   - component: {fileID: 4277906765170079610}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Flint Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 33126703989708300}
   - component: {fileID: 23929010018570928}
   - component: {fileID: 3661853363740555853}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fuel Adjuster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 33971581611604926}
   - component: {fileID: 23246513251343488}
   - component: {fileID: 8010629453860096947}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fuel Lever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -416,7 +416,7 @@ GameObject:
   - component: {fileID: 7949554589453234962}
   - component: {fileID: 319147720607249908}
   - component: {fileID: 253055889843101054}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Lighter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -545,7 +545,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1772882541765132}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -1135,7 +1135,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2447978434804777773}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SnapPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1167,6 +1167,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4846824965983810}
     m_Modifications:
+    - target: {fileID: 2019746059712950183, guid: 4cf0b2cfae5e32d4e89f77856f294414, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3288584538266942121, guid: 4cf0b2cfae5e32d4e89f77856f294414, type: 3}
       propertyPath: m_Name
       value: NameCanvas
@@ -1237,7 +1241,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5168755324076798256, guid: 4cf0b2cfae5e32d4e89f77856f294414, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0395
+      value: -0.428
       objectReference: {fileID: 0}
     - target: {fileID: 5168755324076798256, guid: 4cf0b2cfae5e32d4e89f77856f294414, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1250,6 +1254,22 @@ PrefabInstance:
     - target: {fileID: 5168755324076798256, guid: 4cf0b2cfae5e32d4e89f77856f294414, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8673967767156956932, guid: 4cf0b2cfae5e32d4e89f77856f294414, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8673967767156956932, guid: 4cf0b2cfae5e32d4e89f77856f294414, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8673967767156956932, guid: 4cf0b2cfae5e32d4e89f77856f294414, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8673967767156956932, guid: 4cf0b2cfae5e32d4e89f77856f294414, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1282,15 +1302,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1876483580101236466, guid: 080e14dda7df05c4dbe6949dad195416, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.01
+      value: 0.028649999
       objectReference: {fileID: 0}
     - target: {fileID: 1876483580101236466, guid: 080e14dda7df05c4dbe6949dad195416, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.01
+      value: 0.028649999
       objectReference: {fileID: 0}
     - target: {fileID: 1876483580101236466, guid: 080e14dda7df05c4dbe6949dad195416, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.01
+      value: 0.028649999
       objectReference: {fileID: 0}
     - target: {fileID: 1876483580101236466, guid: 080e14dda7df05c4dbe6949dad195416, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1356,19 +1376,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1876483580101236466, guid: 080e14dda7df05c4dbe6949dad195416, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.01
+      value: 0.028649999
       objectReference: {fileID: 0}
     - target: {fileID: 1876483580101236466, guid: 080e14dda7df05c4dbe6949dad195416, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.01
+      value: 0.028649999
       objectReference: {fileID: 0}
     - target: {fileID: 1876483580101236466, guid: 080e14dda7df05c4dbe6949dad195416, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.01
+      value: 0.028649999
       objectReference: {fileID: 0}
     - target: {fileID: 1876483580101236466, guid: 080e14dda7df05c4dbe6949dad195416, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.00031
+      value: -0.00041
       objectReference: {fileID: 0}
     - target: {fileID: 1876483580101236466, guid: 080e14dda7df05c4dbe6949dad195416, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1376,7 +1396,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1876483580101236466, guid: 080e14dda7df05c4dbe6949dad195416, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.00512
+      value: 0.0003
       objectReference: {fileID: 0}
     - target: {fileID: 1876483580101236466, guid: 080e14dda7df05c4dbe6949dad195416, type: 3}
       propertyPath: m_LocalRotation.w
