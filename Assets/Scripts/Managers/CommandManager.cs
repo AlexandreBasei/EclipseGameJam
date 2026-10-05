@@ -65,6 +65,7 @@ public class CommandManager : PersistentSingleton<CommandManager>
 
     public void AcceptCommand(CommandSO command)
     {
+        AudioManager.Instance.PlayClic();
         command.state = CommandState.Accepted;
         newCommands.Remove(command);
 
@@ -86,6 +87,7 @@ public class CommandManager : PersistentSingleton<CommandManager>
 
     public void DeclineCommand(CommandSO command)
     {
+        AudioManager.Instance.PlayClic();
         command.state = CommandState.Declined;
         newCommands.Remove(command);
         currentCommands.Remove(command);
