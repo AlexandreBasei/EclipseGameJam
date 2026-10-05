@@ -149,6 +149,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
         tutoStarted = false;
         tutoProgress = 0;
         rentPrice = 50;
+        CommandManager.Instance.ResetAllCommand();
     }
 
     public void loadWorkShopScene()

@@ -63,6 +63,7 @@ public class CommandManager : PersistentSingleton<CommandManager>
     {
         DiscardAllCurrentsCommands();
         newCommands = PickNewCommands();
+        CommandsChanged?.Invoke();
     }
 
     public void DiscardAllCurrentsCommands()
@@ -102,8 +103,10 @@ public class CommandManager : PersistentSingleton<CommandManager>
         CommandsChanged?.Invoke();
     }
 
-    private void ResetAllCommand()
+    public void ResetAllCommand()
     {
+        currentCommands.Clear();
+        newCommands.Clear();
         foreach (var command in allCommands)
         {
             command.state = CommandState.Idle;
