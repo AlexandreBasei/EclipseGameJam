@@ -1,10 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 public interface IInteractable
 {
     Color OutlineColor { get; }
     Color HighlightedOutlineColor { get; }
+    TextMeshProUGUI ItemNameText { get; }
+
     void PickUp(Camera playerCamera = null);
     void SetItemNameVisible(bool visible);
 }
