@@ -227,6 +227,6 @@ public class DaysManager : PersistentSingleton<DaysManager>
         tutoText.text = "At the start of each day, the rent will be automatically debited from your account. \nDo your best to avoid going bankrupt within the next 4 days. \n\nGood Luck !";
         tutoProgress = 9;
         tutoStarted = false;
-        tutoStarted = true;
+        tutoFinished = true;
     }
 }
