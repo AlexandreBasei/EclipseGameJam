@@ -31,6 +31,7 @@ public class Item : MonoBehaviour, IInteractable
     private readonly RaycastHit[] _heldPositionHits = new RaycastHit[32];
     private IReadOnlyList<Item> _assemblyItemsReadOnly;
     [SerializeField] private TextMeshProUGUI _itemNameText;
+    public TextMeshProUGUI ItemNameText => _itemNameText;
     [SerializeField] private Color _outlineColor = Color.white;
     [SerializeField] private Color _highlightedOutlineColor = Color.blue;
     [SerializeField] private Color _chestHighlightColor = Color.yellow;
@@ -635,7 +636,7 @@ public class Item : MonoBehaviour, IInteractable
     {
         if (!CanSnap)
             return;
-        
+
         AudioManager.Instance.PlaySFX(AudioManager.Instance.mergeItem);
 
         foreach (SnapPoint snapPoint in GetComponentsInChildren<SnapPoint>(true))
@@ -665,7 +666,7 @@ public class Item : MonoBehaviour, IInteractable
     {
         if (!CanUnFuse)
             return;
-        
+
         AudioManager.Instance.PlaySFX(AudioManager.Instance.mergeItem);
 
         Item[] assemblyItems = GetComponentsInChildren<Item>(true);

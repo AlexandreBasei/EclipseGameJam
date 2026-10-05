@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599866e94a3afea4d97bc42465a440cf, type: 3}
   m_Name: MetalPlateSO
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
-  objectName: MetalPlate
+  objectName: Metal Plate
   tags: 1088
   prefab: {fileID: 875592293403979317, guid: 5958a410fcbea1e49b7dfcca7a4c9b15, type: 3}

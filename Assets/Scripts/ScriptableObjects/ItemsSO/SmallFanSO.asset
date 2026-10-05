@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599866e94a3afea4d97bc42465a440cf, type: 3}
   m_Name: SmallFanSO
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSO
-  objectName: 
+  objectName: Fan
   tags: 32832
+  prefab: {fileID: 0}

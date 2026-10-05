@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ae44cefd6a249e9951110c7da6e6fa9, type: 3}
-  m_Name: 2
-  m_EditorClassIdentifier: Assembly-CSharp::CommandSo
-  clientName: "Michel c'est le br\xE9sil"
-  moneyReward: 200
-  ObjectSO: {fileID: 11400000, guid: 94f2363655280964bad7046a51883885, type: 2}
-  state: 1
+  m_Name: Freddie Stewart
+  m_EditorClassIdentifier: Assembly-CSharp::CommandSO
+  clientName: Freddie Stewart
+  moneyReward: 100
+  ObjectSO: {fileID: 11400000, guid: 6b145b1272eab65448c17201d54673b9, type: 2}
+  state: 0

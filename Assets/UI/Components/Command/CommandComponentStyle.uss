@@ -50,7 +50,8 @@
     margin-top: 10;
 }
 
-.shipButton {
+#ShipButton {
+    display: none;
     font-size: 20px;
     border-width: 0px;
     border-color: transparent;
@@ -61,6 +62,6 @@
     transition: all ease-in-out 300ms;
 }
 
-.shipButton:hover{
+#ShipButton:hover{
     background-color: darkgreen;
 }

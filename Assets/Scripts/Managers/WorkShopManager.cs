@@ -5,11 +5,12 @@ public class WorkShopManager : MonoBehaviour
 {
     [SerializeField] private Transform[] truckSpawnPoints = new Transform[10];
     [SerializeField] private Transform[] chestSpawnPoints = new Transform[4];
+    [SerializeField] private GameObject[] defaultDay0Items = new GameObject[3];
     void Start()
     {
         GameObject[] truckItems = DaysManager.Instance.truckContent;
         GameObject[] chestItems = DaysManager.Instance.chestContent;
-        
+
         for (int i = 0; i < truckItems.Length && i < truckSpawnPoints.Length; i++)
         {
             if (truckItems[i] == null || truckSpawnPoints[i] == null)
@@ -24,6 +25,24 @@ public class WorkShopManager : MonoBehaviour
                 continue;
 
             Instantiate(chestItems[i], chestSpawnPoints[i].position, chestSpawnPoints[i].rotation);
+        }
+
+        if (DaysManager.Instance.currentDay == 1 && DaysManager.Instance.hasVisitedWareHouse)
+        {
+            int truckItemCount = 0;
+            for (int i = 0; i < truckItems.Length; i++)
+            {
+                if (truckItems[i] != null)
+                    truckItemCount++;
+            }
+
+            for (int i = truckItemCount; i < 3 && i < defaultDay0Items.Length && i < truckSpawnPoints.Length; i++)
+            {
+                if (defaultDay0Items[i] == null || truckSpawnPoints[i] == null)
+                    continue;
+
+                Instantiate(defaultDay0Items[i], truckSpawnPoints[i].position, truckSpawnPoints[i].rotation);
+            }
         }
 
         DaysManager.Instance.chestContent = new GameObject[DaysManager.Instance.maxChestLevel];

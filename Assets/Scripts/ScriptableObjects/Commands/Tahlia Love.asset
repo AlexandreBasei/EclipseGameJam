@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ae44cefd6a249e9951110c7da6e6fa9, type: 3}
-  m_Name: 7
-  m_EditorClassIdentifier: Assembly-CSharp::CommandSo
-  clientName: SALOPE VA
-  moneyReward: 200
-  ObjectSO: {fileID: 11400000, guid: 94f2363655280964bad7046a51883885, type: 2}
+  m_Name: Tahlia Love
+  m_EditorClassIdentifier: Assembly-CSharp::CommandSO
+  clientName: Tahlia Love
+  moneyReward: 250
+  ObjectSO: {fileID: 11400000, guid: 26ffbce7f5e117649a27f0231a2ebf1c, type: 2}
   state: 0

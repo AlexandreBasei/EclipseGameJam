@@ -1,10 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 public interface IInteractable
 {
     Color OutlineColor { get; }
     Color HighlightedOutlineColor { get; }
+    TextMeshProUGUI ItemNameText { get; }
+
     void PickUp(Camera playerCamera = null);
     void SetItemNameVisible(bool visible);
 }
@@ -244,13 +247,13 @@ public class PlayerInteract : Singleton<PlayerInteract>
         if (_highlightedOutline == null)
             return;
 
-        Item item = _highlightedOutline.GetComponent<Item>();
+        IInteractable item = _highlightedOutline.GetComponent<IInteractable>();
         if (item != null)
         {
             bool shouldShowItemName =
                 _currentTarget == _highlightedOutline &&
                 Time.time - _lastTimePickUpTargetWasValid <= TargetLossGracePeriod &&
-                item.itemData != null && !_isInteracting;
+                item.ItemNameText != null && !_isInteracting;
 
             item.SetItemNameVisible(shouldShowItemName);
         }
@@ -293,7 +296,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
             : _currentTarget.GetComponent<IInteractable>();
         if (interactable != null)
         {
-            _isInteracting = true;
+            _isInteracting = targetItem != null;
             interactable.PickUp(_playerCamera);
 
             if (!DaysManager.Instance.isInWorkshop)

@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class SellTablet : MonoBehaviour, IInteractable
 {
@@ -7,6 +8,7 @@ public class SellTablet : MonoBehaviour, IInteractable
     [SerializeField] private GameObject tabletCommand;
     public Color OutlineColor => _outlineColor;
     public Color HighlightedOutlineColor => _highlightedOutlineColor;
+    public TextMeshProUGUI ItemNameText => null;
 
     public void PickUp(Camera playerCamera = null)
     {

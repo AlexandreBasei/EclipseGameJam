@@ -45,11 +45,9 @@ public class ValidateCommand : MonoBehaviour
 
         for (int i = 0; i < commandList.Count; i++)
         {
+            var shipButton = rootUI.Q<Button>("ShipButton");
+            shipButton.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
             var command = commandList[i];
-            var shipButton = new Button { text = "Ship" };
-            shipButton.AddToClassList("shipButton");
-
-            commandListUI[i].Q<VisualElement>("Main").hierarchy.Add(shipButton);
             shipButton.RegisterCallback<ClickEvent>(e => ShipProduct(command));
         }
     }
@@ -72,7 +70,9 @@ public class ValidateCommand : MonoBehaviour
                 finalReward /= 2;
         }
 
-        PlayerHUD.Instance.moneyValue += finalReward;
+        if(DaysManager.Instance.tutoProgress == 6)
+            DaysManager.Instance.tutoFirstChestUse();
+        MoneyUI.Instance.UpdateMoney(finalReward);
         CommandManager.Instance.ShipCommand(command);
         sellManager.SellCurrentAssembly();
         SetupShipButton();

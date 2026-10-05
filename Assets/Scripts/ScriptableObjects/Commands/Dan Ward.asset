@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ae44cefd6a249e9951110c7da6e6fa9, type: 3}
-  m_Name: 5
-  m_EditorClassIdentifier: Assembly-CSharp::CommandSo
-  clientName: BRYAN THE GIANT
-  moneyReward: 200
-  ObjectSO: {fileID: 11400000, guid: 94f2363655280964bad7046a51883885, type: 2}
+  m_Name: Dan Ward
+  m_EditorClassIdentifier: Assembly-CSharp::CommandSO
+  clientName: Dan Ward
+  moneyReward: 100
+  ObjectSO: {fileID: 11400000, guid: d989d7a9439cbe14baf0056b016651c3, type: 2}
   state: 0
