@@ -296,7 +296,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
             : _currentTarget.GetComponent<IInteractable>();
         if (interactable != null)
         {
-            _isInteracting = true;
+            _isInteracting = targetItem != null;
             interactable.PickUp(_playerCamera);
 
             if (!DaysManager.Instance.isInWorkshop)
