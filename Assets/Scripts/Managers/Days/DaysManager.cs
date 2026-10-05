@@ -46,7 +46,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
 
     public void NextDay()
     {
-        if(tutoFinished == false)
+        if (tutoFinished == false)
         {
             tutoFinished = true;
         }
@@ -78,7 +78,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
             chestContent[itemsInChest] = item.itemData.prefab;
             itemsInChest++;
         }
-        if(tutoFinished == false && tutoProgress == 7)
+        if (tutoFinished == false && tutoProgress == 7)
         {
             tutoFirstBills();
         }
@@ -165,7 +165,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
         tutoText = tutoObject.GetComponent<TextMeshProUGUI>();
         if (tutoFinished == false)
         {
-            tutoText.text = "Find and collect the materials needed to fulfill orders within the time limit. Be careful, you can't bring everything back to the store. Once the trunk is full you can take it to leave.";
+            tutoText.text = "Find and collect the materials needed to fulfill orders within the time limit. Be careful, you can't bring everything back to the store.Once the trunk is full you can take it to leave.";
             tutoProgress = 4;
         }
     }
@@ -183,7 +183,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
             GameObject tutoObject = GameObject.FindGameObjectWithTag("Tuto");
             tutoObject.SetActive(true);
             tutoText = tutoObject.GetComponent<TextMeshProUGUI>();
-            tutoText.text = "Check your computer for new commands and select your first command. ";
+            tutoText.text = "Check your computer for new commands and select your first command.";
             tutoProgress = 1;
         }
         else
@@ -228,7 +228,7 @@ public class DaysManager : PersistentSingleton<DaysManager>
 
     public void tutoFirstSleep()
     {
-        tutoText.text = "At the start of each day, the rent will be automatically debited from your account. \nDo your best to avoid going bankrupt within the next 4 days. \n\nGood Luck !";
+        tutoText.text = "At the start of each day, the rent will be automatically debited from your account.\nDo your best to avoid going bankrupt within the next 4 days. \n\nGood Luck !";
         tutoProgress = 9;
         tutoStarted = false;
         tutoFinished = true;
