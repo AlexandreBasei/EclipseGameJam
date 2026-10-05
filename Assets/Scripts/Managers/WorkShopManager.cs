@@ -27,11 +27,16 @@ public class WorkShopManager : MonoBehaviour
             Instantiate(chestItems[i], chestSpawnPoints[i].position, chestSpawnPoints[i].rotation);
         }
 
-        if (DaysManager.Instance.currentDay == 1
-            && DaysManager.Instance.hasVisitedWareHouse
-            && !System.Array.Exists(truckItems, item => item != null))
+        if (DaysManager.Instance.currentDay == 1 && DaysManager.Instance.hasVisitedWareHouse)
         {
-            for (int i = 0; i < defaultDay0Items.Length && i < truckSpawnPoints.Length; i++)
+            int truckItemCount = 0;
+            for (int i = 0; i < truckItems.Length; i++)
+            {
+                if (truckItems[i] != null)
+                    truckItemCount++;
+            }
+
+            for (int i = truckItemCount; i < 3 && i < defaultDay0Items.Length && i < truckSpawnPoints.Length; i++)
             {
                 if (defaultDay0Items[i] == null || truckSpawnPoints[i] == null)
                     continue;
