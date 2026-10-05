@@ -1924,14 +1924,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 1269918505924675234, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4968714127001003716, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
       propertyPath: pauseManager
       value: 
       objectReference: {fileID: 293998348}
+    - target: {fileID: 5680694572050510464, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
+      propertyPath: currentCommandTab
+      value: 
+      objectReference: {fileID: 997601415}
     - target: {fileID: 6035429065791770283, guid: 412e9adc7199bfd489ba35fc0e8f9ba7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.015
@@ -5429,6 +5429,17 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!114 &997601415 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7156924929933385176, guid: ca549cf46c507cd46a095034506ad0d3, type: 3}
+  m_PrefabInstance: {fileID: 287437342}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a0ec6dc2cd42148b92e08da79c10f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CurrentCommandTab
 --- !u!1 &999382426 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1387000644878362, guid: 20d6170d440e52b438267a860798bb0a, type: 3}

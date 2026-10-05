@@ -6,11 +6,13 @@ public class FadeInOut : Singleton<FadeInOut>
 {
     [SerializeField] private Image fadeImage;
     [SerializeField] private float fadeDuration = 1f;
+    [SerializeField] private CurrentCommandTab currentCommandTab;
 
     public void FadeIn()
     {
+        currentCommandTab.HideTab();
         StopAllCoroutines();
-        StartCoroutine(Fade(0f, 1f));
+        StartCoroutine(Fade(0.6f, 1f));
     }
 
     public void FadeOut()
