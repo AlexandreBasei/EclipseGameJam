@@ -8,7 +8,8 @@ public class SleepDoor : MonoBehaviour, IInteractable
     [SerializeField] private Color _highlightedOutlineColor = Color.blue;
     public Color OutlineColor => _outlineColor;
     public Color HighlightedOutlineColor => _highlightedOutlineColor;
-    [SerializeField] private TextMeshProUGUI _itemNameText;
+
+    public TextMeshProUGUI _itemNameText;
     public TextMeshProUGUI ItemNameText => _itemNameText;
 
     public void PickUp(Camera playerCamera = null)
@@ -27,9 +28,9 @@ public class SleepDoor : MonoBehaviour, IInteractable
     {
         if (ItemNameText != null)
         {
-            ItemNameText.text = DaysManager.Instance.rentPrice.ToString() + " $";
+            _itemNameText.text = DaysManager.Instance.rentPrice.ToString() + " $";
             print(visible);
-            ItemNameText.gameObject.SetActive(visible);
+            _itemNameText.gameObject.SetActive(visible);
         }
 
     }
