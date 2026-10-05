@@ -14,6 +14,10 @@ public class CarDoor : MonoBehaviour, IInteractable
         {
             return;
         }
+        if (DaysManager.Instance.tutoStarted && DaysManager.Instance.tutoProgress < 3)
+        {
+            return;
+        }
         isDoorOpen = true;
         GetComponent<Outline>().enabled = false;
         PlayerHUD.Instance.HideAllInputTips();
