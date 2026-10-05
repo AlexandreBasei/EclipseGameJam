@@ -21,7 +21,7 @@ public class PlayerHUD : Singleton<PlayerHUD>
     [SerializeField] private List<GameObject> _inputTips = new List<GameObject>();
 
     public PauseManager pauseManager;
-    public int moneyValue;
+    public int moneyValue = 1000;
 
 
     private void Update()
