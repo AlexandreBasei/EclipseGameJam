@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class SleepDoor : MonoBehaviour, IInteractable
@@ -6,6 +7,7 @@ public class SleepDoor : MonoBehaviour, IInteractable
     [SerializeField] private Color _highlightedOutlineColor = Color.blue;
     public Color OutlineColor => _outlineColor;
     public Color HighlightedOutlineColor => _highlightedOutlineColor;
+    [SerializeField] private TextMeshProUGUI _itemNameText;
 
     public void PickUp(Camera playerCamera = null)
     {
@@ -21,6 +23,12 @@ public class SleepDoor : MonoBehaviour, IInteractable
 
     public void SetItemNameVisible(bool visible)
     {
-        return;
+        if (_itemNameText != null)
+        {
+            _itemNameText.text = DaysManager.Instance.rentPrice.ToString() + " $";
+            print(visible);
+            _itemNameText.gameObject.SetActive(visible);
+        }
+            
     }
 }
