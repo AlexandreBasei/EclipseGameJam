@@ -15,6 +15,7 @@ public class PC : MonoBehaviour
 {
     [SerializeField] private PanelRenderer panelRenderer;
 
+    private VisualElement uiRoot;
     private CurrentTab currentTab = CurrentTab.Mail;
     private VisualElement currentContent;
     private int uiVersion = -1;
@@ -33,41 +34,52 @@ public class PC : MonoBehaviour
     {
         if (uiVersion == version) return;
         uiVersion = version;
+        uiRoot = root;
 
-        RegisterCallbacks(root);
+        RegisterCallbacks();
+        UpdateMoneyUI();
     }
 
-    private void RegisterCallbacks(VisualElement root)
+    private void RegisterCallbacks()
     {
-        root.Q<Button>("Mail").RegisterCallback<ClickEvent>(e => SwitchTab(root, CurrentTab.Mail));
-        root.Q<Button>("Garage").RegisterCallback<ClickEvent>(e => SwitchTab(root, CurrentTab.Garage));
-        root.Q<Button>("Cross").RegisterCallback<ClickEvent>(e => OnCrossClicked());
-        root.Q<Button>("TruckUpgradeButton").RegisterCallback<ClickEvent>(e => OnUpgradeClicked(root, "TruckAmount"));
-        root.Q<Button>("ChestUpgradeButton").RegisterCallback<ClickEvent>(e => OnUpgradeClicked(root, "ChestAmount"));
+        uiRoot.Q<Button>("Mail").RegisterCallback<ClickEvent>(e => SwitchTab(CurrentTab.Mail));
+        uiRoot.Q<Button>("Garage").RegisterCallback<ClickEvent>(e => SwitchTab(CurrentTab.Garage));
+        uiRoot.Q<Button>("Cross").RegisterCallback<ClickEvent>(e => OnCrossClicked());
+        uiRoot.Q<Button>("TruckUpgradeButton").RegisterCallback<ClickEvent>(e => OnUpgradeClicked("TruckAmount"));
+        uiRoot.Q<Button>("ChestUpgradeButton").RegisterCallback<ClickEvent>(e => OnUpgradeClicked("ChestAmount"));
     }
 
-    private void OnUpgradeClicked(VisualElement root, string upgradeName)
+    private void OnUpgradeClicked(string upgradeName)
     {
         AudioManager.Instance.PlayClic();
-        int requestedAmount = int.Parse(root.Q<Label>(upgradeName).text);
+        int requestedAmount = int.Parse(uiRoot.Q<Label>(upgradeName).text);
         if(DaysManager.Instance.tutoProgress == 8)
         {
             DaysManager.Instance.tutoFirstSleep();
         }
+
+        int playerMoney = PlayerHUD.Instance.moneyValue;
         
-        if(PlayerHUD.Instance.moneyValue < requestedAmount) return;
+        if(playerMoney < requestedAmount) return;
         
         switch (upgradeName)
         {
             case "ChestAmount":
                 DaysManager.Instance.UpgradeChest();
-                root.Q<Label>("ChestAmount").text = DaysManager.Instance.chestLevel == DaysManager.Instance.maxChestLevel ? "Max" : $"{(DaysManager.Instance.chestLevel + 1) * 200}";
+                uiRoot.Q<Label>("ChestAmount").text = DaysManager.Instance.chestLevel == DaysManager.Instance.maxChestLevel ? "Max" : $"{(DaysManager.Instance.chestLevel + 1) * 200}";
                 break;
             case "TruckAmount":
                 DaysManager.Instance.UpgradeTruck();
-                root.Q<Label>("TruckAmount").text = DaysManager.Instance.truckLevel == DaysManager.Instance.maxTruckLevel ? "Max" :$"{(DaysManager.Instance.truckLevel + 1) * 200}";
+                uiRoot.Q<Label>("TruckAmount").text = DaysManager.Instance.truckLevel == DaysManager.Instance.maxTruckLevel ? "Max" :$"{(DaysManager.Instance.truckLevel + 1) * 200}";
                 break;
         }
+        PlayerHUD.Instance.ChangedMoneyValue(playerMoney - requestedAmount);
+        UpdateMoneyUI();
+    }
+
+    private void UpdateMoneyUI()
+    {
+        uiRoot.Q<Label>("CurrentMoney").text = $"{PlayerHUD.Instance.moneyValue}$";
     }
 
     private void OnEnable()
@@ -88,7 +100,7 @@ public class PC : MonoBehaviour
         }
     }
 
-    private void SwitchTab(VisualElement root, CurrentTab newTab)
+    private void SwitchTab(CurrentTab newTab)
     {
         AudioManager.Instance.PlayClic();
         if(currentTab == newTab) return;
@@ -98,11 +110,11 @@ public class PC : MonoBehaviour
         DisplayStyle CommandDisplay = currentTab is CurrentTab.Mail ? DisplayStyle.Flex : DisplayStyle.None;
         DisplayStyle TruckDisplay = currentTab is CurrentTab.Mail ? DisplayStyle.None : DisplayStyle.Flex;
         
-        root.Q<VisualElement>("MainView").hierarchy.ElementAt(1).style.display =
+        uiRoot.Q<VisualElement>("MainView").hierarchy.ElementAt(1).style.display =
             new StyleEnum<DisplayStyle>(CommandDisplay);
-        root.Q<VisualElement>("TruckView").style.display = new StyleEnum<DisplayStyle>(TruckDisplay);
+        uiRoot.Q<VisualElement>("TruckView").style.display = new StyleEnum<DisplayStyle>(TruckDisplay);
 
-        root.Q<Label>("UrlLabel").text =
+        uiRoot.Q<Label>("UrlLabel").text =
             currentTab is CurrentTab.Mail ? "https://your-mail.fr" : "https://junk-car-garage.fr";
     }
 }
