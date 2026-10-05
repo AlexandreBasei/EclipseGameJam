@@ -34,3 +34,24 @@
 #ContainerName {
     height: auto;
 }
+
+#CrossButton {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    border-width: 0px;
+    border-color: transparent;
+    background-color: slategrey;
+    border-radius: 100;
+    padding: 8;
+    transition: all ease-in-out 300ms;
+}
+
+#CrossButton > Image {
+    width: 24px;
+    height: 24px;
+}
+
+#CrossButton:hover {
+    scale: 1.1;
+}

@@ -74,6 +74,16 @@ public class CommandManager : PersistentSingleton<CommandManager>
         CommandsChanged?.Invoke();
     }
 
+    public void ShipCommand(CommandSO command)
+    {
+        if (!currentCommands.Contains(command)) return;
+        command.state = CommandState.Finished;
+        currentCommands.Remove(command);
+        
+        CommandsChanged?.Invoke();
+
+    }
+
     public void DeclineCommand(CommandSO command)
     {
         command.state = CommandState.Declined;

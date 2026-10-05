@@ -78,7 +78,6 @@
 
 #Header > #Tabs > Button:hover {
     scale: 1.1%;
-    transition: all ease-in-out 300ms;
 }
 
 #Header > #Tabs > Button > Image {
